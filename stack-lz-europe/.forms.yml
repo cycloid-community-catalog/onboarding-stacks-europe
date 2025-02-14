@@ -1,0 +1,80 @@
+---
+version: "2"
+use_cases:
+- name: default
+  sections:
+  - name: Landing Zone
+    groups:
+    - name: OVH
+      technologies: [pipeline]
+      vars:
+      - name: "OVH Account"
+        description: "The OVH account where to deploy the infrastructure."
+        key: ovh_cred
+        widget: cy_cred
+        widget_config:
+          display_keys: false
+          cred_types:
+            - custom
+        type: string
+        default: "((ovh))"
+        required: true
+
+      - name: "OVH Regions"
+        description: "The OVH regions where to deploy the infrastructure."
+        key: ovh_regions
+        widget: dropdown
+        type: array
+        required: flase
+        values:
+        - {"label": "Beauharnois BHS5 (FR)", "value": "BHS5"}
+        - {"label": "Frankfurt DE1 (DE)", "value": "DE1"}
+        - {"label": "Gravelines GRA11 (FR)", "value": "GRA11"}
+        - {"label": "London UK1 (GB)", "value": "UK1"}
+        - {"label": "Milan EU-SOUTH-LZ-MIL-A (IT)", "value": "EU-SOUTH-LZ-MIL-A"}
+        - {"label": "Roubaix RBX-A (FR)", "value": "RBX-A"}
+        - {"label": "Stockholm EU-NORTH-LZ-STO-A (SE)", "value": "EU-NORTH-LZ-STO-A"}
+        - {"label": "Strasbourg SBG5 (FR)", "value": "SBG5"}
+        - {"label": "Warsaw WAW1 (PL)", "value": "WAW1"}
+        widget_config:
+          multiselect: true
+        validations:
+          - array:
+              max_elems: 4
+            error_message: "Select up to 4 regions."
+
+    - name: IONOS
+      technologies: [pipeline]
+      vars:
+      - name: "IONOS Account"
+        description: "The IONOS account where to deploy the infrastructure."
+        key: ionos_cred
+        widget: cy_cred
+        widget_config:
+          display_keys: false
+          cred_types:
+            - custom
+        type: string
+        default: "((ionos))"
+        required: true
+
+      - name: "IONOS Regions"
+        description: "The IONOS regions where to deploy the infrastructure."
+        key: ionos_regions
+        widget: dropdown
+        type: array
+        required: false
+        values:
+        - {"label": "Frankfurt am Main (DE)", "value": "de/fra"}
+        - {"label": "Karlsruhe (DE)", "value": "de/fkb"}
+        - {"label": "Berlin (DE)", "value": "de/txl"}
+        - {"label": "Paris (FR)", "value": "fr/par"}
+        - {"label": "London (GB)", "value": "gb/lhr"}
+        - {"label": "Logroño (ES)", "value": "es/vit"}
+        widget_config:
+          multiselect: true
+        validations:
+          - array:
+              max_elems: 4
+            error_message: "Select up to 4 regions."
+

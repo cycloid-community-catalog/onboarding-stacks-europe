@@ -1,0 +1,27 @@
+#
+# Cloud Providers
+#
+
+#. ovh_cred (required): ((ovh))
+#+ The OVH account where to deploy the infrastructure.
+ovh_cred: ((ovh))
+
+#. ovh_regions (required): []
+#+ The OVH regions where to deploy the infrastructure.
+ovh_regions: []
+
+#. ionos_cred (required): ((ionos))
+#+ The IONOS account where to deploy the infrastructure.
+ionos_cred: ((ionos))
+
+#. ionos_regions (required): []
+#+ The IONOS regions where to deploy the infrastructure.
+ionos_regions: []
+
+#
+# Default variables
+#
+
+#. terraform_version (required): '1.8.3'
+#+ terraform version used to execute your code.
+terraform_version: '1.8.3'
