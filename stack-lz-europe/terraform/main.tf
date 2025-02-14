@@ -1,7 +1,7 @@
-module "compute" {
+module "lz" {
   #####################################
   # Do not modify the following lines #
-  source = "./module-compute"
+  source = "./module-lz"
   cy_org  = var.cy_org
   cy_pro  = var.cy_pro
   cy_env  = var.cy_env
