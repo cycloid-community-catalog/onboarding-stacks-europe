@@ -16,6 +16,7 @@ keywords:
   - ionos
   - provider:ovh
   - provider:ionos
+  - provider:outscale
 technologies:
 - technology: terraform
   version: 1.8.3
