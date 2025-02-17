@@ -25,7 +25,7 @@ use_cases:
         key: ovh_regions
         widget: dropdown
         type: array
-        required: flase
+        required: false
         values:
         - {"label": "Beauharnois BHS5 (FR)", "value": "BHS5"}
         - {"label": "Frankfurt DE1 (DE)", "value": "DE1"}
