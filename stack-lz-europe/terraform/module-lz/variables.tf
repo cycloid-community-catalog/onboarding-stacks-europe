@@ -8,6 +8,10 @@ variable "ovh_project_id" {
   description = "The OVH Openstack project ID where to deploy the infrastructure."
 }
 
+variable "ovh_tenant_id" {
+  description = "The OVH Openstack tenant ID where to deploy the infrastructure."
+}
+
 variable "ovh_regions" {
   description = "The OVH regions where to deploy the infrastructure."
   default     = ["SBG1"]

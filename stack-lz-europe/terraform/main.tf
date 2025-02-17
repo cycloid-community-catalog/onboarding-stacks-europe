@@ -19,11 +19,15 @@ module "lz" {
   #+ The OVH Openstack project ID where to deploy the infrastructure
   ovh_project_id = var.ovh_cred.project_id
 
+  #. ovh_tenant_id: []
+  #+ The OVH Openstack tenant ID where to deploy the infrastructure
+  ovh_tenant_id = var.ovh_cred.ovh_tenant_id
+
   #. ovh_regions: []
   #+ The OVH regions where to deploy the infrastructure
-  ovh_regions = []
+  ovh_regions = var.ovh_regions
 
   #. ionos_regions: []
   #+ The IONOS regions where to deploy the infrastructure
-  ionos_regions = []
+  ionos_regions = var.ionos_regions
 }

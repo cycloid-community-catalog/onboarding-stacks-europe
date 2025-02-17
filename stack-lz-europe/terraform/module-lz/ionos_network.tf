@@ -6,15 +6,16 @@ resource "ionoscloud_datacenter" "datacenters" {
   sec_auth_protection = false
 }
 
-resource "ionoscloud_private_crossconnect" "crossconnect" {
-  name                  = "Cross Connect Example"
-  description           = "Cross Connect Description"
-}
-
 resource "ionoscloud_lan" "lans" {
   for_each      = ionoscloud_datacenter.datacenters
 
-  datacenter_id         = ionoscloud_datacenter.datacenters[each.key].id
-  public                = false
-  pcc                   = ionoscloud_private_crossconnect.example.id
+  datacenter_id = ionoscloud_datacenter.datacenters[each.key].id
+  name          = "${var.cy_org}-${var.cy_pro}-${var.cy_env}"
+  public        = false
+  pcc           = ionoscloud_private_crossconnect.crossconnect.id
+}
+
+resource "ionoscloud_private_crossconnect" "crossconnect" {
+  name                  = "Cycloid Demo"
+  description           = "Cycloid Demo"
 }

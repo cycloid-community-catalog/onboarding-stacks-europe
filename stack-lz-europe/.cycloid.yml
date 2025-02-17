@@ -24,9 +24,9 @@ config:
   default:
     pipeline:
       pipeline:
-        path: pipeline/pipeline.yaml
+        path: pipeline/pipeline.yml
       variables:
-        path: pipeline/variables.sample.yaml
+        path: pipeline/variables.sample.yml
         destination: '($ .component_root $)/variables.yml'
     terraform:
       main:
