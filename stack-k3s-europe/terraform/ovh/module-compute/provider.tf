@@ -13,9 +13,3 @@ provider "ovh" {
   application_secret = var.ovh_cred.application_secret
   consumer_key       = var.ovh_cred.consumer_key
 }
-
-provider "cycloid" {
-  organization_canonical = var.cy_org
-  jwt                    = var.cycloid_jwt
-  url                    = var.cycloid_api_url
-}
