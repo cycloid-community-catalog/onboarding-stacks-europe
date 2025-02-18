@@ -44,7 +44,7 @@ use_cases:
         description: "The OVH compute flavor to deploy."
         key: ovh_flavor_name
         widget: dropdown
-        type: string
+        type: map
         required: true
         values:
         - {"label": "b3-8	(2 vCore / 8 Gb)", "value": "b3-8"}
@@ -81,7 +81,7 @@ use_cases:
         description: "The IONOS region where to deploy the infrastructure."
         key: ionos_region
         widget: dropdown
-        type: string
+        type: map
         required: true
         values:
         - {"label": "Frankfurt am Main (DE)", "value": "de/fra"}
