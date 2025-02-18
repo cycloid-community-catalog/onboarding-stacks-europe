@@ -5,7 +5,7 @@ resource "ionoscloud_server" "compute" {
   type              = "CUBE"
   template_uuid     = data.ionoscloud_template.compute.id
   image_name        = "debian:latest"
-  ssh_keys          = tls_private_key.ssh_key.public_key_openssh
+  ssh_keys          = [tls_private_key.ssh_key.public_key_openssh]
 
   volume {
     name         = "Volume Cycloid Demo"
