@@ -27,11 +27,11 @@ config:
         path: pipeline/pipeline.yml
       variables:
         path: pipeline/variables.sample.yml
-        destination: '($ .component_root $)/variables.yml'
+        destination: '($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/variables.yml'
     terraform:
       main:
         path: 'terraform/ovh/main.tf'
-        destination: '($ .component_root $)/terraform/ovh/main.tf'
+        destination: '($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/terraform/ovh/main.tf'
 
   ionos:
     pipeline:
@@ -39,8 +39,8 @@ config:
         path: pipeline/pipeline.yml
       variables:
         path: pipeline/variables.sample.yml
-        destination: '($ .component_root $)/variables.yml'
+        destination: '($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/variables.yml'
     terraform:
       main:
         path: 'terraform/ionos/main.tf'
-        destination: '($ .component_root $)/terraform/ionos/main.tf'
+        destination: '($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/terraform/ionos/main.tf'

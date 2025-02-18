@@ -76,7 +76,7 @@ resources:
     private_key: ((($ .cr_cred_path $).ssh_key))
     ($- end $)
     paths:
-      - ($ .component_root $)/terraform/($ .use_case $)/*
+      - ($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/terraform/($ .use_case $)/*
 
 
 groups:
@@ -116,7 +116,7 @@ jobs:
           - name: merged-stack
             path: "merged-stack"
         params:
-          CONFIG_PATH: ($ .component_root $)/terraform/($ .use_case $)
+          CONFIG_PATH: ($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/terraform/($ .use_case $)
           STACK_PATH: ($ .stack_path $)/terraform/($ .use_case $)
 
       - put: tfstate
@@ -159,7 +159,7 @@ jobs:
           - name: merged-stack
             path: "merged-stack"
         params:
-          CONFIG_PATH: ($ .component_root $)/terraform/($ .use_case $)
+          CONFIG_PATH: ($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/terraform/($ .use_case $)
           STACK_PATH: ($ .stack_path $)/terraform/($ .use_case $)
 
       - put: tfstate
@@ -199,7 +199,7 @@ jobs:
           - name: merged-stack
             path: "merged-stack"
         params:
-          CONFIG_PATH: ($ .component_root $)/terraform/($ .use_case $)
+          CONFIG_PATH: ($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/terraform/($ .use_case $)
           STACK_PATH: ($ .stack_path $)/terraform/($ .use_case $)
 
       - put: tfstate
