@@ -1,7 +1,7 @@
 resource "ionoscloud_server" "compute" {
   name              = "${var.cy_pro}-${var.cy_env}-${var.cy_com}"
   datacenter_id     = ionoscloud_datacenter.datacenter.id
-  availability_zone = "ZONE_1"
+  availability_zone = "AUTO"
   type              = "CUBE"
   template_uuid     = data.ionoscloud_template.compute.id
   image_name        = "debian:latest"
@@ -10,7 +10,7 @@ resource "ionoscloud_server" "compute" {
   volume {
     name         = "Volume Cycloid Demo"
     licence_type = "LINUX" 
-    disk_type    = "SSD Standard"
+    disk_type    = "DAS"
     user_data    = base64encode(local.cloud_init)
   }
   
