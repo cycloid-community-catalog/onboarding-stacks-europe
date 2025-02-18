@@ -1,13 +1,13 @@
 ---
 # Configuration of the Cycloid stack
 version: '4'
-name: 'Pan-European Landing Zone'
-canonical: stack-lz-europe
+name: 'K3s'
+canonical: stack-k3s-europe
 author: Cycloid
 description: |
-  Deploys a pan-European landing zone on OVH and IONOS clouds, including networking, connectivity and security rules.
+  Deploy a K3s cluster on OVH or IONOS instance.
 image: |
-  https://cycloid-demo-stacks-logo.s3.eu-west-1.amazonaws.com/network.svg
+  https://cycloid-demo-stacks-logo.s3.eu-west-1.amazonaws.com/kubernetes.png
 keywords:
   - network
   - subnet
