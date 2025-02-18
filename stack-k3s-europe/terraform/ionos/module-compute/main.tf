@@ -1,6 +1,6 @@
 resource "ionoscloud_server" "compute" {
   name              = "${var.cy_pro}-${var.cy_env}-${var.cy_com}"
-  datacenter_id     = data.ionoscloud_datacenter.datacenter.id
+  datacenter_id     = ionoscloud_datacenter.datacenter.id
   availability_zone = "ZONE_1"
   type              = "CUBE"
   template_uuid     = data.ionoscloud_template.compute.id
