@@ -20,7 +20,7 @@ variable "cycloid_api_url" {
   description = "Cycloid API endpoint"
 }
 
-variable "cyorg_jwt" {
+variable "cycloid_jwt" {
   type        = string
   description = "Org JWT used for authentication"
   sensitive   = true

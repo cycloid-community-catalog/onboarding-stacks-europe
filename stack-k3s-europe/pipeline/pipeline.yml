@@ -36,7 +36,7 @@ resources:
       ionos_cred: ((ionos_cred))
       ionos_region: ((ionos_region))
 ($ end $)
-      cyorg_jwt: ((cycloid_api_key))
+      cycloid_jwt: ((cycloid_api_key))
       cycloid_api_url: ($ .api_url $)
       cy_org: ($ .organization_canonical $)
       cy_pro: ($ .project $)
