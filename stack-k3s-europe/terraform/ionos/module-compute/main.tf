@@ -9,7 +9,6 @@ resource "ionoscloud_server" "compute" {
 
   volume {
     name         = "Volume Cycloid Demo"
-    size         = 10
     licence_type = "LINUX" 
     disk_type    = "SSD Standard"
     user_data    = base64encode(local.cloud_init)
