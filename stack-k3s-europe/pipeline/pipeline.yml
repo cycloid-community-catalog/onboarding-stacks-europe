@@ -42,12 +42,12 @@ resources:
       ovh_cred: ((ovh_cred))
       ovh_region: ((ovh_region))
     env:
-      OS_AUTH_URL: ((OS_AUTH_URL))
-      OS_IDENTITY_API_VERSION: ((OS_IDENTITY_API_VERSION))
-      OS_TENANT_ID: ((OS_TENANT_ID))
-      OS_TENANT_NAME: ((OS_TENANT_NAME))
-      OS_USERNAME: ((OS_USERNAME))
-      OS_PASSWORD: ((OS_PASSWORD))
+      OS_AUTH_URL: ((ovh.OS_AUTH_URL))
+      OS_IDENTITY_API_VERSION: ((ovh.OS_IDENTITY_API_VERSION))
+      OS_TENANT_ID: ((ovh.OS_TENANT_ID))
+      OS_TENANT_NAME: ((ovh.OS_TENANT_NAME))
+      OS_USERNAME: ((ovh.OS_USERNAME))
+      OS_PASSWORD: ((ovh.OS_PASSWORD))
 ($ end $)
 
 
