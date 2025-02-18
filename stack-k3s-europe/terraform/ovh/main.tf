@@ -8,6 +8,8 @@ module "compute" {
   cy_com  = var.cy_com
   #####################################
 
+  ovh_cred = var.ovh_cred
+  
   #. ovh_region: ""
   #+ The OVH region where to deploy the infrastructure
   ovh_region = ""

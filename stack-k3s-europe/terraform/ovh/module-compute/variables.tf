@@ -5,6 +5,9 @@ variable "cy_env" {}
 variable "cy_com" {}
 
 # OVH
+variable "ovh_cred" {
+}
+
 variable "ovh_region" {
   description = "The OVH region where to deploy the infrastructure."
 }
