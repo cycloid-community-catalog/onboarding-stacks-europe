@@ -1,0 +1,46 @@
+---
+# Configuration of the Cycloid stack
+version: '4'
+name: 'Pan-European Landing Zone'
+canonical: stack-lz-europe
+author: Cycloid
+description: |
+  Deploys a pan-European landing zone on OVH and IONOS clouds, including networking, connectivity and security rules.
+image: |
+  https://cycloid-demo-stacks-logo.s3.eu-west-1.amazonaws.com/network.svg
+keywords:
+  - network
+  - subnet
+  - security
+  - ovh
+  - ionos
+  - provider:ovh
+  - provider:ionos
+technologies:
+- technology: terraform
+  version: 1.8.3
+
+config:
+  ovh:
+    pipeline:
+      pipeline:
+        path: pipeline/pipeline.yml
+      variables:
+        path: pipeline/variables.sample.yml
+        destination: '($ .component_root $)/variables.yml'
+    terraform:
+      main:
+        path: 'terraform/ovh/main.tf'
+        destination: '($ .component_root $)/terraform/ovh/main.tf'
+
+  ionos:
+    pipeline:
+      pipeline:
+        path: pipeline/pipeline.yml
+      variables:
+        path: pipeline/variables.sample.yml
+        destination: '($ .component_root $)/variables.yml'
+    terraform:
+      main:
+        path: 'terraform/ionos/main.tf'
+        destination: '($ .component_root $)/terraform/ionos/main.tf'

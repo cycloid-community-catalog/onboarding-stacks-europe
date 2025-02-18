@@ -1,0 +1,37 @@
+#
+# Cloud Providers
+#
+
+($ if eq .use_case "ovh" $)
+
+#. ovh_cred (required): ((ovh))
+#+ The OVH account where to deploy the infrastructure.
+ovh_cred: ((ovh))
+
+#. ovh_region (required): ""
+#+ The OVH region where to deploy the infrastructure.
+ovh_region: ""
+
+($ else if eq .use_case "ionos" $)
+
+#. ionos_cred (required): ((ionos))
+#+ The IONOS account where to deploy the infrastructure.
+ionos_cred: ((ionos))
+
+#. ionos_region (required): ""
+#+ The IONOS region where to deploy the infrastructure.
+ionos_region: ""
+
+($ end $)
+
+#
+# Default variables
+#
+
+#. cycloid_api_key (required): ((admin-api-key.key))
+#+ API key to grant admin acess to Cycloid API.
+cycloid_api_key: ((admin-api-key.key))
+
+#. terraform_version (required): '1.8.3'
+#+ terraform version used to execute your code.
+terraform_version: '1.8.3'
