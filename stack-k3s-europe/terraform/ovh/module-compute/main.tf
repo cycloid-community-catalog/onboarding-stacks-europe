@@ -1,7 +1,7 @@
 resource "openstack_compute_instance_v2" "compute" {
   name            = "${var.cy_org}-${var.cy_pro}-${var.cy_env}-${var.cy_com}"
   region          = var.ovh_region
-  image_name      = "ubuntu 22.04"
+  image_name      = "Debian 10"
   flavor_name     = var.ovh_flavor_name
   key_pair        = openstack_compute_keypair_v2.cycloid_keypair.name
   security_groups = ["default"]
