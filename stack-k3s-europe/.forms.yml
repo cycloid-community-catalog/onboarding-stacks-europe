@@ -24,7 +24,7 @@ use_cases:
         description: "The OVH region where to deploy the infrastructure."
         key: ovh_region
         widget: dropdown
-        type: string
+        type: map
         required: true
         values:
         - {"label": "Beauharnois BHS5 (FR)", "value": "BHS5"}
