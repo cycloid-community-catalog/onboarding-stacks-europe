@@ -11,13 +11,6 @@ resource "cycloid_credential" "kubeconfig" {
   }
 
   depends_on = [
-    ionoscloud_server.compute,
-    random_string.random
+    ionoscloud_server.compute
   ]
-}
-
-resource "random_string" "random" {
-  length = 16
-  special = true
-  override_special = "/@£$"
 }
