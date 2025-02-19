@@ -197,15 +197,16 @@ jobs:
           run:
             path: /bin/bash
             args:
-            - -ec
+            - -ecx
             - |
               mkdir -p ~/.ssh
               echo "${SSH_PRIVATE_KEY}" >~/.ssh/git
               chmod 600 ~/.ssh/git
               eval "$(ssh-agent -s)"
               ssh-add ~/.ssh/git
-              IPADDR=$(jq -r .ipv4 tfstate/metadata)"
+              IPADDR="$(jq -r .ipv4 tfstate/metadata)"
               mkdir -p ~/.kube
+              echo "Retrieving Kubeconfig from ${IPADDR}"
               scp debian@${IPADDR}:/etc/rancher/k3s/k3s.yaml ~/.kube/config.yaml
               echo "Save Kubeconfig Credential:"
               cy credential create --name "${CY_ORG}-${PROJECT}-${ENV}-kubeconfig" custom --field kubeconfig=$(sed 's/127.0.0.1/${IPADDR}/' ~/.kube/config.yaml) >output
