@@ -45,11 +45,8 @@ resources:
       OS_AUTH_URL: ((ovh.OS_AUTH_URL))
       OS_IDENTITY_API_VERSION: ((ovh.OS_IDENTITY_API_VERSION))
       OS_USER_DOMAIN_NAME: Default
-      OS_PROJECT_DOMAIN_NAME: Default
-      OS_TENANT_ID: ((ovh.OS_TENANT_ID))
-      OS_TENANT_NAME: ((ovh.OS_TENANT_NAME))
+      OS_PROJECT_ID: ((ovh.OS_PROJECT_ID))
       OS_REGION_NAME: ((ovh_region))
-      OS_PROJECT_NAME: ((ovh.OS_PROJECT_NAME))
       OS_USERNAME: ((ovh.OS_USERNAME))
       OS_PASSWORD: ((ovh.OS_PASSWORD))
 ($ end $)
