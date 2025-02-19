@@ -7,7 +7,7 @@ resource "cycloid_credential" "kubeconfig" {
   type = "basic_auth"
   body = {
     username = "kubeconfig"
-    password = file(kubeconfig)
+    password = file("${path.module}/kubeconfig")
   }
 
   depends_on = [ ionoscloud_server.compute ]
