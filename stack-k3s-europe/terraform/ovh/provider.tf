@@ -4,15 +4,14 @@ provider "openstack" {
   user_name   = var.ovh_cred.username
   tenant_name = var.ovh_cred.tenant_name
   password    = var.ovh_cred.password
-  alias       = "ovh" # An alias
 }
 
-provider "ovh" {
-  endpoint           = "ovh-eu"
-  application_key    = var.ovh_cred.application_key
-  application_secret = var.ovh_cred.application_secret
-  consumer_key       = var.ovh_cred.consumer_key
-}
+# provider "ovh" {
+#   endpoint           = "ovh-eu"
+#   application_key    = var.ovh_cred.application_key
+#   application_secret = var.ovh_cred.application_secret
+#   consumer_key       = var.ovh_cred.consumer_key
+# }
 
 provider "cycloid" {
   organization_canonical = var.cy_org
