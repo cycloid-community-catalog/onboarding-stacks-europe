@@ -1,7 +1,8 @@
 resource "openstack_compute_instance_v2" "compute" {
   name            = "${var.cy_org}-${var.cy_pro}-${var.cy_env}-${var.cy_com}"
   region          = var.ovh_region
-  image_id        = data.openstack_images_image_v2.debian.id
+#  image_id        = data.openstack_images_image_v2.debian.id
+  image_id = "60bcfa2c-7850-4912-9455-d88429387dda"
   flavor_name     = var.ovh_flavor_name
   key_pair        = openstack_compute_keypair_v2.cycloid_keypair.name
   security_groups = ["default"]
@@ -35,7 +36,7 @@ resource "openstack_compute_keypair_v2" "cycloid_keypair" {
 }
 
 data "openstack_images_image_v2" "debian" {
-  name        = "Debian 10"
+  name        = "Debian 12"
   region      = var.ovh_region
   most_recent = true
 }
