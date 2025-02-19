@@ -12,13 +12,6 @@ ovh_cred: ((ovh))
 #+ The OVH region where to deploy the infrastructure.
 ovh_region: ""
 
-OS_AUTH_URL: ((ovh_cred.OS_AUTH_URL))
-OS_IDENTITY_API_VERSION: ((ovh_cred.OS_IDENTITY_API_VERSION))
-OS_TENANT_ID: ((ovh_cred.OS_TENANT_ID))
-OS_TENANT_NAME: ((ovh_cred.OS_TENANT_NAME))
-OS_USERNAME: ((ovh_cred.OS_USERNAME))
-OS_PASSWORD: ((ovh_cred.OS_PASSWORD))
-
 ($ else if eq .use_case "ionos" $)
 
 #. ionos_cred (required): ((ionos))
