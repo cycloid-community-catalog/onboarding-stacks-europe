@@ -91,6 +91,7 @@ groups:
   jobs:
     - terraform-plan
     - terraform-apply
+    - get-kubeconfig
 
 - name: destroy
   jobs:
@@ -173,6 +174,56 @@ jobs:
         params:
           plan_run: true
           terraform_source: merged-stack/
+
+
+  - name: get-kubeconfig
+    serial: true
+    max_in_flight: 1
+    build_logs_to_retain: 10
+    plan:
+    - do:
+      - get: tfstate
+        trigger: true
+        passed:
+          - terraform-apply
+
+      - task: get-kubeconfig
+        config:
+          platform: linux
+          image_resource:
+            type: registry-image
+            source:
+              repository: cycloid/cycloid-toolkit
+              tag: latest
+          run:
+            path: /bin/bash
+            args:
+            - -ec
+            - |
+              mkdir -p ~/.ssh
+              echo "${SSH_PRIVATE_KEY}" >~/.ssh/git
+              chmod 600 ~/.ssh/git
+              eval "$(ssh-agent -s)"
+              ssh-add ~/.ssh/git
+              IPADDR=$(jq -r .ipv4 tfstate/metadata)"
+              mkdir -p ~/.kube
+              scp debian@${IPADDR}:/etc/rancher/k3s/k3s.yaml ~/.kube/config.yaml
+              echo "Save Kubeconfig Credential:"
+              cy credential create --name "${CY_ORG}-${PROJECT}-${ENV}-kubeconfig" custom --field kubeconfig=$(sed 's/127.0.0.1/${IPADDR}/' ~/.kube/config.yaml) >output
+              if [[ "$?" != "0" ]]; then
+                  echo "Save Kubeconfig Credential Error: cy returned code $?"
+                  cat output
+                  exit 1
+              fi
+          inputs:
+          - name: tfstate
+          params:
+            SSH_PRIVATE_KEY: ((($ .organization_canonical $)-($ .project $)-($ .environment $).ssh_key))
+            CY_API_KEY: ((cycloid_api_key))
+            CY_API_URL: ($ .api_url $)
+            CY_ORG: ($ .organization_canonical $)
+            PROJECT: ($ .project $)
+            ENV: ($ .environment $)
 
 
   # Destroy the infrastructure
