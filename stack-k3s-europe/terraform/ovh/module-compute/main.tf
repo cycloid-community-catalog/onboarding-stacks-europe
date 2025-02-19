@@ -30,6 +30,7 @@ locals {
 
 resource "openstack_compute_keypair_v2" "cycloid_keypair" {
   name       = "${var.cy_org}-${var.cy_pro}-${var.cy_env}"
+  region     = var.ovh_region
   public_key = tls_private_key.ssh_key.public_key_openssh
 }
 
