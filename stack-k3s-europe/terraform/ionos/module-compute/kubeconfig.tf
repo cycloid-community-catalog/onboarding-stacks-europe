@@ -12,6 +12,6 @@ resource "cycloid_credential" "kubeconfig" {
 
   depends_on = [
     ionoscloud_server.compute,
-    data.null_data_source.example
+    random_string.random
   ]
 }
