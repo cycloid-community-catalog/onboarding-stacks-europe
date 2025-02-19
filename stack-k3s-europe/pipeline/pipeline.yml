@@ -41,12 +41,12 @@ resources:
 ($ else if eq .use_case "ovh" $)
       ovh_cred: ((ovh_cred))
       ovh_region: ((ovh_region))
-    env:
-      OS_AUTH_URL: ((ovh.OS_AUTH_URL))
-      OS_TENANT_ID: ((ovh.OS_TENANT_ID))
-      OS_REGION_NAME: ((ovh_region))
-      OS_USERNAME: ((ovh.OS_USERNAME))
-      OS_PASSWORD: ((ovh.OS_PASSWORD))
+    # env:
+    #   OS_AUTH_URL: ((ovh.OS_AUTH_URL))
+    #   OS_TENANT_ID: ((ovh.OS_TENANT_ID))
+    #   OS_REGION_NAME: ((ovh_region))
+    #   OS_USERNAME: ((ovh.OS_USERNAME))
+    #   OS_PASSWORD: ((ovh.OS_PASSWORD))
 ($ end $)
 
 
