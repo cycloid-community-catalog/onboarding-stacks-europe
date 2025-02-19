@@ -1,10 +1,10 @@
-provider "openstack" {
-  auth_url    = "https://auth.cloud.ovh.net/v3/" # Authentication URL
-  domain_name = "default" # Domain name - Always at 'default' for OVHcloud
-  user_name   = var.ovh_cred.username
-  tenant_name = var.ovh_cred.tenant_name
-  password    = var.ovh_cred.password
-}
+# provider "openstack" {
+#   auth_url    = "https://auth.cloud.ovh.net/v3/" # Authentication URL
+#   domain_name = "default" # Domain name - Always at 'default' for OVHcloud
+#   user_name   = var.ovh_cred.username
+#   tenant_name = var.ovh_cred.tenant_name
+#   password    = var.ovh_cred.password
+# }
 
 # provider "ovh" {
 #   endpoint           = "ovh-eu"
