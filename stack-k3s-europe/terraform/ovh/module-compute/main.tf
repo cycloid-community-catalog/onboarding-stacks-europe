@@ -35,7 +35,7 @@ resource "openstack_compute_keypair_v2" "cycloid_keypair" {
 }
 
 data "openstack_images_image_v2" "debian" {
-  name        = "Debian 12"
+  name        = "Debian 10"
   region      = var.ovh_region
   most_recent = true
 }
