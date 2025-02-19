@@ -5,4 +5,5 @@ provider "openstack" {
   tenant_id   = var.ovh_cred.project_id
   user_name   = var.ovh_cred.username
   password    = var.ovh_cred.password
+  alias       = "ovh" # An alias
 }

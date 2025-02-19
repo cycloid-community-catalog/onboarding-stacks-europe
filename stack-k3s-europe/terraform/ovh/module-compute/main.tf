@@ -18,6 +18,7 @@ resource "openstack_compute_instance_v2" "compute" {
       image_name
     ]
   }
+  provider = openstack.ovh
 }
 
 locals {
@@ -32,10 +33,14 @@ resource "openstack_compute_keypair_v2" "cycloid_keypair" {
   name       = "${var.cy_org}-${var.cy_pro}-${var.cy_env}"
   region     = var.ovh_region
   public_key = tls_private_key.ssh_key.public_key_openssh
+
+  provider = openstack.ovh
 }
 
 data "openstack_images_image_v2" "debian" {
   name        = "Debian 12"
   region      = var.ovh_region
   most_recent = true
+
+  provider = openstack.ovh
 }
