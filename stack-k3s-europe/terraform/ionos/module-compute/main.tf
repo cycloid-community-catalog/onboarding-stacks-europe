@@ -20,25 +20,6 @@ resource "ionoscloud_server" "compute" {
     dhcp            = true
     firewall_active = false
   }
-
-  connection {
-    type        = "ssh"
-    user        = "root"
-    private_key = tls_private_key.ssh_key.private_key_openssh
-    host        = ionoscloud_server.compute.primary_ip
-  }
-
-  provisioner "remote-exec" {
-    inline = [
-      "sleep 60",
-    ]
-  }
-
-  provisioner "file" {
-    source      = "/etc/rancher/k3s/k3s.yaml"
-    destination = "kubeconfig"
-
-  }
 }
 
 locals {
