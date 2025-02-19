@@ -3,7 +3,7 @@ provider "openstack" {
   domain_name = "default" # Domain name - Always at 'default' for OVHcloud
   user_name   = var.ovh_cred.username
   region = "GRA11"
-#  tenant_name = var.ovh_cred.tenant_name
+  tenant_name = var.ovh_cred.tenant_id
   password    = var.ovh_cred.password
 }
 
