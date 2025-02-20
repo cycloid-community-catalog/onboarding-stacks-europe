@@ -6,5 +6,8 @@ terraform {
     cycloid = {
       source = "cycloidio/cycloid"
     }
+    remote = {
+      source = "tenstad/remote"
+    }
   }
 }
