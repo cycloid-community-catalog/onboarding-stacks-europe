@@ -24,18 +24,15 @@ use_cases:
         description: "The Outscale region where to deploy the infrastructure."
         key: outscale_region
         widget: dropdown
-        type: map
+        type: auto_complete
         required: true
+        default: "eu-west-2"
         values:
-        - {"label": "Beauharnois BHS5 (FR)", "value": "BHS5"}
-        - {"label": "Frankfurt DE1 (DE)", "value": "DE1"}
-        - {"label": "Gravelines GRA11 (FR)", "value": "GRA11"}
-        - {"label": "London UK1 (GB)", "value": "UK1"}
-        - {"label": "Milan EU-SOUTH-LZ-MIL-A (IT)", "value": "EU-SOUTH-LZ-MIL-A"}
-        - {"label": "Roubaix RBX-A (FR)", "value": "RBX-A"}
-        - {"label": "Stockholm EU-NORTH-LZ-STO-A (SE)", "value": "EU-NORTH-LZ-STO-A"}
-        - {"label": "Strasbourg SBG5 (FR)", "value": "SBG5"}
-        - {"label": "Warsaw WAW1 (PL)", "value": "WAW1"}
+        - eu-west-2
+        - cloudgouv-eu-west-1
+        - us-east-2
+        - us-west-1
+        - ap-northeast-1
 
     - name: Outscale Infrastructure
       technologies: [terraform]
