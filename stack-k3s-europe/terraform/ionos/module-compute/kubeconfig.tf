@@ -22,8 +22,8 @@ resource "cycloid_credential" "kubeconfig" {
   path                   = "${var.cy_org}-${var.cy_pro}-${var.cy_env}-kubeconfig"
   canonical              = "${var.cy_org}-${var.cy_pro}-${var.cy_env}-kubeconfig"
 
-  type = "ssh"
+  type = "gcp"
   body = {
-    ssh_key = chomp(data.remote_file.kubeconfig.content)
+    json_key = data.remote_file.kubeconfig.content
   }
 }
