@@ -7,3 +7,7 @@ provider "cycloid" {
   jwt                    = var.cycloid_jwt
   url                    = var.cycloid_api_url
 }
+
+provider "remote" {
+  max_sessions = 2
+}
