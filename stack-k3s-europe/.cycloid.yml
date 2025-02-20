@@ -5,25 +5,23 @@ name: 'K3s'
 canonical: stack-k3s-europe
 author: Cycloid
 description: |
-  Deploy a K3s cluster on OVH or IONOS instance.
+  Deploy a K3s cluster on Outscale or IONOS instances.
 image: |
   https://cycloid-demo-stacks-logo.s3.eu-west-1.amazonaws.com/kubernetes.png
 keywords:
-  - network
-  - subnet
-  - security
-  - ovh
+  - kubernetes
+  - outscale
   - ionos
-  - provider:ovh
+  - provider:outscale
   - provider:ionos
 technologies:
 - technology: terraform
   version: 1.8.3
 
 config:
-  ovh:
-    name: 'OVH'
-    description: 'Deploy a K3s cluster on OVH instances.'
+  outscale:
+    name: 'Outscale'
+    description: 'Deploy a K3s cluster on Outscale instances.'
     pipeline:
       pipeline:
         path: pipeline/pipeline.yml
@@ -32,8 +30,8 @@ config:
         destination: '($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/pipeline/variables.yml'
     terraform:
       main:
-        path: 'terraform/ovh/main.tf'
-        destination: '($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/terraform/ovh/main.tf'
+        path: 'terraform/outscale/main.tf'
+        destination: '($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/terraform/outscale/main.tf'
 
   ionos:
     name: 'IONOS'

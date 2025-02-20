@@ -1,28 +1,28 @@
 ---
 version: "2"
 use_cases:
-- name: ovh
+- name: outscale
   sections:
-  - name: K3s cluster
+  - name: K3s
     groups:
-    - name: OVH Access
+    - name: Outscale Access
       technologies: [pipeline]
       vars:
-      - name: "OVH Account"
-        description: "The OVH account where to deploy the infrastructure."
-        key: ovh_cred
+      - name: "Outscale Account"
+        description: "The Outscale account where to deploy the infrastructure."
+        key: outscale_cred
         widget: cy_cred
         widget_config:
           display_keys: false
           cred_types:
             - custom
         type: string
-        default: "((ovh))"
+        default: "((outscale))"
         required: true
 
-      - name: "OVH Region"
-        description: "The OVH region where to deploy the infrastructure."
-        key: ovh_region
+      - name: "Outscale Region"
+        description: "The Outscale region where to deploy the infrastructure."
+        key: outscale_region
         widget: dropdown
         type: map
         required: true
@@ -37,12 +37,12 @@ use_cases:
         - {"label": "Strasbourg SBG5 (FR)", "value": "SBG5"}
         - {"label": "Warsaw WAW1 (PL)", "value": "WAW1"}
 
-    - name: OVH Infrastructure
+    - name: Outscale Infrastructure
       technologies: [terraform]
       vars:
-      - name: "OVH Compute Flavor"
-        description: "The OVH compute flavor to deploy."
-        key: ovh_flavor_name
+      - name: "Outscale Compute Flavor"
+        description: "The Outscale compute flavor to deploy."
+        key: outscale_flavor_name
         widget: dropdown
         type: map
         required: true

@@ -4,16 +4,21 @@ variable "cy_pro" {}
 variable "cy_env" {}
 variable "cy_com" {}
 
-# OVH
-variable "ovh_cred" {
+# Outscale
+variable "outscale_region" {
+  description = "The Outscale region where to deploy the infrastructure."
 }
 
-variable "ovh_region" {
-  description = "The OVH region where to deploy the infrastructure."
+variable "outscale_cpu_gen" {
+  description = "The Outscale CPU Generation to deploy."
 }
 
-variable "ovh_flavor_name" {
-  description = "The OVH compute flavor to deploy."
+variable "outscale_cpu" {
+  description = "The number of CPU to deploy."
+}
+
+variable "outscale_mem" {
+  description = "The amount of memory to deploy."
 }
 
 # Tags

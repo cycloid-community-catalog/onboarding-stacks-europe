@@ -4,14 +4,13 @@ variable "cy_pro" {}
 variable "cy_env" {}
 variable "cy_com" {}
 
-# OVH
-variable "ovh_cred" {
-  description = "The OVH account where to deploy the infrastructure."
+# Outscale
+variable "outscale_cred" {
+  description = "The Outscale account where to deploy the infrastructure."
 }
 
-variable "ovh_region" {
-  description = "The OVH region where to deploy the infrastructure."
-  default     = "SBG1"
+variable "outscale_region" {
+  description = "The Outscale region where to deploy the infrastructure."
 }
 
 # Cycloid
