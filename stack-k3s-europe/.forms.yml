@@ -23,8 +23,8 @@ use_cases:
       - name: "Outscale Region"
         description: "The Outscale region where to deploy the infrastructure."
         key: outscale_region
-        widget: dropdown
-        type: auto_complete
+        widget: auto_complete
+        type: string
         required: true
         default: "eu-west-2"
         values:
