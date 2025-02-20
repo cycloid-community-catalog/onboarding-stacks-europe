@@ -10,9 +10,5 @@ terraform {
       source = "cycloidio/cycloid"
       version = ">= 0.0.20"
     }
-    remote = {
-      source = "tenstad/remote"
-      version = "0.1.3"
-    }
   }
 }

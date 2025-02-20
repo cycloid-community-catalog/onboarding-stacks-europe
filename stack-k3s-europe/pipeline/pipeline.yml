@@ -205,13 +205,12 @@ jobs:
               eval "$(ssh-agent -s)"
               ssh-add ~/.ssh/git
               IPADDR="$(jq -r .ipv4 tfstate/metadata)"
-              mkdir -p ~/.kube
-              echo "Retrieving Kubeconfig from ${IPADDR}"
-              scp root@${IPADDR}:/etc/rancher/k3s/k3s.yaml ~/.kube/config.yaml
-              echo "Save Kubeconfig Credential:"
-              cy credential create --name "${CY_ORG}-${PROJECT}-${ENV}-kubeconfig" custom --field kubeconfig=$(sed 's/127.0.0.1/${IPADDR}/' ~/.kube/config.yaml) >output
+              scp root@${IPADDR}:/etc/rancher/k3s/k3s.yaml ~/kubeconfig
+              sed -i "s/127.0.0.1/${IPADDR}/" ~/kubeconfig
+              echo "Saving kubeconfig in Credential ${CY_ORG}-${PROJECT}-${ENV}-kubeconfig"
+              cy credential create --name "${CY_ORG}-${PROJECT}-${ENV}-kubeconfig" custom --field-file kubeconfig=~/kubeconfig >output
               if [[ "$?" != "0" ]]; then
-                  echo "Save Kubeconfig Credential Error: cy returned code $?"
+                  echo "Saving kubeconfig in Credential Error: cy returned code $?"
                   cat output
                   exit 1
               fi
