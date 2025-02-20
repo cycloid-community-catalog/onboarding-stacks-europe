@@ -22,6 +22,8 @@ technologies:
 
 config:
   ovh:
+    name: 'OVH'
+    description: 'Deploy a K3s cluster on OVH instance'
     pipeline:
       pipeline:
         path: pipeline/pipeline.yml
@@ -34,6 +36,8 @@ config:
         destination: '($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/terraform/ovh/main.tf'
 
   ionos:
+    name: 'IONOS'
+    description: 'Deploy a IONOS cluster on OVH instance'
     pipeline:
       pipeline:
         path: pipeline/pipeline.yml
