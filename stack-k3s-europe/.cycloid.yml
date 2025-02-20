@@ -23,7 +23,7 @@ technologies:
 config:
   ovh:
     name: 'OVH'
-    description: 'Deploy a K3s cluster on OVH instance'
+    description: 'Deploy a K3s cluster on OVH instances.'
     pipeline:
       pipeline:
         path: pipeline/pipeline.yml
@@ -37,7 +37,7 @@ config:
 
   ionos:
     name: 'IONOS'
-    description: 'Deploy a IONOS cluster on OVH instance'
+    description: 'Deploy a K3s cluster on IONOS instances.'
     pipeline:
       pipeline:
         path: pipeline/pipeline.yml
