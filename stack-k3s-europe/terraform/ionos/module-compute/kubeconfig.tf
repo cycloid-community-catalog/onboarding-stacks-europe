@@ -4,19 +4,14 @@ resource "time_sleep" "wait_60_seconds" {
   create_duration = "60s"
 }
 
-resource "null_resource" "kubeconfig" {
-  connection {
-    type        = "ssh"
+data "remote_file" "kubeconfig" {
+  conn {
+    host        = ionoscloud_server.compute.primary_ip
     user        = "root"
     private_key = tls_private_key.ssh_key.private_key_openssh
-    host        = ionoscloud_server.compute.primary_ip
+    sudo        = true
   }
-
-  provisioner "file" {
-    source      = "/etc/rancher/k3s/k3s.yaml"
-    destination = "kubeconfig"
-
-  }
+  path = "/etc/rancher/k3s/k3s.yaml"
 
   depends_on = [time_sleep.wait_60_seconds]
 }
@@ -30,10 +25,6 @@ resource "cycloid_credential" "kubeconfig" {
   type = "basic_auth"
   body = {
     username = "kubeconfig"
-    password = file("${path.module}/kubeconfig")
+    password = remote_file.kubeconfig.content
   }
-
-  depends_on = [
-    null_resource.kubeconfig
-  ]
 }
