@@ -25,6 +25,6 @@ resource "cycloid_credential" "kubeconfig" {
   type = "basic_auth"
   body = {
     username = "kubeconfig"
-    password = remote_file.kubeconfig.content
+    password = data.remote_file.kubeconfig.content
   }
 }
