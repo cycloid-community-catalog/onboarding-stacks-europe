@@ -209,7 +209,7 @@ jobs:
       - get: tfstate
         trigger: true
         passed:
-          - terraform-apply
+          - deploy-infra
 
       - task: get-kubeconfig
         config:
