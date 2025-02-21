@@ -232,6 +232,7 @@ jobs:
               ssh-add ~/.ssh/git
               IPADDR="$(jq -r .ipv4 tfstate/metadata)"
               USERNAME="$(jq -r .username tfstate/metadata)"
+              sleep 60
               ssh ${USERNAME}@${IPADDR} sudo chmod 644 /etc/rancher/k3s/k3s.yaml
               scp ${USERNAME}@${IPADDR}:/etc/rancher/k3s/k3s.yaml ~/kubeconfig
               ssh ${USERNAME}@${IPADDR} sudo chmod 600 /etc/rancher/k3s/k3s.yaml
