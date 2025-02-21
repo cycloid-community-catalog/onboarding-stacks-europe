@@ -200,7 +200,7 @@ jobs:
           terraform_source: merged-stack/
 
 
-  - name: install-argocd
+  - name: get-kubeconfig
     serial: true
     max_in_flight: 1
     build_logs_to_retain: 10
