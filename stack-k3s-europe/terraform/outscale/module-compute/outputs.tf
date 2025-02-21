@@ -5,3 +5,7 @@ output "ipv4" {
 output "dns_name" {
     value = outscale_vm.compute.public_dns_name
 }
+
+output "username" {
+    value = var.outscale_username
+}

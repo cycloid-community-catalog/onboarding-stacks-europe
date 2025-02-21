@@ -13,6 +13,11 @@ variable "ionos_cube" {
   description = "The IONOS cube configuration to deploy."
 }
 
+variable "ionos_username" {
+  description = "The IONOS admin username on the instance."
+  default = "root"
+}
+
 # Tags
 variable "extra_tags" {
   default = {}

@@ -9,6 +9,11 @@ variable "outscale_region" {
   description = "The Outscale region where to deploy the infrastructure."
 }
 
+variable "outscale_username" {
+  description = "The Outscale admin username on the instance."
+  default = "outscale"
+}
+
 variable "outscale_cpu_gen" {
   description = "The Outscale CPU Generation to deploy."
 }

@@ -230,7 +230,8 @@ jobs:
               eval "$(ssh-agent -s)"
               ssh-add ~/.ssh/git
               IPADDR="$(jq -r .ipv4 tfstate/metadata)"
-              scp root@${IPADDR}:/etc/rancher/k3s/k3s.yaml ~/kubeconfig
+              USERNAME="$(jq -r .username tfstate/metadata)"
+              scp ${USERNAME}@${IPADDR}:/etc/rancher/k3s/k3s.yaml ~/kubeconfig
               sed -i "s/127.0.0.1/${IPADDR}/" ~/kubeconfig
               echo "Saving kubeconfig in Credential ${CY_ORG}-${PROJECT}-${ENV}-kubeconfig"
               cy credential create --name "${CY_ORG}-${PROJECT}-${ENV}-kubeconfig" custom --field-file kubeconfig=~/kubeconfig >output
