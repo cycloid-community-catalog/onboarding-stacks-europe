@@ -1,16 +1,3 @@
-# YAML anchors
-shared:
-- &merge-stack-and-config
-  platform: linux
-  image_resource:
-    type: registry-image
-    source:
-      repository: cycloid/cycloid-toolkit
-      tag: latest
-  run:
-    path: /usr/bin/merge-stack-and-config
-
-
 resource_types:
 - name: terraform
   type: registry-image
@@ -92,83 +79,6 @@ groups:
 
 
 jobs:
-  # # Merge and trigger a plan whenever there is a commit in Terraform stack or config
-  # - name: terraform-plan
-  #   serial: true
-  #   max_in_flight: 1
-  #   build_logs_to_retain: 10
-  #   plan:
-  #     - in_parallel:
-  #       - get: git_stack-terraform
-  #         trigger: true
-
-  #       - get: git_config-terraform
-  #         trigger: true
-
-  #     - task: merge-stack-and-config
-  #       config:
-  #         <<: *merge-stack-and-config
-  #         inputs:
-  #         - name: git_config-terraform
-  #           path: "config"
-  #         - name: git_stack-terraform
-  #           path: "stack"
-  #         outputs:
-  #         - name: merged-stack
-  #           path: "merged-stack"
-  #       params:
-  #         CONFIG_PATH: ($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/terraform/($ .use_case $)
-  #         STACK_PATH: ($ .stack_path $)/terraform/($ .use_case $)
-
-  #     - put: tfstate
-  #       params:
-  #         plan_only: true
-  #         terraform_source: merged-stack/
-
-
-  # # Merge and trigger an apply whenever there is a terraform plan passed successfully
-  # - name: terraform-apply
-  #   serial: true
-  #   max_in_flight: 1
-  #   build_logs_to_retain: 10
-  #   plan:
-  #     - in_parallel:
-  #       - get: git_stack-terraform
-  #         trigger: false
-  #         passed:
-  #           - terraform-plan
-
-  #       - get: git_config-terraform
-  #         trigger: false
-  #         passed:
-  #           - terraform-plan
-
-  #       - get: tfstate
-  #         trigger: true
-  #         passed:
-  #           - terraform-plan
-
-  #     - task: merge-stack-and-config
-  #       config:
-  #         <<: *merge-stack-and-config
-  #         inputs:
-  #         - name: git_config-terraform
-  #           path: "config"
-  #         - name: git_stack-terraform
-  #           path: "stack"
-  #         outputs:
-  #         - name: merged-stack
-  #           path: "merged-stack"
-  #       params:
-  #         CONFIG_PATH: ($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/terraform/($ .use_case $)
-  #         STACK_PATH: ($ .stack_path $)/terraform/($ .use_case $)
-
-  #     - put: tfstate
-  #       params:
-  #         plan_run: true
-  #         terraform_source: merged-stack/
-
-
   - name: deploy-infra
     serial: true
     max_in_flight: 1
@@ -183,7 +93,14 @@ jobs:
 
       - task: merge-stack-and-config
         config:
-          <<: *merge-stack-and-config
+          platform: linux
+          image_resource:
+            type: registry-image
+            source:
+              repository: cycloid/cycloid-toolkit
+              tag: latest
+          run:
+            path: /usr/bin/merge-stack-and-config
           inputs:
           - name: git_config-terraform
             path: "config"
@@ -232,7 +149,7 @@ jobs:
               ssh-add ~/.ssh/git
               IPADDR="$(jq -r .ipv4 tfstate/metadata)"
               USERNAME="$(jq -r .username tfstate/metadata)"
-              until sudo ls /etc/rancher/k3s/k3s.yaml; do sleep 10; done
+              ssh ${USERNAME}@${IPADDR} until sudo ls /etc/rancher/k3s/k3s.yaml; do sleep 10; done
               ssh ${USERNAME}@${IPADDR} sudo chmod 644 /etc/rancher/k3s/k3s.yaml
               scp ${USERNAME}@${IPADDR}:/etc/rancher/k3s/k3s.yaml ~/kubeconfig
               ssh ${USERNAME}@${IPADDR} sudo chmod 600 /etc/rancher/k3s/k3s.yaml
@@ -276,7 +193,14 @@ jobs:
 
       - task: merge-stack-and-config
         config:
-          <<: *merge-stack-and-config
+          platform: linux
+          image_resource:
+            type: registry-image
+            source:
+              repository: cycloid/cycloid-toolkit
+              tag: latest
+          run:
+            path: /usr/bin/merge-stack-and-config
           inputs:
           - name: git_config-terraform
             path: "config"
