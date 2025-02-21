@@ -180,14 +180,8 @@ jobs:
       - in_parallel:
         - get: git_stack-terraform
           trigger: false
-          passed:
-            - deploy-infra
-
         - get: git_config-terraform
           trigger: false
-          passed:
-            - deploy-infra
-
         - get: tfstate
           trigger: false
 
@@ -245,7 +239,7 @@ jobs:
             - -ecx
             - |
               echo "Deleting Credential ${CY_ORG}-${PROJECT}-${ENV}-kubeconfig"
-              cy credential delete --name "${CY_ORG}-${PROJECT}-${ENV}-kubeconfig" >output
+              cy credential delete --canonical "${CY_ORG}-${PROJECT}-${ENV}-kubeconfig" >output
               if [[ "$?" != "0" ]]; then
                   echo "Deleting Credential Error: cy returned code $?"
                   cat output
