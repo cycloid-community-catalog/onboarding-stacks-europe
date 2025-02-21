@@ -1,5 +1,5 @@
 resource "outscale_vm" "compute" {
-    image_id                 = data.outscale_images.debian.image_ids[0]
+    image_id                 = data.outscale_images.debian.image_id
     vm_type                  = "tinav${var.outscale_cpu_gen}.c${var.outscale_cpu}r${var.outscale_mem}p1"
     keypair_name             = outscale_keypair.cycloid_keypair.keypair_name
     security_group_ids       = [outscale_security_group.security_group01.security_group_id]
