@@ -23,6 +23,7 @@ resource "outscale_security_group_rule" "ssh" {
     from_port_range   = "22"
     to_port_range     = "22"
     ip_protocol       = "tcp"
+    ip_range          = "0.0.0.0/0"
     # ip_range          = "${chomp(data.http.worker_ip.response_body)}/32"
 }
 
@@ -32,6 +33,7 @@ resource "outscale_security_group_rule" "http" {
     from_port_range   = "80"
     to_port_range     = "80"
     ip_protocol       = "tcp"
+    ip_range          = "0.0.0.0/0"
 }
 
 resource "outscale_security_group_rule" "https" {
@@ -40,6 +42,7 @@ resource "outscale_security_group_rule" "https" {
     from_port_range   = "443"
     to_port_range     = "443"
     ip_protocol       = "tcp"
+    ip_range          = "0.0.0.0/0"
 }
 
 locals {
