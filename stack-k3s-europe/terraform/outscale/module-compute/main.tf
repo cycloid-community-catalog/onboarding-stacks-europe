@@ -17,6 +17,33 @@ resource "outscale_security_group" "security_group01" {
   security_group_name = "vm_security_group1"
 }
 
+resource "outscale_security_group_rule" "ssh" {
+    flow              = "Inbound"
+    security_group_id = outscale_security_group.security_group01.security_group_id
+    from_port_range   = "22"
+    to_port_range     = "22"
+    ip_protocol       = "tcp"
+    ip_range          = "${chomp(data.http.worker_ip.response_body)}/32"
+}
+
+resource "outscale_security_group_rule" "http" {
+    flow              = "Inbound"
+    security_group_id = outscale_security_group.security_group01.security_group_id
+    from_port_range   = "80"
+    to_port_range     = "80"
+    ip_protocol       = "tcp"
+    ip_range          = "0.0.0.0"
+}
+
+resource "outscale_security_group_rule" "https" {
+    flow              = "Inbound"
+    security_group_id = outscale_security_group.security_group01.security_group_id
+    from_port_range   = "443"
+    to_port_range     = "443"
+    ip_protocol       = "tcp"
+    ip_range          = "0.0.0.0"
+}
+
 locals {
   cloud_init = <<-EOT
     #cloud-config
@@ -34,4 +61,8 @@ data "outscale_images" "debian" {
         name   = "image_names"
         values = ["Debian-12*"]
     }
+}
+
+data "http" "worker_ip" {
+  url = "https://ipv4.icanhazip.com"
 }
