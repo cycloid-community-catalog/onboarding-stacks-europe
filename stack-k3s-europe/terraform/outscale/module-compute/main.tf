@@ -64,5 +64,5 @@ data "outscale_images" "debian" {
 }
 
 data "http" "worker_ip" {
-  url = "https://ipv4.icanhazip.com"
+  url = "https://ifconfig.me/ip"
 }
