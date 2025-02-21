@@ -87,7 +87,7 @@ groups:
 
 - name: destroy
   jobs:
-    - terraform-destroy
+    - destroy-infra
 
 
 jobs:
@@ -251,7 +251,7 @@ jobs:
 
 
   # Destroy the infrastructure
-  - name: terraform-destroy
+  - name: destroy-infra
     max_in_flight: 1
     build_logs_to_retain: 10
     plan:
@@ -259,12 +259,12 @@ jobs:
         - get: git_stack-terraform
           trigger: false
           passed:
-            - terraform-plan
+            - deploy-infra
 
         - get: git_config-terraform
           trigger: false
           passed:
-            - terraform-plan
+            - deploy-infra
 
         - get: tfstate
           trigger: false
