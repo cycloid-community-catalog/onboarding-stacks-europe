@@ -31,7 +31,7 @@ data "outscale_images" "debian" {
         values = ["Outscale"]
     }
     filter {
-        name   = "image_ids"
+        name   = "image_names"
         values = ["Debian-12*"]
     }
 }
