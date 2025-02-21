@@ -1,0 +1,31 @@
+#
+# Kubernetes
+#
+
+#. kubeconfig_filename (required): 'kubeconfig'
+#+ Kubeconfig filename to create.
+kubeconfig_filename: "kubeconfig"
+
+#. kubeconfig_content (required): ''
+#+ Kubeconfig content from Cycloid vault.
+kubeconfig_content: ((((($ .organization_canonical $)-($ .project $)-($ .environment $)-kubeconfig)).kubeconfig))
+
+#
+# GitHub
+#
+
+#. github_pat (required): ''
+#+ GitHub Personal Access Token allowing to create the new ArgoCD repository.
+github_pat: "((github-pat.key))"
+
+#
+# Default variables
+#
+
+#. cycloid_api_key (required): ((admin-api-key.key))
+#+ API key to grant admin acess to Cycloid API.
+cycloid_api_key: ((admin-api-key.key))
+
+#. terraform_version (required): '1.8.3'
+#+ terraform version used to execute your code.
+terraform_version: '1.8.3'
