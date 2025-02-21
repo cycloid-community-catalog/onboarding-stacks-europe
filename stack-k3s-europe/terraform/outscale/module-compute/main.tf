@@ -23,7 +23,8 @@ resource "outscale_security_group_rule" "ssh" {
     from_port_range   = "22"
     to_port_range     = "22"
     ip_protocol       = "tcp"
-    ip_range          = "${chomp(data.http.worker_ip.response_body)}/32"
+    ip_range          = "0.0.0.0"
+    # ip_range          = "${chomp(data.http.worker_ip.response_body)}/32"
 }
 
 resource "outscale_security_group_rule" "http" {
@@ -63,6 +64,6 @@ data "outscale_images" "debian" {
     }
 }
 
-data "http" "worker_ip" {
-  url = "https://ifconfig.me/ip"
-}
+# data "http" "worker_ip" {
+#   url = "https://ifconfig.me/ip"
+# }
