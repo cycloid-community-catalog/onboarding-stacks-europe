@@ -2,15 +2,15 @@
 # Cloud Providers
 #
 
-($ if eq .use_case "ovh" $)
+($ if eq .use_case "outscale" $)
 
-#. ovh_cred (required): ((ovh))
-#+ The OVH account where to deploy the infrastructure.
-ovh_cred: ((ovh))
+#. outscale_cred (required): ((outscale))
+#+ The Outscale account where to deploy the infrastructure.
+outscale_cred: ((outscale))
 
-#. ovh_region (required): ""
-#+ The OVH region where to deploy the infrastructure.
-ovh_region: ""
+#. outscale_region (required): ""
+#+ The Outscale region where to deploy the infrastructure.
+outscale_region: ""
 
 ($ else if eq .use_case "ionos" $)
 
