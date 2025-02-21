@@ -290,3 +290,43 @@ jobs:
           terraform_source: merged-stack/
         get_params:
           action: destroy
+
+  - name: delete-kubeconfig
+    serial: true
+    max_in_flight: 1
+    build_logs_to_retain: 10
+    plan:
+    - do:
+      - get: tfstate
+        trigger: true
+        passed:
+          - destroy-infra
+
+      - task: delete-kubeconfig
+        config:
+          platform: linux
+          image_resource:
+            type: registry-image
+            source:
+              repository: cycloid/cycloid-toolkit
+              tag: latest
+          run:
+            path: /bin/bash
+            args:
+            - -ecx
+            - |
+              echo "Deleting Credential ${CY_ORG}-${PROJECT}-${ENV}-kubeconfig"
+              cy credential delete --name "${CY_ORG}-${PROJECT}-${ENV}-kubeconfig" >output
+              if [[ "$?" != "0" ]]; then
+                  echo "Deleting Credential Error: cy returned code $?"
+                  cat output
+                  exit 1
+              fi
+          inputs:
+          - name: tfstate
+          params:
+            CY_API_KEY: ((cycloid_api_key))
+            CY_API_URL: ($ .api_url $)
+            CY_ORG: ($ .organization_canonical $)
+            PROJECT: ($ .project $)
+            ENV: ($ .environment $)
