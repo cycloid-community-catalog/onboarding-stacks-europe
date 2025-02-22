@@ -144,6 +144,8 @@ jobs:
             args:
             - '-ec'
             - |
+              pwd
+              find .
               echo -e "${KUBECONFIG_CONTENT}" > stack/terraform/${KUBECONFIG_FILENAME}
               /usr/bin/merge-stack-and-config
           inputs:
