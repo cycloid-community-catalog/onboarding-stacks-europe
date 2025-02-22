@@ -5,6 +5,10 @@ terraform {
     helm = {
       version = ">= 2.17.0"
     }
+    kubernetes = {
+      source = "hashicorp/kubernetes"
+      version = ">= 2.35.1"
+    }
     github = {
       source  = "integrations/github"
       version = ">= 6.0"

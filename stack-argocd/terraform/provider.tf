@@ -4,6 +4,10 @@ provider "helm" {
   }
 }
 
+provider "kubernetes" {
+  config_path = "${path.module}/${var.kubeconfig_filename}"
+}
+
 provider "github" {
   token = var.github_pat
 }
