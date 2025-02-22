@@ -144,9 +144,7 @@ jobs:
             args:
             - '-ec'
             - |
-              pwd
-              find .
-              echo -e "${KUBECONFIG_CONTENT}" > stack/terraform/${KUBECONFIG_FILENAME}
+              echo -e "${KUBECONFIG_CONTENT}" > ${STACK_PATH}/${KUBECONFIG_FILENAME}
               /usr/bin/merge-stack-and-config
           inputs:
           - name: git_config-terraform
