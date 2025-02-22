@@ -157,9 +157,15 @@ jobs:
               echo "Saving kubeconfig in Credential ${CY_ORG}-${PROJECT}-${ENV}-kubeconfig"
               cy credential create --name "${CY_ORG}-${PROJECT}-${ENV}-kubeconfig" --canonical "${CY_ORG}-${PROJECT}-${ENV}-kubeconfig" custom --field-file kubeconfig=~/kubeconfig >output
               if [[ "$?" != "0" ]]; then
-                  echo "Saving kubeconfig in Credential Error: cy returned code $?"
-                  cat output
-                  exit 1
+                echo "Saving kubeconfig in Credential Error: cy returned code $?"
+                cat output
+                echo "Trying to update existing kubeconfig in Credential ${CY_ORG}-${PROJECT}-${ENV}-kubeconfig"
+                cy credential update --name "${CY_ORG}-${PROJECT}-${ENV}-kubeconfig" --canonical "${CY_ORG}-${PROJECT}-${ENV}-kubeconfig" custom --field-file kubeconfig=~/kubeconfig >output
+                if [[ "$?" != "0" ]]; then
+                    echo "Updating kubeconfig in existing Credential Error: cy returned code $?"
+                    cat output
+                    exit 1
+                fi
               fi
           inputs:
           - name: tfstate
