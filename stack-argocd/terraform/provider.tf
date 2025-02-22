@@ -1,11 +1,13 @@
 provider "helm" {
   kubernetes {
     config_path = "${path.module}/${var.kubeconfig_filename}"
+    insecure    = true
   }
 }
 
 provider "kubernetes" {
   config_path = "${path.module}/${var.kubeconfig_filename}"
+  insecure    = true
 }
 
 provider "github" {
