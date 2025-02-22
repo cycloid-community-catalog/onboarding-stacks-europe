@@ -21,7 +21,7 @@ resource "tls_private_key" "github_generated_key" {
 }
 
 resource "github_repository_deploy_key" "argocd" {
-  title      = "${var.cyproject}"
+  title      = "${var.cy_pro}"
   repository = github_repository.argocd.name
   key        = tls_private_key.github_generated_key.public_key_openssh
   read_only  = false
