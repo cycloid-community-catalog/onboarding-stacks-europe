@@ -45,6 +45,15 @@ resource "outscale_security_group_rule" "https" {
     ip_range          = "0.0.0.0/0"
 }
 
+resource "outscale_security_group_rule" "k8s" {
+    flow              = "Inbound"
+    security_group_id = outscale_security_group.security_group01.security_group_id
+    from_port_range   = "6443"
+    to_port_range     = "6443"
+    ip_protocol       = "tcp"
+    ip_range          = "0.0.0.0/0"
+}
+
 locals {
   cloud_init = <<-EOT
     #cloud-config
