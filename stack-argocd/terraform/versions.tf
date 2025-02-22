@@ -5,6 +5,10 @@ terraform {
     helm = {
       version = ">= 2.17.0"
     }
+    github = {
+      source  = "integrations/github"
+      version = ">= 6.0"
+    }
     cycloid = {
       source = "cycloidio/cycloid"
       version = ">= 0.0.20"

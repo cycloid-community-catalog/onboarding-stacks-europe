@@ -4,6 +4,10 @@ provider "helm" {
   }
 }
 
+provider "github" {
+  token = var.github_pat
+}
+
 provider "cycloid" {
   organization_canonical = var.cy_org
   jwt                    = var.cycloid_jwt
