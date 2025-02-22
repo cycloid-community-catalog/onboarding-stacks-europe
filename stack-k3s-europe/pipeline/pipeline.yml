@@ -155,7 +155,7 @@ jobs:
               ssh ${USERNAME}@${IPADDR} "sudo chmod 600 /etc/rancher/k3s/k3s.yaml"
               sed -i "s/127.0.0.1/${IPADDR}/" ~/kubeconfig
               echo "Saving kubeconfig in Credential ${CY_ORG}-${PROJECT}-${ENV}-kubeconfig"
-              cy credential create --name "${CY_ORG}-${PROJECT}-${ENV}-kubeconfig" custom --field-file kubeconfig=~/kubeconfig >output
+              cy credential create --name "${CY_ORG}-${PROJECT}-${ENV}-kubeconfig" --canonical "${CY_ORG}-${PROJECT}-${ENV}-kubeconfig" custom --field-file kubeconfig=~/kubeconfig >output
               if [[ "$?" != "0" ]]; then
                   echo "Saving kubeconfig in Credential Error: cy returned code $?"
                   cat output
