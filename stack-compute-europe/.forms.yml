@@ -69,16 +69,16 @@ use_cases:
         - 1
         - 8
 
-    - name: "Outscale Network"
-      description: "The network where the resources will be deployed."
-      key: outscale_net
-      widget: cy_inventory_resource
-      widget_config:
-        attribute: id
-        filters:
-          type: outscale_net
-      type: string
-      required: true
+      - name: "Outscale Network"
+        description: "The network where the resources will be deployed."
+        key: outscale_net
+        widget: cy_inventory_resource
+        widget_config:
+          attribute: id
+          filters:
+            type: outscale_net
+        type: string
+        required: true
 
 
 - name: ionos
