@@ -140,7 +140,7 @@ jobs:
           run:
             path: /bin/bash
             args:
-            - -ecx
+            - -ec
             - |
               mkdir -p ~/.ssh
               echo "${SSH_PRIVATE_KEY}" >~/.ssh/git
@@ -168,8 +168,9 @@ jobs:
                     exit 1
                 fi
               fi
-              ssh ${USERNAME}@${IPADDR} "sudo echo 'tls-san:' >>/etc/rancher/k3s/config.yaml"
-              ssh ${USERNAME}@${IPADDR} "sudo echo '  - ${IPADDR}' >>/etc/rancher/k3s/config.yaml"
+              ssh ${USERNAME}@${IPADDR} "sudo echo 'tls-san:' >~/config.yaml"
+              ssh ${USERNAME}@${IPADDR} "sudo echo '  - ${IPADDR}' >~/config.yaml"
+              ssh ${USERNAME}@${IPADDR} "sudo mv ~/config.yaml /etc/rancher/k3s/config.yaml"
               ssh ${USERNAME}@${IPADDR} "sudo systemctl restart k3s"
           inputs:
           - name: tfstate
