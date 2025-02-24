@@ -52,3 +52,21 @@ data "kubernetes_service" "argocd_server" {
 #     command = "kubectl -n argocd-staging delete secret argocd-initial-admin-secret"
 #   }
 # }
+
+resource "random_password" "argocd" {
+  length           = 16
+  special          = false
+}
+
+resource "cycloid_credential" "argocd" {
+  name                   = "${var.cy_org}-${var.cy_pro}-${var.cy_env}-admin-argocd"
+  description            = "ArgoCD Admin password."
+  path                   = "${var.cy_org}-${var.cy_pro}-${var.cy_env}-admin-argocd"
+  canonical              = "${var.cy_org}-${var.cy_pro}-${var.cy_env}-admin-argocd"
+
+  type = "basic_auth"
+  body = {
+    username = "admin"
+    password = random_password.argocd.result
+  }
+}
