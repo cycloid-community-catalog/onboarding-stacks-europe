@@ -49,7 +49,7 @@ use_cases:
         default: "((ionos))"
         required: true
 
-      - name: "IONOS Regions"
+      - name: "IONOS Region"
         description: "The IONOS region where to deploy the infrastructure."
         key: ionos_region
         widget: dropdown
