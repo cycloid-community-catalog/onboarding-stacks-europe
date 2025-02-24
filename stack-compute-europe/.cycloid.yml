@@ -1,7 +1,7 @@
 ---
 # Configuration of the Cycloid stack
 version: '4'
-name: 'K3s'
+name: 'Compute Instance'
 canonical: stack-compute-europe
 author: Cycloid
 description: |
