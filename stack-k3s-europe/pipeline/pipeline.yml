@@ -150,9 +150,11 @@ jobs:
               IPADDR="$(jq -r .ipv4 tfstate/metadata)"
               USERNAME="$(jq -r .username tfstate/metadata)"
               ssh ${USERNAME}@${IPADDR} "until sudo ls /etc/rancher/k3s/k3s.yaml; do sleep 10; done"
-              ssh ${USERNAME}@${IPADDR} "sudo chmod 644 /etc/rancher/k3s/k3s.yaml"
-              scp ${USERNAME}@${IPADDR}:/etc/rancher/k3s/k3s.yaml ~/kubeconfig
-              ssh ${USERNAME}@${IPADDR} "sudo chmod 600 /etc/rancher/k3s/k3s.yaml"
+              ssh ${USERNAME}@${IPADDR} "sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/config && sudo chmod 644 .kube/config && sudo chown outscale .kube/config"
+              ssh ${USERNAME}@${IPADDR} "export KUBECONFIG=~/.kube/config"
+              ssh ${USERNAME}@${IPADDR} "k3s server --tls-san "${IPADDR}"
+              ssh ${USERNAME}@${IPADDR} "kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.1.2/deploy/static/provider/cloud/deploy.yaml"
+              scp ${USERNAME}@${IPADDR}:~/.kube/config ~/kubeconfig
               sed -i "s/127.0.0.1/${IPADDR}/" ~/kubeconfig
               echo "Saving kubeconfig in Credential ${CY_ORG}-${PROJECT}-${ENV}-kubeconfig"
               cy credential create --name "${CY_ORG}-${PROJECT}-${ENV}-kubeconfig" --canonical "${CY_ORG}-${PROJECT}-${ENV}-kubeconfig" custom --field-file kubeconfig=~/kubeconfig >output

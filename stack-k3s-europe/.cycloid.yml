@@ -5,7 +5,7 @@ name: 'K3s'
 canonical: stack-k3s-europe
 author: Cycloid
 description: |
-  Deploy a K3s cluster on Outscale or IONOS instances.
+  Deploy a K3s cluster with NGINX as ingress controller on Outscale or IONOS instances.
 image: |
   https://cycloid-demo-stacks-logo.s3.eu-west-1.amazonaws.com/kubernetes.png
 keywords:
