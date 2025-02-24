@@ -149,6 +149,7 @@ jobs:
               ssh-add ~/.ssh/git
               IPADDR="$(jq -r .ipv4 tfstate/metadata)"
               USERNAME="$(jq -r .username tfstate/metadata)"
+              echo "K3s is being installed. Please be patient..."
               sleep 30
               ssh ${USERNAME}@${IPADDR} "until sudo ls /etc/rancher/k3s/k3s.yaml; do sleep 10; done"
               echo "K3s installed successfully. Waiting to come up..."

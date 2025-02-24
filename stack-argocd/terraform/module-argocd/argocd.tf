@@ -15,6 +15,10 @@ resource "helm_release" "argocd" {
   create_namespace = true
 
   set {
+    name  = "configs.params.server.insecure"
+    value = true
+  }
+  set {
     name  = "configs.secret.argocdServerAdminPassword"
     value = random_password.argocd.result
   }
