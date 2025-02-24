@@ -29,10 +29,10 @@ resources:
     backend_config:
       address: '($ .api_url $)/inventory?jwt=($ .inventory_jwt $)'
     vars:
-      ovh_cred: ((ovh_cred))
-      ovh_regions: ((ovh_regions))
+      outscale_cred: ((outscale_cred))
+      outscale_region: ((outscale_region))
       ionos_cred: ((ionos_cred))
-      ionos_regions: ((ionos_regions))
+      ionos_region: ((ionos_region))
       cy_org: ($ .organization_canonical $)
       cy_pro: ($ .project $)
       cy_env: ($ .environment $)
