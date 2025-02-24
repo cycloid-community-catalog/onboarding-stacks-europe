@@ -53,7 +53,7 @@ use_cases:
         description: "The IONOS region where to deploy the infrastructure."
         key: ionos_region
         widget: dropdown
-        type: array
+        type: map
         required: false
         values:
         - {"label": "Frankfurt am Main (DE)", "value": "de/fra"}
