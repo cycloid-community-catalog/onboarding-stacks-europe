@@ -163,11 +163,9 @@ jobs:
               ssh ${USERNAME}@${IPADDR} "sudo mv ~/config.yaml /etc/rancher/k3s/config.yaml"
               ssh ${USERNAME}@${IPADDR} "sudo systemctl restart k3s"
               echo "Saving kubeconfig in Credential ${CY_ORG}-${PROJECT}-${ENV}-kubeconfig"
-              if [[ "cy credential create --name "${CY_ORG}-${PROJECT}-${ENV}-kubeconfig" --canonical "${CY_ORG}-${PROJECT}-${ENV}-kubeconfig" custom --field-file kubeconfig=~/kubeconfig" ]]; then
-                echo "Saving kubeconfig in Credential Error: cy returned code $?"
-                echo "Update existing kubeconfig in Credential ${CY_ORG}-${PROJECT}-${ENV}-kubeconfig"
-                cy credential update --name "${CY_ORG}-${PROJECT}-${ENV}-kubeconfig" --canonical "${CY_ORG}-${PROJECT}-${ENV}-kubeconfig" custom --field-file kubeconfig=~/kubeconfig
-                if [[ "$?" != "0" ]]; then
+              if ! cy credential create --name "${CY_ORG}-${PROJECT}-${ENV}-kubeconfig" --canonical "${CY_ORG}-${PROJECT}-${ENV}-kubeconfig" custom --field-file kubeconfig=~/kubeconfig; then
+                echo "Saving kubeconfig in Credential Error: cy returned code $?. Trying to update it."
+                if ! cy credential update --name "${CY_ORG}-${PROJECT}-${ENV}-kubeconfig" --canonical "${CY_ORG}-${PROJECT}-${ENV}-kubeconfig" custom --field-file kubeconfig=~/kubeconfig; then
                     echo "Updating kubeconfig in existing Credential Error: cy returned code $?"
                     exit 1
                 fi

@@ -54,6 +54,15 @@ resource "outscale_security_group_rule" "k8s" {
     ip_range          = "0.0.0.0/0"
 }
 
+resource "outscale_security_group_rule" "traefik_dashboard" {
+    flow              = "Inbound"
+    security_group_id = outscale_security_group.security_group01.security_group_id
+    from_port_range   = "8080"
+    to_port_range     = "8080"
+    ip_protocol       = "tcp"
+    ip_range          = "0.0.0.0/0"
+}
+
 # Replace with this command if you don't want Traefik
 # - "curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC='server --no-deploy traefik' sudo sh -"
 locals {
