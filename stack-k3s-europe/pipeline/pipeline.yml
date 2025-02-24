@@ -149,29 +149,28 @@ jobs:
               ssh-add ~/.ssh/git
               IPADDR="$(jq -r .ipv4 tfstate/metadata)"
               USERNAME="$(jq -r .username tfstate/metadata)"
-              sleep 60
+              sleep 30
               ssh ${USERNAME}@${IPADDR} "until sudo ls /etc/rancher/k3s/k3s.yaml; do sleep 10; done"
-              ssh ${USERNAME}@${IPADDR} "mkdir ~/.kube && sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/config && sudo chmod 644 ~/.kube/config"
-              ssh ${USERNAME}@${IPADDR} "export KUBECONFIG=~/.kube/config && kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.1.2/deploy/static/provider/cloud/deploy.yaml"
+              echo "K3s installed successfully. Waiting to come up..."
+              sleep 5
+              ssh ${USERNAME}@${IPADDR} "mkdir -p ~/.kube && sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/config && sudo chmod 644 ~/.kube/config"
+              # TRAEFIK WAS INSTALLED # ssh ${USERNAME}@${IPADDR} "export KUBECONFIG=~/.kube/config && kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.1.2/deploy/static/provider/cloud/deploy.yaml"
               scp ${USERNAME}@${IPADDR}:~/.kube/config ~/kubeconfig
               sed -i "s/127.0.0.1/${IPADDR}/" ~/kubeconfig
+              ssh ${USERNAME}@${IPADDR} "sudo echo 'tls-san:' >~/config.yaml"
+              ssh ${USERNAME}@${IPADDR} "sudo echo '  - ${IPADDR}' >>~/config.yaml"
+              ssh ${USERNAME}@${IPADDR} "sudo mv ~/config.yaml /etc/rancher/k3s/config.yaml"
+              ssh ${USERNAME}@${IPADDR} "sudo systemctl restart k3s"
               echo "Saving kubeconfig in Credential ${CY_ORG}-${PROJECT}-${ENV}-kubeconfig"
-              cy credential create --name "${CY_ORG}-${PROJECT}-${ENV}-kubeconfig" --canonical "${CY_ORG}-${PROJECT}-${ENV}-kubeconfig" custom --field-file kubeconfig=~/kubeconfig >output
-              if [[ "$?" != "0" ]]; then
+              if [[ "cy credential create --name "${CY_ORG}-${PROJECT}-${ENV}-kubeconfig" --canonical "${CY_ORG}-${PROJECT}-${ENV}-kubeconfig" custom --field-file kubeconfig=~/kubeconfig" ]]; then
                 echo "Saving kubeconfig in Credential Error: cy returned code $?"
-                cat output
-                echo "Trying to update existing kubeconfig in Credential ${CY_ORG}-${PROJECT}-${ENV}-kubeconfig"
-                cy credential update --name "${CY_ORG}-${PROJECT}-${ENV}-kubeconfig" --canonical "${CY_ORG}-${PROJECT}-${ENV}-kubeconfig" custom --field-file kubeconfig=~/kubeconfig >output
+                echo "Update existing kubeconfig in Credential ${CY_ORG}-${PROJECT}-${ENV}-kubeconfig"
+                cy credential update --name "${CY_ORG}-${PROJECT}-${ENV}-kubeconfig" --canonical "${CY_ORG}-${PROJECT}-${ENV}-kubeconfig" custom --field-file kubeconfig=~/kubeconfig
                 if [[ "$?" != "0" ]]; then
                     echo "Updating kubeconfig in existing Credential Error: cy returned code $?"
-                    cat output
                     exit 1
                 fi
               fi
-              ssh ${USERNAME}@${IPADDR} "sudo echo 'tls-san:' >~/config.yaml"
-              ssh ${USERNAME}@${IPADDR} "sudo echo '  - ${IPADDR}' >~/config.yaml"
-              ssh ${USERNAME}@${IPADDR} "sudo mv ~/config.yaml /etc/rancher/k3s/config.yaml"
-              ssh ${USERNAME}@${IPADDR} "sudo systemctl restart k3s"
           inputs:
           - name: tfstate
           params:

@@ -39,20 +39,6 @@ data "kubernetes_service" "argocd_server" {
  }
 }
 
-# resource "null_resource" "password" {
-#   provisioner "local-exec" {
-#     working_dir = "./argocd"
-#     command     = "kubectl -n argocd-staging get secret argocd-initial-admin-secret -o jsonpath={.data.password} | base64 -d > argocd-login.txt"
-#   }
-# }
-
-# resource "null_resource" "del-argo-pass" {
-#   depends_on = [null_resource.password]
-#   provisioner "local-exec" {
-#     command = "kubectl -n argocd-staging delete secret argocd-initial-admin-secret"
-#   }
-# }
-
 resource "random_password" "argocd" {
   length           = 16
   special          = false
