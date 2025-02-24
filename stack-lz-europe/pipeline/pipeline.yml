@@ -71,23 +71,21 @@ resources:
     private_key: ((($ .cr_cred_path $).ssh_key))
     ($- end $)
     paths:
-      - ($ .component_root $)/terraform/*
+      - ($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/terraform/*
 
 
 groups:
 - name: overview
   jobs:
-    - terraform-plan
-    - terraform-apply
+    - create-infra
 
 - name: destroy
   jobs:
-    - terraform-destroy
+    - destroy-infra
 
 
 jobs:
-  # Merge and trigger a plan whenever there is a commit in Terraform stack or config
-  - name: terraform-plan
+  - name: create-infra
     serial: true
     max_in_flight: 1
     build_logs_to_retain: 10
@@ -111,74 +109,23 @@ jobs:
           - name: merged-stack
             path: "merged-stack"
         params:
-          CONFIG_PATH: ($ .component_root $)/terraform
+          CONFIG_PATH: ($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/terraform
           STACK_PATH: ($ .stack_path $)/terraform
 
       - put: tfstate
         params:
-          plan_only: true
           terraform_source: merged-stack/
-
-
-  # Merge and trigger an apply whenever there is a terraform plan passed successfully
-  - name: terraform-apply
-    serial: true
-    max_in_flight: 1
-    build_logs_to_retain: 10
-    plan:
-      - in_parallel:
-        - get: git_stack-terraform
-          trigger: false
-          passed:
-            - terraform-plan
-
-        - get: git_config-terraform
-          trigger: false
-          passed:
-            - terraform-plan
-
-        - get: tfstate
-          trigger: true
-          passed:
-            - terraform-plan
-
-      - task: merge-stack-and-config
-        config:
-          <<: *merge-stack-and-config
-          inputs:
-          - name: git_config-terraform
-            path: "config"
-          - name: git_stack-terraform
-            path: "stack"
-          outputs:
-          - name: merged-stack
-            path: "merged-stack"
-        params:
-          CONFIG_PATH: ($ .component_root $)/terraform
-          STACK_PATH: ($ .stack_path $)/terraform
-
-      - put: tfstate
-        params:
-          plan_run: true
-          terraform_source: merged-stack/
-
 
   # Destroy the infrastructure
-  - name: terraform-destroy
+  - name: destroy-infra
     max_in_flight: 1
     build_logs_to_retain: 10
     plan:
       - in_parallel:
         - get: git_stack-terraform
           trigger: false
-          passed:
-            - terraform-plan
-
         - get: git_config-terraform
           trigger: false
-          passed:
-            - terraform-plan
-
         - get: tfstate
           trigger: false
 
@@ -194,7 +141,7 @@ jobs:
           - name: merged-stack
             path: "merged-stack"
         params:
-          CONFIG_PATH: ($ .component_root $)/terraform
+          CONFIG_PATH: ($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/terraform
           STACK_PATH: ($ .stack_path $)/terraform
 
       - put: tfstate

@@ -4,14 +4,14 @@ variable "cy_pro" {}
 variable "cy_env" {}
 variable "cy_com" {}
 
-# OVH
-variable "ovh_cred" {
-  description = "The OVH account where to deploy the infrastructure."
+# Outscale
+variable "outscale_cred" {
+  description = "The Outscale account where to deploy the infrastructure."
 }
 
-variable "ovh_regions" {
-  description = "The OVH regions where to deploy the infrastructure."
-  default     = "SBG1"
+variable "outscale_region" {
+  description = "The Outscale region where to deploy the infrastructure."
+  default = "eu-west-2"
 }
 
 # IONOS
@@ -19,7 +19,7 @@ variable "ionos_cred" {
   description = "The IONOS account where to deploy the infrastructure."
 }
 
-variable "ionos_regions" {
-  description = "The IONOS regions where to deploy the infrastructure."
+variable "ionos_region" {
+  description = "The IONOS region where to deploy the infrastructure."
   default     = "de/fra"
 }

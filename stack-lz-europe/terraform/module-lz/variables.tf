@@ -4,21 +4,13 @@ variable "cy_pro" {}
 variable "cy_env" {}
 variable "cy_com" {}
 
-variable "ovh_project_id" {
-  description = "The OVH Openstack project ID where to deploy the infrastructure."
+variable "outscale_region" {
+  description = "The Outscale region where to deploy the infrastructure."
+  default = ["eu-west-2"]
 }
 
-variable "ovh_tenant_id" {
-  description = "The OVH Openstack tenant ID where to deploy the infrastructure."
-}
-
-variable "ovh_regions" {
-  description = "The OVH regions where to deploy the infrastructure."
-  default     = ["SBG1"]
-}
-
-variable "ionos_regions" {
-  description = "The IONOS regions where to deploy the infrastructure."
+variable "ionos_region" {
+  description = "The IONOS region where to deploy the infrastructure."
   default = ["de/fra"]
 }
 

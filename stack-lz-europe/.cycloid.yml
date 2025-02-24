@@ -5,18 +5,17 @@ name: 'Pan-European Landing Zone'
 canonical: stack-lz-europe
 author: Cycloid
 description: |
-  Deploys a pan-European landing zone on OVH and IONOS clouds, including networking, connectivity and security rules.
+  Deploys a pan-European landing zone on Outscale and IONOS clouds, including networking, connectivity and security rules.
 image: |
   https://cycloid-demo-stacks-logo.s3.eu-west-1.amazonaws.com/network.svg
 keywords:
   - network
   - subnet
   - security
-  - ovh
+  - outscale
   - ionos
-  - provider:ovh
-  - provider:ionos
   - provider:outscale
+  - provider:ionos
 technologies:
 - technology: terraform
   version: 1.8.3
@@ -28,8 +27,8 @@ config:
         path: pipeline/pipeline.yml
       variables:
         path: pipeline/variables.sample.yml
-        destination: '($ .component_root $)/variables.yml'
+        destination: '($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/variables.yml'
     terraform:
       main:
         path: 'terraform/main.tf'
-        destination: '($ .component_root $)/terraform/main.tf'
+        destination: '($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/terraform/main.tf'
