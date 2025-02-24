@@ -74,7 +74,6 @@ groups:
 - name: destroy
   jobs:
     - destroy-infra
-    - delete-kubeconfig
 
 
 jobs:
