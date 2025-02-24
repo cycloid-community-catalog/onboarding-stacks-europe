@@ -2,21 +2,21 @@
 # Cloud Providers
 #
 
-#. ovh_cred (required): ((ovh))
+#. outscale_cred (required): ((ovh))
 #+ The OVH account where to deploy the infrastructure.
-ovh_cred: ((ovh))
+outscale_cred: ((outscale))
 
-#. ovh_regions (required): []
-#+ The OVH regions where to deploy the infrastructure.
-ovh_regions: []
+#. outscale_region (required): "eu-west-2"
+#+ The Outscale region where to deploy the infrastructure.
+outscale_region: "eu-west-2"
 
 #. ionos_cred (required): ((ionos))
 #+ The IONOS account where to deploy the infrastructure.
 ionos_cred: ((ionos))
 
-#. ionos_regions (required): []
-#+ The IONOS regions where to deploy the infrastructure.
-ionos_regions: []
+#. ionos_region (required): "de/fra"
+#+ The IONOS region where to deploy the infrastructure.
+ionos_region: "de/fra"
 
 #
 # Default variables
