@@ -19,6 +19,10 @@ resource "helm_release" "argocd" {
     value = true
   }
   set {
+    name  = "configs.params.server.rootpath"
+    value = "/argocd"
+  }
+  set {
     name  = "configs.secret.argocdServerAdminPassword"
     value = random_password.argocd.result
   }
