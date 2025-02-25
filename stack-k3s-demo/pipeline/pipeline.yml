@@ -32,31 +32,34 @@ jobs:
             chmod 600 ~/.ssh/git
             eval "$(ssh-agent -s)"
             ssh-add ~/.ssh/git
-            IPADDR=$(case $CLOUD_TYPE in
-              "Ionos") IPADDR=${IONOS_IP} ;;
-              "Outscale") IPADDR=${OUTSCALE_IP} ;;
-              "Other") IPADDR=${OTHER_IP} ;;
-              *) echo "IP Address not found" && exit 1 ;;
-            esac)
-            if ssh admin@${IPADDR} "ls"; then
+            case $CLOUD_TYPE in
+              "Ionos") IPADDR=${IONOS_IP};;
+              "Outscale") IPADDR=${OUTSCALE_IP};;
+              "Other") IPADDR=${OTHER_IP};;
+              *) IPADDR="unknown";;
+            esac
+            echo IPADDR
+            echo $IPADDR
+            if ssh -t admin@${IPADDR} pwd; then
               USERNAME=admin
-            elif
-              if ssh root@${IPADDR} "ls"; then
+            else
+              if ssh -t root@${IPADDR} pwd; then
                 USERNAME=root
-              elif
-                if ssh outscale@${IPADDR} "ls"; then
+              else
+                if ssh -t outscale@${IPADDR} pwd; then
                   USERNAME=outscale
-                elif
+                else
                   echo "Error: SSH user not found... Tried [admin, root, outscale]"
                   exit 1
                 fi
               fi
             fi
             echo "Installing K3s..."
-            ssh ${USERNAME}@${IPADDR} "curl -sfL https://get.k3s.io | K3S_KUBECONFIG_MODE="644" INSTALL_K3S_EXEC="server --disable traefik --disable servicelb --tls-san ${IPADDR}" sh -s -"
+            ssh ${USERNAME}@${IPADDR} "curl -sfL https://get.k3s.io | K3S_KUBECONFIG_MODE='644' INSTALL_K3S_EXEC='--disable traefik --disable servicelb --tls-san ${IPADDR}' sh -s -"
             ssh ${USERNAME}@${IPADDR} "until sudo ls /etc/rancher/k3s/k3s.yaml /dev/null; do sleep 1; done"
             ssh ${USERNAME}@${IPADDR} "mkdir -p ~/.kube && sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/config && sudo chmod 644 ~/.kube/config"
-            ssh ${USERNAME}@${IPADDR} "export KUBECONFIG=~/.kube/config && kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.1.2/deploy/static/provider/cloud/deploy.yaml"
+            ssh ${USERNAME}@${IPADDR} "export KUBECONFIG=~/.kube/config && kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.12.0/deploy/static/provider/baremetal/deploy.yaml"
+            #kubectl patch svc ingress-nginx-controller -n ingress-nginx -p '{"spec": {"type": "LoadBalancer", "externalIPs":["5.104.97.238"]}}'
             scp ${USERNAME}@${IPADDR}:~/.kube/config ~/kubeconfig
             sed -i "s/127.0.0.1/${IPADDR}/" ~/kubeconfig
             echo "Saving kubeconfig in Credential ${CY_ORG}-${PROJECT}-${ENV}-kubeconfig"
@@ -101,7 +104,7 @@ jobs:
           - |
             echo "Deleting Credential ${CY_ORG}-${PROJECT}-${ENV}-kubeconfig"
             if ! cy credential delete --canonical "${CY_ORG}-${PROJECT}-${ENV}-kubeconfig"; then
-              echo "Error: cy returned code $?
+              echo "Error: cy returned code $?"
               exit 1
             fi
         params:
