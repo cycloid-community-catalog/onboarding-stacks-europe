@@ -1,0 +1,32 @@
+#
+# K3s
+#
+
+#. cloud_type (required): ""
+#+ The cloud hosting the instance where to install K3s.
+cloud_type: ""
+
+#. ionos_ip (required): ""
+#+ The Ionos instance IP address where to install K3s.
+ionos_ip: ""
+
+#. outscale_ip (required): ""
+#+ The Outscale instance IP addresswhere to install K3s.
+outscale_ip: ""
+
+#. other_ip (required): ""
+#+ The IP address of the instance where to deploy K3s.
+other_ip: ""
+
+#. ssh_key (required): ""
+#+ The SSH private key to access the instance where to install K3s.
+ssh_key: ""
+
+
+#
+# Default variables
+#
+
+#. cycloid_api_key (required): ((admin-api-key.key))
+#+ API key to grant admin acess to Cycloid API.
+cycloid_api_key: ((admin-api-key.key))
