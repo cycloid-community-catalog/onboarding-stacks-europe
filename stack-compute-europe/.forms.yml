@@ -134,13 +134,13 @@ use_cases:
         - "Memory Cube L"
         - "Memory Cube XL"
 
-    - name: "IONOS Network"
-      description: "The network where the resources will be deployed."
-      key: ionos_lan
-      widget: cy_inventory_resource
-      widget_config:
-        attribute: id
-        filters:
-          type: ionoscloud_lan
-      type: string
-      required: true
+      - name: "IONOS Network"
+        description: "The network where the resources will be deployed."
+        key: ionos_lan
+        widget: cy_inventory_resource
+        widget_config:
+          attribute: id
+          filters:
+            type: ionoscloud_lan
+        type: string
+        required: true
