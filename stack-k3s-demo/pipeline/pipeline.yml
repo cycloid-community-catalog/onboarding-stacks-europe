@@ -67,8 +67,6 @@ jobs:
                   exit 1
               fi
             fi
-        inputs:
-        - name: tfstate
         params:
           SSH_PRIVATE_KEY: ((ssh_key))
           CLOUD_TYPE: ((cloud_type))

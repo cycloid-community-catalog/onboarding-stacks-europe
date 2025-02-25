@@ -5,6 +5,65 @@ use_cases:
   sections:
   - name: K3s
     groups:
+    - name: Target Cloud
+      technologies: [pipeline]
+      vars:
+      - name: "Target Cloud"
+        description: "The cloud hosting the instance where to install K3s."
+        key: cloud_type
+        widget: dropdown
+        type: string
+        default: "Outscale"
+        required: true
+        values:
+        - "Ionos"
+        - "Outscale"
+        - "Other"
+
+    - name: Ionos Infrastructure
+      technologies: [pipeline]
+      condition: '$cloud_type == "Ionos"'
+      vars:
+      - name: "Ionos Instance"
+        description: "The Ionos instance where to install K3s."
+        key: ionos_ip
+        widget: cy_inventory_resource
+        widget_config:
+          attribute: primary_ip
+          filters:
+            type: ionoscloud_server
+        type: string
+        required: true
+
+    - name: Outscale Infrastructure
+      technologies: [pipeline]
+      condition: '$cloud_type == "Outscale"'
+      vars:
+      - name: "Outscale Instance"
+        description: "The Outscale instance where to install K3s."
+        key: outscale_ip
+        widget: cy_inventory_resource
+        widget_config:
+          attribute: public_ip
+          filters:
+            type: outscale_vm
+        type: string
+        required: true
+
+    - name: Other Infrastructure
+      technologies: [pipeline]
+      condition: '$cloud_type == "Other"'
+      vars:
+      - name: "IP Address"
+        description: "The IP address of the instance where to install K3s."
+        key: other_ip
+        widget: simple_text
+        type: string
+        required: true
+        validations: 
+        - regexp: "^\\d+\\.\\d+\\.\\d+\\.\\d+$" 
+          error_message: "Please enter a valid IPv4 address such as 1.2.3.4"
+
     - name: SSH Key
       technologies: [pipeline]
       vars:
