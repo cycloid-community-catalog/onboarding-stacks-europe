@@ -1,7 +1,7 @@
 ---
 version: "2"
 use_cases:
-- name: outscale
+- name: default
   sections:
   - name: K3s
     groups:
