@@ -4,7 +4,7 @@
 
 #. kubeconfig_content (required): ''
 #+ Kubeconfig content from Cycloid vault.
-kubeconfig_content: "custom_((($ .organization_canonical $)-($ .project $)-($ .environment $)-kubeconfig.kubeconfig))"
+kubeconfig_content: "((custom_($ .organization_canonical $)-($ .project $)-($ .environment $)-kubeconfig.kubeconfig))"
 
 #
 # Application
