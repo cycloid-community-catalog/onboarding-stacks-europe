@@ -20,7 +20,6 @@ technologies:
 config:
   default:
     pipeline:
-    cloud_provider: kubernetes
       pipeline:
         path: pipeline/pipeline.yml
       variables:
