@@ -16,7 +16,7 @@ resources:
     backend_config:
       address: '($ .api_url $)/inventory?jwt=($ .inventory_jwt $)'
     vars:
-      cycloid_jwt: ((cycloid_api_key))
+      cycloid_api_key: ((cycloid_api_key))
       cycloid_api_url: ($ .api_url $)
       github_pat: ((github_pat))
       cy_org: ($ .organization_canonical $)

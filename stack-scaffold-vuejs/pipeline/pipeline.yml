@@ -1,17 +1,3 @@
-# YAML anchors
-shared:
-# Task : sync and merge with rsync 2 rep. Used to merge stack and config
-- &merge-stack-and-config
-  platform: linux
-  image_resource:
-    type: registry-image
-    source:
-      repository: cycloid/cycloid-toolkit
-      tag: latest
-  run:
-    path: /usr/bin/merge-stack-and-config
-
-
 resource_types:
 - name: terraform
   type: registry-image
@@ -30,12 +16,13 @@ resources:
     backend_config:
       address: '($ .api_url $)/inventory?jwt=($ .inventory_jwt $)'
     vars:
-      cyorg_jwt: ((cyorg_jwt))
-      cycloid_api_url: ($ .api_url $)
       github_pat: ((github_pat))
-      cyenv: ($ .environment $)
-      cyproject: ($ .project $)
-      cyorg: ($ .organization_canonical $)
+      cycloid_api_key: ((cycloid_api_key))
+      cycloid_api_url: ($ .api_url $)
+      cy_org: ($ .organization_canonical $)
+      cy_pro: ($ .project $)
+      cy_env: ($ .environment $)
+      cy_com: ($ .component $)
 
 
 # The Terraform stack (will be merged with the config)
@@ -53,7 +40,7 @@ resources:
     private_key: ((($ .scs_cred_path $).ssh_key))
     ($- end $)
     paths:
-      - ($ .stack_path $)/terraform-scaffold/*
+      - ($ .stack_path $)/terraform/*
 
 # The Terraform config (will be merged with the stack)
 - name: git_config-terraform
@@ -70,14 +57,13 @@ resources:
     private_key: ((($ .cr_cred_path $).ssh_key))
     ($- end $)
     paths:
-      - ($ .project $)/terraform-scaffold/($ .environment $)/*
+      - ($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/terraform/*
 
 groups:
 - name: overview
   jobs:
     - create-git-repo
     - scaffold-project
-    - monitor-pr
 
 - name: destroy
   jobs:
@@ -99,7 +85,14 @@ jobs:
 
       - task: merge-stack-and-config
         config:
-          <<: *merge-stack-and-config
+          platform: linux
+          image_resource:
+            type: registry-image
+            source:
+              repository: cycloid/cycloid-toolkit
+              tag: latest
+          run:
+            path: /usr/bin/merge-stack-and-config
           inputs:
           - name: git_config-terraform
             path: "config"
@@ -109,8 +102,8 @@ jobs:
           - name: merged-stack
             path: "merged-stack"
         params:
-          CONFIG_PATH: ($ .project $)/terraform-scaffold/($ .environment $)
-          STACK_PATH: ($ .stack_path $)/terraform-scaffold
+          CONFIG_PATH: ($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/terraform
+          STACK_PATH: ($ .stack_path $)/terraform
 
       - put: tfstate
         params:
@@ -141,7 +134,7 @@ jobs:
             args:
             - -ecx
             - |
-              apt-get update
+              # apt-get update
               apt-get install jq -y
               mkdir -p ~/.ssh
               echo "${GIT_KEY}" >~/.ssh/git
@@ -173,44 +166,6 @@ jobs:
           FEATURE_FLAGS: ((vuejs_feature_flags))
 
 
-  # Monitor new open PR to deploy feature env
-  - name: monitor-pr
-    max_in_flight: 1
-    build_logs_to_retain: 20
-    plan:
-      - in_parallel:
-        - get: tfstate
-          trigger: true
-          passed:
-            - create-git-repo
-
-      - task: create-env
-        config:
-          platform: linux
-          image_resource:
-            type: registry-image
-            source:
-              repository: cycloid/cycloid-toolkit
-              tag: latest
-          run:
-            path: sh
-            args:
-              - -ec
-              - |
-                # If not already created, create a new env monitor open prs
-                cy project create-stackforms-env \
-                --org $CY_ORG \
-                --project ${PROJECT} \
-                --env "monitor_pr" --use-case "pull_requests" \
-                --update
-        params:
-          PROJECT: ($ .project $)
-          CY_ORG: ($ .organization_canonical $)
-          CY_API_URL: ($ .api_url $)
-          CY_API_TOKEN: ((admin-api-key.key))
-          INSECURE: "true"
-
-
   # Destroy the infrastructure
   - name: destroy-git-repo
     max_in_flight: 1
@@ -219,20 +174,21 @@ jobs:
       - in_parallel:
         - get: git_stack-terraform
           trigger: false
-          passed:
-            - create-git-repo
-
         - get: git_config-terraform
           trigger: false
-          passed:
-            - create-git-repo
-
         - get: tfstate
           trigger: false
 
       - task: merge-stack-and-config
         config:
-          <<: *merge-stack-and-config
+          platform: linux
+          image_resource:
+            type: registry-image
+            source:
+              repository: cycloid/cycloid-toolkit
+              tag: latest
+          run:
+            path: /usr/bin/merge-stack-and-config
           inputs:
           - name: git_config-terraform
             path: "config"
@@ -242,8 +198,8 @@ jobs:
           - name: merged-stack
             path: "merged-stack"
         params:
-          CONFIG_PATH: ($ .project $)/terraform-scaffold/($ .environment $)
-          STACK_PATH: ($ .stack_path $)/terraform-scaffold
+          CONFIG_PATH: ($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/terraform
+          STACK_PATH: ($ .stack_path $)/terraform
 
       - put: tfstate
         params:
