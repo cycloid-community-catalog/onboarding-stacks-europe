@@ -1,7 +1,7 @@
 ---
 version: "2"
 use_cases:
-- name: kubernetes
+- name: default
   sections:
   - name: Nexus Repository
     groups:
