@@ -19,4 +19,8 @@ module "compute" {
   #. ionos_lan: ""
   #+ The network where to deploy the infrastructure.
   ionos_lan = ""
+
+  #. ionos_private_network: ""
+  #+ Whether to connect the instance to a IONOS private network.
+  ionos_private_network = ""
 }

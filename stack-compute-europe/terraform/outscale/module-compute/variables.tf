@@ -30,6 +30,10 @@ variable "outscale_net" {
   description = "The network where to deploy the infrastructure."
 }
 
+variable "outscale_private_network" {
+  description = "Whether to connect to an Outscale private network."
+}
+
 # Tags
 variable "extra_tags" {
   default = {}

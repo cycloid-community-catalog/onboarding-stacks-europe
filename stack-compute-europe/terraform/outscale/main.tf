@@ -27,4 +27,8 @@ module "compute" {
   #. outscale_net: ""
   #+ The network where to deploy the infrastructure.
   outscale_net = ""
+
+  #. outscale_private_network: ""
+  #+ Whether to connect to an Outscale private network.
+  outscale_private_network = ""
 }

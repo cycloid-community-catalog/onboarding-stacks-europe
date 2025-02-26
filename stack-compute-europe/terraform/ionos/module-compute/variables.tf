@@ -17,6 +17,9 @@ variable "ionos_lan" {
   description = "The network where to deploy the infrastructure."
 }
 
+variable "ionos_private_network" {
+  description = "Whether to connect the instance to a IONOS private network."
+}
 variable "ionos_username" {
   description = "The IONOS admin username on the instance."
   default = "root"
