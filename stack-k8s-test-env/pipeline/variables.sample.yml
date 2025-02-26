@@ -12,15 +12,15 @@ kubeconfig_content: "((custom_($ .organization_canonical $)-($ .project $)-($ .e
 
 #. git_url (required): ''
 #+ Public git URL where the application is stored.
-git_url: """
+git_url: ""
 
 #. git_branch (required): ''
 #+ Git branch where the application is stored.
-git_branch: """
+git_branch: ""
 
 #. git_path (required): ''
 #+ Path to the application to build and deploy. A Dockerfile needs to be present in the root folder.
-git_path: """
+git_path: ""
 
 #
 # Default variables
