@@ -69,8 +69,23 @@ use_cases:
         - 1
         - 8
 
-      - name: "Outscale Network"
-        description: "The network where the resources will be deployed."
+    - name: Outscale Networks
+      technologies: [terraform]
+      vars:
+      - name: "Outscale Private Network"
+        description: "Whether to connect to an Outscale private network."
+        key: outscale_private_network
+        widget: switch
+        type: boolean
+        required: true
+        default: false
+
+    - name: Outscale Private Network
+      technologies: [terraform]
+      condition: '$outscale_private_network == true'
+      vars:
+      - name: "Outscale Private Network"
+        description: "Select an Outscale private network to connect the instance to."
         key: outscale_net
         widget: cy_inventory_resource
         widget_config:
@@ -134,8 +149,23 @@ use_cases:
         - "Memory Cube L"
         - "Memory Cube XL"
 
-      - name: "IONOS Network"
-        description: "The network where the resources will be deployed."
+    - name: IONOS Networks
+      technologies: [terraform]
+      vars:
+      - name: "IONOS Private Network"
+        description: "Whether to connect the instance to a IONOS private network."
+        key: ionos_private_network
+        widget: switch
+        type: boolean
+        required: true
+        default: false
+
+    - name: IONOS Private Network
+      technologies: [terraform]
+      condition: '$ionos_private_network == true'
+      vars:
+      - name: "IONOS Private Network"
+        description: "Select an IONOS private network to connect the instance to."
         key: ionos_lan
         widget: cy_inventory_resource
         widget_config:
