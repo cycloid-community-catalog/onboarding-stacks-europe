@@ -5,7 +5,6 @@
 #. kubeconfig_content (required): ''
 #+ Kubeconfig content from Cycloid vault.
 kubeconfig_content: "custom_((($ .organization_canonical $)-($ .project $)-($ .environment $)-kubeconfig.kubeconfig))"
-git_branch, git_path, git_url
 
 #
 # Application
