@@ -4,15 +4,9 @@ resource "helm_release" "nexus-repository" {
   chart      = "nexus-repository-manager"
 
   set {
-    name  = "nexus.nexusPort"
-    value = "${var.nexus_port}"
-  }
-
-  set {
     name  = "persistence.storageSize"
     value = "${var.vm_disk_size}Gi"
   }
-
 
   set {
     name  = "nexus.security.randompassword"

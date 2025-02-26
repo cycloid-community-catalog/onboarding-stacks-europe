@@ -19,16 +19,6 @@ use_cases:
             - 10
             - 100
         required: true
-    - name: Application Configuration
-      technologies: [terraform]
-      vars:
-      - name: "Port"
-        description: "Port where Nexus Repository service is exposed."
-        key: nexus_port
-        widget: simple_text
-        type: string
-        default: "8081"
-        required: true
 
     - name: Kubernetes Access Configuration
       technologies: [pipeline]
