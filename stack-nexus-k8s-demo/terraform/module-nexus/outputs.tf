@@ -1,7 +1,3 @@
-#
-# Nexus Repository outputs
-#
 output "nexus_port" {
-  description = "Port where Nexus Repository service is exposed"
-  value = var.nexus_port
+  value = data.kubernetes_service.nexus-repository.spec.0.port.0.port
 }

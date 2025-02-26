@@ -22,6 +22,8 @@ resources:
       cy_pro: ($ .project $)
       cy_env: ($ .environment $)
       cy_com: ($ .component $)
+    env:
+      KUBE_CONFIG_PATH: kubeconfig
 
 
 # The Terraform stack (will be merged with the config)
@@ -95,9 +97,8 @@ jobs:
             args:
             - '-ec'
             - |
-              echo -e "${KUBECONFIG_CONTENT}" > stack/${STACK_PATH}/kubeconfig
-              export KUBE_CONFIG_PATH="$(pwd)/stack/${STACK_PATH}/kubeconfig"
               /usr/bin/merge-stack-and-config
+              echo -e "${KUBECONFIG_CONTENT}" > merged-stack/kubeconfig
           inputs:
           - name: git_config-terraform
             path: "config"
@@ -142,9 +143,8 @@ jobs:
             args:
             - '-ec'
             - |
-              echo -e "${KUBECONFIG_CONTENT}" > stack/${STACK_PATH}/kubeconfig
-              export KUBE_CONFIG_PATH="$(pwd)/stack/${STACK_PATH}/kubeconfig"
               /usr/bin/merge-stack-and-config
+              echo -e "${KUBECONFIG_CONTENT}" > merged-stack/kubeconfig
           inputs:
           - name: git_config-terraform
             path: "config"
