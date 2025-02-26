@@ -2,13 +2,9 @@
 # Kubernetes
 #
 
-#. kubeconfig_filename (required): 'kubeconfig'
-#+ Kubeconfig filename to create.
-kubeconfig_filename: "kubeconfig"
-
-#. kubeconfig_content (required): ''
+#. kubeconfig_content (required): "((custom_($ .organization_canonical $)-($ .project $)-($ .environment $)-kubeconfig.kubeconfig))"
 #+ Kubeconfig content from Cycloid vault.
-kubeconfig_content: "custom_((($ .organization_canonical $)-($ .project $)-($ .environment $)-kubeconfig.kubeconfig))"
+kubeconfig_content: "((custom_($ .organization_canonical $)-($ .project $)-($ .environment $)-kubeconfig.kubeconfig))"
 
 #
 # GitHub

@@ -5,7 +5,7 @@ name: 'ArgoCD'
 canonical: stack-argocd
 author: Cycloid
 description: |
-  Deploy ArgoCD on a Kubernetes cluster.
+  Deploy ArgoCD on a Kubernetes cluster and create its GitHub repository.
 image: |
   https://cycloid-demo-stacks-logo.s3.eu-west-1.amazonaws.com/argocd.svg
 keywords:
