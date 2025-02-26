@@ -6,7 +6,7 @@ use_cases:
   - name: Nexus Repository
     groups:
     - name: Application Git
-      technologies: [terraform]
+      technologies: [pipeline]
       vars:
       - name: "Application Git URL"
         description: "Public git URL where the application is stored."

@@ -5,7 +5,23 @@
 #. kubeconfig_content (required): ''
 #+ Kubeconfig content from Cycloid vault.
 kubeconfig_content: "custom_((($ .organization_canonical $)-($ .project $)-($ .environment $)-kubeconfig.kubeconfig))"
+git_branch, git_path, git_url
 
+#
+# Application
+#
+
+#. git_url (required): ''
+#+ Public git URL where the application is stored.
+git_url: """
+
+#. git_branch (required): ''
+#+ Git branch where the application is stored.
+git_branch: """
+
+#. git_path (required): ''
+#+ Path to the application to build and deploy. A Dockerfile needs to be present in the root folder.
+git_path: """
 
 #
 # Default variables
