@@ -1,2 +1,2 @@
 # onboarding-stacks-europe
-Onboarding stacks for European Clouds
+Onboarding Cycloid Stacks for European Clouds

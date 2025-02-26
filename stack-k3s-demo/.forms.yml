@@ -76,5 +76,5 @@ use_cases:
           cred_types:
             - ssh
         type: string
-        default: "((($ .organization_canonical $)-($ .project $)-($ .environment $).ssh_key))"
+        default: "((($ .organization_canonical $)-($ .project $)-($ .environment $)-compute-ssh.ssh_key))"
         required: true

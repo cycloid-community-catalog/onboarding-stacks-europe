@@ -18,9 +18,9 @@ outscale_ip: ""
 #+ The IP address of the instance where to deploy K3s.
 other_ip: ""
 
-#. ssh_key (required): ""
+#. ssh_key (required): "((($ .organization_canonical $)-($ .project $)-($ .environment $)-compute-ssh.ssh_key))"
 #+ The SSH private key to access the instance where to install K3s.
-ssh_key: ""
+ssh_key: "((($ .organization_canonical $)-($ .project $)-($ .environment $)-compute-ssh.ssh_key))"
 
 
 #

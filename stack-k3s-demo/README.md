@@ -1,3 +1,3 @@
-# stack-k3s-europe
+# stack-k3s-demo
 
-Deploy a K3s cluster on OVH or IONOS instance.
+Deploy a K3s cluster with NGINX as ingress controller on a cloud instance.

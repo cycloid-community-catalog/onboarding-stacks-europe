@@ -1,3 +1,3 @@
-# stack-k3s-europe
+# stack-compute-europe
 
-Deploy a K3s cluster on OVH or IONOS instance.
+Deploy a compute instance on Outscale or IONOS instances.

@@ -4,10 +4,10 @@ resource "tls_private_key" "ssh_key" {
 }
 
 resource "cycloid_credential" "ssh_key" {
-  name                   = "${var.cy_org}-${var.cy_pro}-${var.cy_env}"
+  name                   = "${var.cy_org}-${var.cy_pro}-${var.cy_env}-compute-ssh"
   description            = "SSH Key Pair used in newly provisionned workloads."
-  path                   = "${var.cy_org}-${var.cy_pro}-${var.cy_env}"
-  canonical              = "${var.cy_org}-${var.cy_pro}-${var.cy_env}"
+  path                   = "${var.cy_org}-${var.cy_pro}-${var.cy_env}-compute-ssh"
+  canonical              = "${var.cy_org}-${var.cy_pro}-${var.cy_env}-compute-ssh"
 
   type = "ssh"
   body = {
