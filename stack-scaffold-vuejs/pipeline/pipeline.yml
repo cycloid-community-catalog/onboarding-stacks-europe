@@ -134,7 +134,7 @@ jobs:
             args:
             - -ecx
             - |
-              # apt-get update
+              apt-get update
               apt-get install jq -y
               mkdir -p ~/.ssh
               echo "${GIT_KEY}" >~/.ssh/git
