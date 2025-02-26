@@ -1,0 +1,45 @@
+resources:
+# The repo with our Dockerfile
+- name: git_app_code
+  type: git
+  icon: github-circle
+  source:
+    uri: ((git_url))
+    branch: ((git_branch))
+    paths:
+      - ((git_path))/*
+
+# Where we will push the image
+- name: app_image
+  type: registry-image
+  icon: docker
+  source:
+    repository: 410667661622.dkr.ecr.us-east-1.amazonaws.com/cycloid-demo/test-env
+    aws_access_key_id: ((ecr-full.access_key))
+    aws_secret_access_key: ((ecr-full.secret_key))
+
+jobs:
+- name: build-and-push
+  plan:
+  - get: git_app_code
+  - task: build-task-image
+    privileged: true
+    config:
+      platform: linux
+      image_resource:
+        type: registry-image
+        source:
+          repository: concourse/oci-build-task
+      inputs:
+      - name: git_app_code
+      outputs:
+      - name: image
+      params:
+        CONTEXT: git_app_code/((git_path))
+      caches:
+      - path: cache
+      run:
+        path: build
+  - put: app_image
+    params:
+      image: image/image.tar

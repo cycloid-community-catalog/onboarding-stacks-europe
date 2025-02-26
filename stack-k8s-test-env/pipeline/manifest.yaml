@@ -1,0 +1,52 @@
+---
+# Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: amazing-web-app
+spec:
+  selector:
+    app: amazing-web-app
+  ports:
+    - port: 80
+      targetPort: 8080
+---
+# Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: amazing-web-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: amazing-web-app
+  template:
+    metadata:
+      labels:
+        app: amazing-web-app
+    spec:
+      containers:
+        - name: amazing-web-app
+          image: k33g/amazing-img:0.0.0
+          ports:
+            - containerPort: 8080
+          imagePullPolicy: Always
+---
+# Ingress
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: amazing-web-app
+spec:
+  rules:
+    - host: amazing-web-app.192.168.64.17.nip.io
+      http:
+        paths:
+          - backend:
+              serviceName: amazing-web-app
+              servicePort: 80
+
+
+apply with:
+envsubst < deployment.yaml | kubectl apply -f -

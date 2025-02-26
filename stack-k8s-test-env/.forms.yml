@@ -1,0 +1,50 @@
+---
+version: "2"
+use_cases:
+- name: default
+  sections:
+  - name: Nexus Repository
+    groups:
+    - name: Application Git
+      technologies: [terraform]
+      vars:
+      - name: "Application Git URL"
+        description: "Public git URL where the application is stored."
+        key: git_url
+        widget: auto_complete
+        type: string
+        values: ["https://github.com/cycloid-community-catalog/onboarding-scaffold.git", "https://github.com/Rahul-Pandey7/react-image-compressor.git","https://github.com/arnab-datta/counter-app.git","https://github.com/Yog9/SnapShot.git","https://github.com/ahfarmer/calculator.git","https://github.com/ahfarmer/emoji-search.git"]
+        default: "https://github.com/cycloid-community-catalog/onboarding-scaffold.git"
+        required: true
+
+      - name: "Application Git Branch"
+        description: "Git branch where the application is stored."
+        key: git_branch
+        widget: auto_complete
+        type: string
+        values: ["staging", "develop"]
+        default: "develop"
+        required: true
+
+      - name: "Application Path"
+        description: "Path to the application to build and deploy. A Dockerfile needs to be present in the root folder."
+        key: git_path
+        widget: simple_text
+        type: string
+        default: "simple-counter"
+        required: true
+
+    - name: Kubernetes Access Configuration
+      technologies: [pipeline]
+      vars:
+      - name: "Kubeconfig"
+        description: "The Kubeconfig to access your Kubernetes Cluster."
+        key: kubeconfig_content
+        widget: cy_cred
+        widget_config:
+          display_keys: true
+          cred_types:
+            - custom
+        type: string
+        default: (("custom_($ .organization_canonical $)-($ .project $)-($ .environment $)-kubeconfig.kubeconfig"))
+        required: true
