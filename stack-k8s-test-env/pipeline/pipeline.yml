@@ -22,6 +22,7 @@ jobs:
 - name: build-and-push
   plan:
   - get: git_app_code
+    trigger: true
   - task: build-task-image
     privileged: true
     config:
