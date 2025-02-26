@@ -23,6 +23,8 @@ resources:
       cy_pro: ($ .project $)
       cy_env: ($ .environment $)
       cy_com: ($ .component $)
+    env:
+      KUBE_CONFIG_PATH: kubeconfig
 
 
 # The Terraform stack (will be merged with the config)
