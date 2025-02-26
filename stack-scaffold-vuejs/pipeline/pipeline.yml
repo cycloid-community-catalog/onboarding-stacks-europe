@@ -161,7 +161,7 @@ jobs:
               echo "Application build completed."
         params:
           GIT_URL: "git@github.com:cycloid-demo/($ .organization_canonical $)-($ .project $).git"
-          GIT_KEY: ((($ .project $).ssh_key))
+          GIT_KEY: ((($ .organization_canonical $)-($ .project $)-($ .environment $)-git-ssh.ssh_key))
           PROJECT: ($ .project $)
           FEATURE_FLAGS: ((vuejs_feature_flags))
 
