@@ -2,8 +2,8 @@
 # Cloud Providers
 #
 
-#. outscale_cred (required): ((ovh))
-#+ The OVH account where to deploy the infrastructure.
+#. outscale_cred (required): ((outscale))
+#+ The Outscale account where to deploy the infrastructure.
 outscale_cred: ((outscale))
 
 #. outscale_region (required): "eu-west-2"
