@@ -4,12 +4,6 @@ variable "cy_pro" {}
 variable "cy_env" {}
 variable "cy_com" {}
 
-variable "cyorg_jwt" {
-  type        = string
-  description = "Cycloid Organization JWT used for authentication"
-  sensitive   = true
-}
-
 variable "github_pat" {
   type        = string
   description = "GitHub Personal Access Token"
