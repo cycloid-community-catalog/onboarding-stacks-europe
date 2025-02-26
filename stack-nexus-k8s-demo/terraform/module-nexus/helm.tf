@@ -15,6 +15,11 @@ resource "helm_release" "nexus" {
 
   set {
     name  = "service.type"
-    value = "LoadBalancer"
+    value = "NodePort"
+  }
+
+  set {
+    name  = "nexus.security.randompassword"
+    value = false
   }
 }

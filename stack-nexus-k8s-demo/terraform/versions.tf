@@ -5,5 +5,9 @@ terraform {
     helm = {
       version = ">= 2.3.0"
     }
+    cycloid = {
+      source = "cycloidio/cycloid"
+      version = ">= 0.0.20"
+    }
   }
 }

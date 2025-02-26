@@ -30,16 +30,17 @@ use_cases:
         default: "8081"
         required: true
 
-    - name: Kubernetes Cluster Access Configuration
+    - name: Kubernetes Access Configuration
       technologies: [pipeline]
       vars:
-      - name: "Kube Config"
-        description: "The KubeConfig to access your Kubernetes Cluster."
-        key: kubeconfig
+      - name: "Kubeconfig"
+        description: "The Kubeconfig to access your Kubernetes Cluster."
+        key: kubeconfig_content
         widget: cy_cred
         widget_config:
           display_keys: true
           cred_types:
             - custom
         type: string
+        default: (("custom_($ .organization_canonical $)-($ .project $)-($ .environment $)-kubeconfig.kubeconfig"))
         required: true
