@@ -14,9 +14,10 @@ resources:
   type: registry-image
   icon: docker
   source:
-    repository: 410667661622.dkr.ecr.us-east-1.amazonaws.com/cycloid-demo/test-env
-    aws_access_key_id: ((ecr-full.access_key))
-    aws_secret_access_key: ((ecr-full.secret_key))
+    repository: ((registry_repository))
+    username: ((registry_username))
+    password: ((registry_password))
+    tag: ($ .environment $)
 
 jobs:
 - name: build-and-push
