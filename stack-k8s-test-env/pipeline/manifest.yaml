@@ -3,48 +3,48 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: amazing-web-app
+  name: ${APP_NAME}
 spec:
   selector:
-    app: amazing-web-app
+    app: ${APP_NAME}
   ports:
     - port: 80
-      targetPort: 8080
+      targetPort: ${APP_PORT}
 ---
 # Deployment
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: amazing-web-app
+  name: ${APP_NAME}
 spec:
-  replicas: 3
+  replicas: ${APP_REPLICAS}
   selector:
     matchLabels:
-      app: amazing-web-app
+      app: ${APP_NAME}
   template:
     metadata:
       labels:
-        app: amazing-web-app
+        app: ${APP_NAME}
     spec:
       containers:
-        - name: amazing-web-app
-          image: k33g/amazing-img:0.0.0
+        - name: ${APP_NAME}
+          image: ${APP_IMAGE_REPO}:${APP_IMAGE_TAG}
           ports:
-            - containerPort: 8080
+            - containerPort: ${APP_PORT}
           imagePullPolicy: Always
 ---
 # Ingress
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: amazing-web-app
+  name: ${APP_NAME}
 spec:
   rules:
-    - host: amazing-web-app.192.168.64.17.nip.io
+    - host: ${APP_NAME}.${K8S_EXTERNAL_IP}.nip.io
       http:
         paths:
           - backend:
-              serviceName: amazing-web-app
+              serviceName: ${APP_NAME}
               servicePort: 80
 
 

@@ -19,6 +19,14 @@ resources:
     password: ((registry_password))
     tag: ($ .environment $)
 
+
+groups:
+- name: overview
+  jobs:
+    - build-and-push
+    - deploy-app
+
+
 jobs:
 - name: build-and-push
   plan:
@@ -45,3 +53,86 @@ jobs:
   - put: app_image
     params:
       image: image/image.tar
+
+- name: deploy-app
+  serial: true
+  max_in_flight: 1
+  build_logs_to_retain: 10
+  plan:
+  - get: app_image
+    trigger: true
+  - task: deploy-k3s
+    config:
+      platform: linux
+      image_resource:
+        type: registry-image
+        source:
+          repository: bitnami/kubectl
+          tag: latest
+      run:
+        path: /bin/bash
+        args:
+        - -ec
+        - |
+          echo -e "${KUBECONFIG_CONTENT}" >kubeconfig
+          export KUBECONFIG="${pwd}/kubeconfig"
+          export K8S_EXTERNAL_IP=$(kubectl config view -o json | jq .clusters[0].cluster.server | awk -F[/:] '{print $4}')
+          cat << EOF >deploy.yaml
+---
+# Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: ${APP_NAME}
+spec:
+  selector:
+    app: ${APP_NAME}
+  ports:
+    - port: 80
+      targetPort: ${APP_PORT}
+---
+# Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ${APP_NAME}
+spec:
+  replicas: ${APP_REPLICAS}
+  selector:
+    matchLabels:
+      app: ${APP_NAME}
+  template:
+    metadata:
+      labels:
+        app: ${APP_NAME}
+    spec:
+      containers:
+        - name: ${APP_NAME}
+          image: ${APP_IMAGE_REPO}:${APP_IMAGE_TAG}
+          ports:
+            - containerPort: ${APP_PORT}
+          imagePullPolicy: Always
+---
+# Ingress
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ${APP_NAME}
+spec:
+  rules:
+    - host: ${APP_NAME}.${K8S_EXTERNAL_IP}.nip.io
+      http:
+        paths:
+          - backend:
+              serviceName: ${APP_NAME}
+              servicePort: 80
+EOF
+          echo "Deploying..."
+          kubectl apply -f deploy.yaml
+      params:
+        KUBECONFIG_CONTENT: ((kubeconfig_content))
+        APP_NAME: ($ .organization_canonical $)-($ .project $)-($ .environment $)
+        APP_PORT: 8080
+        APP_REPLICAS: 3
+        APP_IMAGE_REPO: ((registry_repository))
+        APP_IMAGE_TAG: ($ .environment $)
