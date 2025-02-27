@@ -38,21 +38,15 @@ jobs:
               "Other") IPADDR=${OTHER_IP};;
               *) IPADDR="unknown";;
             esac
-            echo IPADDR
-            echo $IPADDR
-            if ssh -t admin@${IPADDR} pwd; then
-              USERNAME=admin
-            else
-              if ssh -t root@${IPADDR} pwd; then
-                USERNAME=root
-              else
-                if ssh -t outscale@${IPADDR} pwd; then
-                  USERNAME=outscale
-                else
-                  echo "Error: SSH user not found... Tried [admin, root, outscale]"
-                  exit 1
-                fi
+            for user in admin root outscale; do
+              if ssh -o BatchMode=yes -o ConnectTimeout=5 -t "$user@$IPADDR" pwd &>/dev/null; then
+                USERNAME=$user
+                break
               fi
+            done
+            if [[ -z "$USERNAME" ]]; then
+              echo "Error: SSH user not found... Tried [admin, root, outscale]"
+              exit 1
             fi
             echo "Installing K3s..."
             ssh ${USERNAME}@${IPADDR} "curl -sfL https://get.k3s.io | K3S_KUBECONFIG_MODE='644' INSTALL_K3S_EXEC='--disable traefik --disable servicelb --tls-san ${IPADDR}' sh -s -"
