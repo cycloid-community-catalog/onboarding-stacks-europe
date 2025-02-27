@@ -61,13 +61,15 @@ jobs:
   plan:
   - get: app_image
     trigger: true
+    passed:
+      - build-and-push
   - task: deploy-k3s
     config:
       platform: linux
       image_resource:
         type: registry-image
         source:
-          repository: bitnami/kubectl
+          repository: olivier2t/toolkit
           tag: latest
       run:
         path: /bin/bash
@@ -76,57 +78,57 @@ jobs:
         - |
           echo -e "${KUBECONFIG_CONTENT}" >kubeconfig
           export KUBECONFIG="${pwd}/kubeconfig"
-          export K8S_EXTERNAL_IP=$(kubectl config view -o json | jq .clusters[0].cluster.server | awk -F[/:] '{print $4}')
-          cat << EOF >deploy.yaml
----
-# Service
-apiVersion: v1
-kind: Service
-metadata:
-  name: ${APP_NAME}
-spec:
-  selector:
-    app: ${APP_NAME}
-  ports:
-    - port: 80
-      targetPort: ${APP_PORT}
----
-# Deployment
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: ${APP_NAME}
-spec:
-  replicas: ${APP_REPLICAS}
-  selector:
-    matchLabels:
-      app: ${APP_NAME}
-  template:
-    metadata:
-      labels:
-        app: ${APP_NAME}
-    spec:
-      containers:
-        - name: ${APP_NAME}
-          image: ${APP_IMAGE_REPO}:${APP_IMAGE_TAG}
-          ports:
-            - containerPort: ${APP_PORT}
-          imagePullPolicy: Always
----
-# Ingress
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  name: ${APP_NAME}
-spec:
-  rules:
-    - host: ${APP_NAME}.${K8S_EXTERNAL_IP}.nip.io
-      http:
-        paths:
-          - backend:
-              serviceName: ${APP_NAME}
-              servicePort: 80
-EOF
+          export K8S_EXTERNAL_IP=$(kubectl config view -o json | jq .clusters[0].cluster.server | gawk -F[/:] '{print $4}')
+          cat <<-EOF >deploy.yaml
+          ---
+          # Service
+          apiVersion: v1
+          kind: Service
+          metadata:
+            name: ${APP_NAME}
+          spec:
+            selector:
+              app: ${APP_NAME}
+            ports:
+              - port: 80
+                targetPort: ${APP_PORT}
+          ---
+          # Deployment
+          apiVersion: apps/v1
+          kind: Deployment
+          metadata:
+            name: ${APP_NAME}
+          spec:
+            replicas: ${APP_REPLICAS}
+            selector:
+              matchLabels:
+                app: ${APP_NAME}
+            template:
+              metadata:
+                labels:
+                  app: ${APP_NAME}
+              spec:
+                containers:
+                  - name: ${APP_NAME}
+                    image: ${APP_IMAGE_REPO}:${APP_IMAGE_TAG}
+                    ports:
+                      - containerPort: ${APP_PORT}
+                    imagePullPolicy: Always
+          ---
+          # Ingress
+          apiVersion: extensions/v1beta1
+          kind: Ingress
+          metadata:
+            name: ${APP_NAME}
+          spec:
+            rules:
+              - host: ${APP_NAME}.${K8S_EXTERNAL_IP}.nip.io
+                http:
+                  paths:
+                    - backend:
+                        serviceName: ${APP_NAME}
+                        servicePort: 80
+          EOF
           echo "Deploying..."
           kubectl apply -f deploy.yaml
       params:
