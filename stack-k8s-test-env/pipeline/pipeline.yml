@@ -86,6 +86,11 @@ jobs:
           export APP_NAME=$(echo ${APP_NAME} | sed 's/_//')
           cat <<-EOF >deploy.yaml
           ---
+          apiVersion: v1
+          kind: Namespace
+          metadata:
+            name: ${APP_NAME}
+          ---
           # Deployment
           apiVersion: apps/v1
           kind: Deployment
@@ -108,11 +113,6 @@ jobs:
                     ports:
                       - containerPort: ${APP_PORT}
                     imagePullPolicy: Always
-          ---
-          apiVersion: v1
-          kind: Namespace
-          metadata:
-            name: ${APP_NAME}
           ---
           # Service
           apiVersion: v1
@@ -184,6 +184,11 @@ jobs:
           export APP_NAME=$(echo ${APP_NAME} | sed 's/_//')
           cat <<-EOF >deploy.yaml
           ---
+          apiVersion: v1
+          kind: Namespace
+          metadata:
+            name: ${APP_NAME}
+          ---
           # Deployment
           apiVersion: apps/v1
           kind: Deployment
@@ -206,11 +211,6 @@ jobs:
                     ports:
                       - containerPort: ${APP_PORT}
                     imagePullPolicy: Always
-          ---
-          apiVersion: v1
-          kind: Namespace
-          metadata:
-            name: ${APP_NAME}
           ---
           # Service
           apiVersion: v1
