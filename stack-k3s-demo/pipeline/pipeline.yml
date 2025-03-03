@@ -39,7 +39,7 @@ jobs:
               *) IPADDR="unknown";;
             esac
             for user in admin root outscale; do
-              if ssh -o BatchMode=yes -o ConnectTimeout=5 -t ${user}@${IPADDR} pwd &>/dev/null; then
+              if ssh -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" -o "ConnectTimeout=5" -t ${user}@${IPADDR} pwd &>/dev/null; then
                 USERNAME=$user
                 break
               fi
