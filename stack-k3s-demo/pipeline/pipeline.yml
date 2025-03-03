@@ -54,7 +54,6 @@ jobs:
             ssh ${USERNAME}@${IPADDR} "until sudo ls /etc/rancher/k3s/k3s.yaml >/dev/null; do sleep 1; done"
             ssh ${USERNAME}@${IPADDR} "mkdir -p ~/.kube && sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/config && sudo chmod 644 ~/.kube/config"
             #ssh ${USERNAME}@${IPADDR} "kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.12.0/deploy/static/provider/baremetal/deploy.yaml"
-            ssh ${USERNAME}@${IPADDR} "helm upgrade --set controller.hostPort.enabled=true --install ingress-nginx ingress-nginx --repo https://kubernetes.github.io/ingress-nginx --namespace ingress-nginx --create-namespace"
             scp ${USERNAME}@${IPADDR}:~/.kube/config ~/kubeconfig
             sed -i "s/127.0.0.1/${IPADDR}/" ~/kubeconfig
             echo "Saving kubeconfig in Credential ${CY_ORG}-${PROJECT}-${ENV}-kubeconfig"
@@ -65,7 +64,8 @@ jobs:
                   exit 1
               fi
             fi
-            ssh ${USERNAME}@${IPADDR} "kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml"
+            helm upgrade --set controller.hostPort.enabled=true --install ingress-nginx ingress-nginx --repo https://kubernetes.github.io/ingress-nginx --namespace ingress-nginx --create-namespace
+            kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml
             echo "Kubernetes Dashbord installed. To access it, run kubectl proxy and go to http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/"
         params:
           SSH_PRIVATE_KEY: ((ssh_key))
