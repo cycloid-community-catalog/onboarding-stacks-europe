@@ -20,7 +20,7 @@ jobs:
         image_resource:
           type: registry-image
           source:
-            repository: cycloid/cycloid-toolkit
+            repository: olivier2t/toolkit
             tag: latest
         run:
           path: /bin/bash
