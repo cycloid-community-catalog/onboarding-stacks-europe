@@ -55,6 +55,7 @@ use_cases:
         widget: dropdown
         type: map
         required: false
+        default: "Frankfurt am Main (DE)"
         values:
         - {"label": "Frankfurt am Main (DE)", "value": "de/fra"}
         - {"label": "Karlsruhe (DE)", "value": "de/fkb"}
