@@ -14,8 +14,8 @@ resource "helm_release" "nexus-repository" {
   }
 }
 
-data "kubernetes_service" "nexus-repository" {
+data "kubernetes_ingress_v1" "nexus" {
   metadata {
-    name = "nexus-nexus-repository-manager"
+    name = "nexus-repository-nexus-repository-manager"
   }
 }
