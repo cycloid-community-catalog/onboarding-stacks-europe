@@ -12,7 +12,7 @@ use_cases:
         description: "Which source to use for the first commit. Either create a new VueJS application with npm or use an existing git repository."
         key: git_source
         widget: dropdown
-        type: array
+        type: map
         required: true
         values:
         - {"label": "Generate a new VueJS project.", "value": "vuejs"}
