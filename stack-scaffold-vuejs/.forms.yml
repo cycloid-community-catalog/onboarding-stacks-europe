@@ -15,11 +15,11 @@ use_cases:
         type: map
         required: true
         values:
-        - {"label": "Generate a new VueJS project.", "value": "vuejs"}
-        - {"label": "Copy an existing git repository.", "value": "git"}
+        - {"label": "Generate a new VueJS project", "value": "vuejs"}
+        - {"label": "Copy from a git repository", "value": "git"}
     - name: Git Repository
       technologies: [pipeline]
-      condition: "$git_source == 'git'"
+      condition: "$git_source == 'Copy from a git repository'"
       vars:
       - name: "Git Repository"
         description: "Git repository URL to copy for the first commit."
@@ -37,7 +37,7 @@ use_cases:
         required: false
     - name: VueJS
       technologies: [pipeline]
-      condition: "$git_source == 'vuejs'"
+      condition: "$git_source == 'Generate a new VueJS project'"
       vars:
       - name: "Feature flag to scaffold new Vue.js project"
         key: vuejs_feature_flags
