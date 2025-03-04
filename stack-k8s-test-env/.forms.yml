@@ -39,7 +39,7 @@ use_cases:
         key: git_ssh_key
         widget: cy_cred
         widget_config:
-          display_keys: true
+          display_keys: false
           cred_types:
             - ssh
         type: string
