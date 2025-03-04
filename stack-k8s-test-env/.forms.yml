@@ -27,12 +27,24 @@ use_cases:
         required: true
 
       - name: "Application Path"
-        description: "Path to the application to build and deploy. A Dockerfile needs to be present in the root folder."
+        description: "Path to the application to build and deploy. A Dockerfile needs to be present in the target folder. For the repository root folder, leave this field empty."
         key: git_path
         widget: simple_text
         type: string
         default: "simple-counter"
-        required: true
+        required: false
+
+      - name: "SSH Key"
+        description: "The SSH private key to access the git repository."
+        key: git_ssh_key
+        widget: cy_cred
+        widget_config:
+          display_keys: true
+          cred_types:
+            - ssh
+        type: string
+        default: "((($ .organization_canonical $)-($ .project $)-($ .environment $)-git-ssh.ssh_key))"
+        required: false
 
     - name: Container Registry
       technologies: [pipeline]
@@ -43,7 +55,7 @@ use_cases:
         widget: simple_text
         type: string
         default: "olivier2t/app-test-env"
-        required: true
+        required: false
 
       - name: "Repository Username"
         description: "The username to access the registry."

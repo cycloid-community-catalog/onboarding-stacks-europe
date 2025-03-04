@@ -6,6 +6,7 @@ resources:
   source:
     uri: ((git_url))
     branch: ((git_branch))
+    private_key: ((((git_ssh_key)).ssh_key))
     paths:
       - ((git_path))/*
 
