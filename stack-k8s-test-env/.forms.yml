@@ -39,7 +39,7 @@ use_cases:
         key: git_ssh_key
         widget: cy_cred
         widget_config:
-          display_keys: false
+          display_keys: true
           cred_types:
             - ssh
         type: string
@@ -93,5 +93,5 @@ use_cases:
           cred_types:
             - custom
         type: string
-        default: (("custom_($ .organization_canonical $)-($ .project $)-($ .environment $)-kubeconfig.kubeconfig"))
+        default: (("($ .organization_canonical $)-($ .project $)-($ .environment $)-kubeconfig.kubeconfig"))
         required: true
