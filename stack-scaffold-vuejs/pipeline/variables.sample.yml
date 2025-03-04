@@ -7,13 +7,24 @@
 #+ GitHub Personal Access Token allowing to manage repositories and user SSH keys. We will create a repository with stacks and config branches as well as an SSH public key stored as Cycloid credential to connect to it.
 github_pat: "((github-pat.key))"
 
+#
+# Application Source
+#
 
-#
-# Vue.js
-#
+#. git_source (required): []
+#+ Which source to use for the first commit. Could be vuejs or git.
+git_source: []
+
+#. git_source_url (required): []
+#+ The public git repo source URL to copy for the first commit when git_source is set to git.
+git_source_url: []
+
+#. git_source_url (required): []
+#+ The path in the public git repo to copy for the first commit when git_source is set to git.
+git_source_path: []
 
 #. vuejs_feature_flags (required): []
-#+ Feature flag to scaffold new Vue.js project.
+#+ Feature flag to scaffold new Vue.js project when git_source is set to vuejs.
 vuejs_feature_flags: []
 
 

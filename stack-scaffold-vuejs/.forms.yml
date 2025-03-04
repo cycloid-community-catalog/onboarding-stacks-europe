@@ -8,6 +8,37 @@ use_cases:
     - name: VueJS
       technologies: [pipeline]
       vars:
+      - name: "Git Source Template"
+        description: "Which source to use for the first commit. Either create a new VueJS application with npm or use an existing git repository."
+        key: git_source
+        widget: dropdown
+        type: array
+        required: true
+        values:
+        - {"label": "Generate a new VueJS project.", "value": "vuejs"}
+        - {"label": "Copy an existing git repository.", "value": "git"}
+    - name: Git Repository
+      technologies: [pipeline]
+      condition: "$git_source == 'git'"
+      vars:
+      - name: "Git Repository"
+        description: "Git repository URL to copy for the first commit."
+        key: git_source_url
+        widget: simple_text
+        type: string
+        default: "https://github.com/cycloid-community-catalog/onboarding-scaffold.git"
+        required: true
+      - name: "Git Path"
+        description: "Path in the Git repository to copy for the first commit."
+        key: git_source_path
+        widget: simple_text
+        type: string
+        default: "simple-counter"
+        required: false
+    - name: VueJS
+      technologies: [pipeline]
+      condition: "$git_source == 'vuejs'"
+      vars:
       - name: "Feature flag to scaffold new Vue.js project"
         key: vuejs_feature_flags
         widget: dropdown
