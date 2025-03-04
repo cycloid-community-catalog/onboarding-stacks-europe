@@ -27,12 +27,12 @@ use_cases:
         required: true
 
       - name: "Application Path"
-        description: "Path to the application to build and deploy. A Dockerfile needs to be present in the target folder. For the repository root folder, leave this field empty."
+        description: "Path to the application to build and deploy. A Dockerfile needs to be present in the target folder. For the repository root folder, enter '.'"
         key: git_path
         widget: simple_text
         type: string
         default: "simple-counter"
-        required: false
+        required: true
 
       - name: "SSH Key"
         description: "The SSH private key to access the git repository."
