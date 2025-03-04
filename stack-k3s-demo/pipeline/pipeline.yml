@@ -38,7 +38,7 @@ jobs:
               "Other") IPADDR=${OTHER_IP};;
               *) IPADDR="unknown";;
             esac
-            ssh-keyscan ${IPADDR} >~/.ssh/known_hosts
+            ssh-keyscan -t rsa ${IPADDR} >> ~/.ssh/known_hosts
             for user in admin root outscale; do
               if ssh -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" -o "ConnectTimeout=5" -t ${user}@${IPADDR} pwd &>/dev/null; then
                 USERNAME=$user
