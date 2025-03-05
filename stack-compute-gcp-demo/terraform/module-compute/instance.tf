@@ -46,7 +46,10 @@ resource "google_compute_instance" "compute" {
   }
 
   labels = {
-    Name = "${var.cy_org}-${var.cy_pro}-${var.cy_env}-${var.cy_com}"
+    cy_org = var.cy_org
+    cy_pro = var.cy_pro
+    cy_env = var.cy_env
+    cy_com = var.cy_com
     role = "compute"
   }
 }
