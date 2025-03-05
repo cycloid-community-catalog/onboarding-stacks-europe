@@ -22,8 +22,8 @@ use_cases:
         key: git_branch
         widget: auto_complete
         type: string
-        values: ["staging", "develop"]
-        default: "develop"
+        values: ["1.0.1", "1.0.2", "1.0.3"]
+        default: "1.0.1"
         required: true
 
       - name: "Application Path"
@@ -54,7 +54,7 @@ use_cases:
         key: registry_repository
         widget: simple_text
         type: string
-        default: "olivier2t/app-test-env"
+        default: "olivier2t/app-prod"
         required: false
 
       - name: "Repository Username"
