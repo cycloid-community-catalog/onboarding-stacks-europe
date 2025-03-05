@@ -44,3 +44,8 @@ resource "aws_instance" "ec2" {
     ignore_changes = [ami]
   }
 }
+
+# This is a trick to get the updated public IP address even after a change
+data "aws_instance" "ec2" {
+  instance_id = aws_instance.ec2.id
+}

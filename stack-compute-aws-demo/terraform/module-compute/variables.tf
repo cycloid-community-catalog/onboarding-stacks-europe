@@ -22,7 +22,7 @@ variable "vm_disk_size" {
 
 variable "vm_ports_in" {
   description = "Ingress TCP ports allowed from the internet.)"
-  default = [80, 443]
+  default = ["80", "443"]
 }
 
 variable "vm_os_user" {

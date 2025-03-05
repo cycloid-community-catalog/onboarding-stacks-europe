@@ -8,10 +8,6 @@ module "compute" {
   cy_com  = var.cy_com
   #####################################
 
-  #
-  # Instance
-  #
-
   #. aws_region: ''
   #+ AWS region where to deploy the resoureces
   aws_region = var.aws_region
@@ -24,9 +20,9 @@ module "compute" {
   #+ Disk size for the VM (Go)
   vm_disk_size = "Value injected by StackForms"
 
-  #. vm_ports_in: 20
+  #. vm_ports_in: ["80", "443"]
   #+ Ingress TCP ports allowed from the internet
-  vm_ports_in = [80, 443]
+  vm_ports_in = ["80", "443"]
 
   #. res_selector: ''
   #+ Whether to create a new VPC or select an existing one
