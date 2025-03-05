@@ -5,7 +5,7 @@ canonical: 'stack-compute-vmware-demo'
 description: This stack deploys a VMware virtual machine with a selected operating system and applications.
 author: Cycloid
 image: |
-  https://cycloid-demo-stacks-logo.s3.eu-west-1.amazonaws.com/vmware.png
+  https://cycloid-demo-stacks-logo.s3.eu-west-1.amazonaws.com/vmware.svg
 keywords:
 - VMware
 - vCenter
