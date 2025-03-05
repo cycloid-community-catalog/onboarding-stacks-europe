@@ -1,11 +1,11 @@
 ---
 # Configuration of the Cycloid stack
 version: '4'
-name: 'Node WebApp'
+name: 'NodeJS App'
 canonical: stack-nodejs-demo
 author: Cycloid
 description: |
-  Deploy a Node.js web application on public and/or private clouds.
+  Deploy a Node.js application on public and/or private clouds.
 image: |
   https://cycloid-demo-stacks-logo.s3.eu-west-1.amazonaws.com/node.svg
 keywords:
