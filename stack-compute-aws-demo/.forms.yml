@@ -64,6 +64,7 @@ use_cases:
           multiselect: true
         type: array
         values: [22,80,443,8080]
+        default: [80,443]
         required: false
 
       - name: "Create or Select VPC"
