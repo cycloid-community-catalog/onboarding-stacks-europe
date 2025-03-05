@@ -16,9 +16,8 @@ resources:
     backend_config:
       address: '($ .api_url $)/inventory?jwt=($ .inventory_jwt $)'
     vars:
-      vsphere_user: ((vsphere_user))
-      vsphere_password: ((vsphere_password))
-      vsphere_server: ((vsphere_server))
+      vmware_cred: ((vmware_cred))
+      vmware_server: ((vmware_server))
       cycloid_api_key: ((cycloid_api_key))
       cycloid_api_url: ($ .api_url $)
       cy_org: ($ .organization_canonical $)
