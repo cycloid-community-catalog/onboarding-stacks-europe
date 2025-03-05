@@ -33,7 +33,7 @@ config:
   #   ansible:
   #     node:
   #       path: 'ansible/environments/node.yml.sample'
-  #       destination: '($ .organization_canonical $)/($ .project $)/ansible/environments/($ .environment $)-($ .component $)-node.yml'
+  #       destination: '($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/ansible/environments/node.yml'
   #   terraform:
   #     main:
   #       path: 'terraform/aws/main.tf'
@@ -52,7 +52,7 @@ config:
   #   ansible:
   #     node:
   #       path: 'ansible/environments/node.yml.sample'
-  #       destination: '($ .organization_canonical $)/($ .project $)/ansible/environments/($ .environment $)-($ .component $)-node.yml'
+  #       destination: '($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/ansible/environments/node.yml'
   #   terraform:
   #     main:
   #       path: 'terraform/azure/main.tf'
@@ -71,7 +71,7 @@ config:
   #   ansible:
   #     node:
   #       path: 'ansible/environments/node.yml.sample'
-  #       destination: '($ .organization_canonical $)/($ .project $)/ansible/environments/($ .environment $)-($ .component $)-node.yml'
+  #       destination: '($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/ansible/environments/node.yml'
   #   terraform:
   #     main:
   #       path: 'terraform/gcp/main.tf'
@@ -90,7 +90,7 @@ config:
   #   ansible:
   #     node:
   #       path: 'ansible/environments/node.yml.sample'
-  #       destination: '($ .organization_canonical $)/($ .project $)/ansible/environments/($ .environment $)-($ .component $)-node.yml'
+  #       destination: '($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/ansible/environments/node.yml'
   #   terraform:
   #     main:
   #       path: 'terraform/vmware/main.tf'
@@ -109,7 +109,7 @@ config:
     ansible:
       node:
         path: 'ansible/environments/node.yml.sample'
-        destination: '($ .organization_canonical $)/($ .project $)/ansible/environments/($ .environment $)-($ .component $)-node.yml'
+        destination: '($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/ansible/environments/node.yml'
     terraform:
       main:
         path: 'terraform/outscale/main.tf'
@@ -128,7 +128,7 @@ config:
     ansible:
       node:
         path: 'ansible/environments/node.yml.sample'
-        destination: '($ .organization_canonical $)/($ .project $)/ansible/environments/($ .environment $)-($ .component $)-node.yml'
+        destination: '($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/ansible/environments/node.yml'
     terraform:
       main:
         path: 'terraform/ionos/main.tf'

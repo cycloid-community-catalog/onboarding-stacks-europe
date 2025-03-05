@@ -134,7 +134,7 @@ resources:
     private_key: ((($ .cr_cred_path $).ssh_key))
     ($- end $)
     paths:
-      - ($ .organization_canonical $)/($ .project $)/ansible/environments/*
+      - ($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/ansible/environments/*
 
 # 60 minutes timer to trigger destroy periodically
 - name: every-1h
@@ -261,7 +261,7 @@ jobs:
           - name: output-var
             path: "output-var"
         params:
-          CONFIG_PATH: ($ .organization_canonical $)/($ .project $)/ansible/environments
+          CONFIG_PATH: ($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/ansible/environments
           STACK_PATH: ($ .stack_path $)/ansible
 
 ($ if eq .use_case "aws" $)
@@ -603,7 +603,7 @@ jobs:
           run:
             path: /bin/bash
             args:
-              - '-c'
+              - '-ec'
               - |
                 source ansible-playbook/env
                 export ANSIBLE_REMOTE_USER=${vm_os_user:-admin}

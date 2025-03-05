@@ -5,14 +5,13 @@
 
   vars_files:
   - "environments/default.yml"
-  - ["environments/{{ cy_env }}-{{ cy_com }}-node.yml", "environments/empty.yml"]
+  - ["environments/node.yml", "environments/empty.yml"]
 
   tasks:
   - name: Service to Restart
     service:
       name: '{{ hosts_service }}'
       state: restarted
-    when: (hosts_service is defined) and (hosts_service|length > 0)
 
   - name: Package to Install
     apt:
