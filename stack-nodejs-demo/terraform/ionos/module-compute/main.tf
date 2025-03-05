@@ -11,7 +11,6 @@ resource "ionoscloud_server" "compute" {
     name         = "Volume Cycloid Demo"
     licence_type = "LINUX" 
     disk_type    = "DAS"
-    # user_data    = base64encode(local.cloud_init)
   }
   
   nic {
@@ -21,16 +20,6 @@ resource "ionoscloud_server" "compute" {
     firewall_active = false
   }
 }
-
-# Replace with this command if you don't want Traefik
-# - "curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC='server --no-deploy traefik' sudo sh -"
-# locals {
-#   cloud_init = <<-EOT
-#     #cloud-config
-#     runcmd:
-#     - "curl -sfL https://get.k3s.io | sudo sh -"
-#     EOT
-# }
 
 resource "ionoscloud_datacenter" "datacenter" {
   name     = "${var.cy_org}-${var.cy_pro}-${var.cy_env}-${var.cy_com}"

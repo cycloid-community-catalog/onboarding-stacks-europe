@@ -5,7 +5,6 @@ resource "outscale_vm" "compute" {
     security_group_ids       = [outscale_security_group.security_group01.security_group_id]
     placement_subregion_name = var.outscale_region
     placement_tenancy        = "default"
-    # user_data                = base64encode(local.cloud_init)
     tags {
         key   = "name"
         value = "${var.cy_org}-${var.cy_pro}-${var.cy_env}-${var.cy_com}"
@@ -54,7 +53,7 @@ resource "outscale_security_group_rule" "k8s" {
     ip_range          = "0.0.0.0/0"
 }
 
-resource "outscale_security_group_rule" "traefik_dashboard" {
+resource "outscale_security_group_rule" "wide" {
     flow              = "Inbound"
     security_group_id = outscale_security_group.security_group01.security_group_id
     from_port_range   = "80"
@@ -62,16 +61,6 @@ resource "outscale_security_group_rule" "traefik_dashboard" {
     ip_protocol       = "tcp"
     ip_range          = "0.0.0.0/0"
 }
-
-# Replace with this command if you don't want Traefik
-# - "curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC='server --no-deploy traefik' sudo sh -"
-# locals {
-#   cloud_init = <<-EOT
-#     #cloud-config
-#     runcmd:
-#     - "curl -sfL https://get.k3s.io | sudo sh -"
-#     EOT
-# }
 
 data "outscale_images" "debian" {
     filter {
