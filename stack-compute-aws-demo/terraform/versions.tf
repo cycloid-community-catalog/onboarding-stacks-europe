@@ -6,5 +6,9 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 5.0"
     }
+    cycloid = {
+      source = "cycloidio/cycloid"
+      version = ">= 0.0.20"
+    }
   }
 }
