@@ -625,6 +625,9 @@ jobs:
             cy_pro: ($ .project $)
             cy_env: ($ .environment $)
             cy_com: ($ .component $)
+            app_image: ((registry_repository))
+            app_tag: ((git_branch))
+            app_port: 8080
             hosts_service: ((hosts_service))
             hosts_package: ((hosts_package))
             hosts_user: ((hosts_user))

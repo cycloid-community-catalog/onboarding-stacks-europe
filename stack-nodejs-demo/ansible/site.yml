@@ -8,10 +8,19 @@
   - ["environments/node.yml", "environments/empty.yml"]
 
   tasks:
+  - name: Start node container
+    docker_container:
+      name: node
+      image: '{{ app_image }}:{{ app_tag }}'
+      exposed_ports:
+        - '0.0.0.0:80:{{ app_port }}'
+      state: started
+
   - name: Service to Restart
     service:
       name: '{{ hosts_service }}'
       state: restarted
+    when: (hosts_service is defined) and (hosts_service|length > 0)
 
   - name: Package to Install
     apt:
