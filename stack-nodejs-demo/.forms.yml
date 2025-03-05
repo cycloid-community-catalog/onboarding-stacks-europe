@@ -17,8 +17,8 @@ use_cases:
         default: "https://github.com/cycloid-community-catalog/onboarding-scaffold.git"
         required: true
 
-      - name: "Application Git Branch"
-        description: "Git branch where the application is stored."
+      - name: "Application Git Release Tag"
+        description: "Git release tag where the application is stored."
         key: git_branch
         widget: auto_complete
         type: string
