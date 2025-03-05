@@ -1,0 +1,26 @@
+module "vmware" {
+  #####################################
+  # Do not modify the following lines #
+  source   = "./module-vmware"
+  cy_org  = var.cy_org
+  cy_pro  = var.cy_pro
+  cy_env  = var.cy_env
+  cy_com  = var.cy_com
+  #####################################
+
+  #. vm_ip (required,string): "212.129.18.92"
+  #+ IP address of the virtual machine
+  vm_ip = "Value injected by StackForms"
+
+  #. vm_cpu (required,integer): 2
+  #+ Number of CPU allocated to the virtual machine
+  vm_cpu = "Value injected by StackForms"
+
+  #. vm_memory (required,integer): 2048
+  #+ Memory allocated to the virtual machine (Mo)
+  vm_memory = "Value injected by StackForms"
+
+  #. vm_disk_size (required,integer): 20
+  #+ Disk size allocated to the virtual machine (Go)
+  vm_disk_size = "Value injected by StackForms"
+}
