@@ -26,7 +26,8 @@ module "vpc" {
   version = "~> 5.19.0"
 
   name = "${var.cy_org}-${var.cy_pro}-${var.cy_env}-${var.cy_com}"
-
+  
+  azs                 = ["${var.aws_region}a"]
   cidr                = "10.77.0.0/16"
   private_subnets     = ["10.77.0.0/19"]
   public_subnets      = ["10.77.96.0/19"]

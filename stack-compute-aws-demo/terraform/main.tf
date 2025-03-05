@@ -12,6 +12,10 @@ module "compute" {
   # Instance
   #
 
+  #. aws_region: ''
+  #+ AWS region where to deploy the resoureces
+  aws_region = var.aws_region
+
   #. vm_instance_type: 't3.micro'
   #+ Instance type for the VM
   vm_instance_type = "Value injected by StackForms"
