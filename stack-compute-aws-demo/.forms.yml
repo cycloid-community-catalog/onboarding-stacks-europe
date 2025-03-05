@@ -91,6 +91,7 @@ use_cases:
           attribute: id
           filters:
             type: aws_vpc
+            attributes: 'arn[rlike]="*:${aws_region}:*'
         type: string
         required: true
 
