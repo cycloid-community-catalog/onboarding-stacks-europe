@@ -25,11 +25,6 @@ variable "vm_ports_in" {
   default = ["80", "443"]
 }
 
-variable "vm_os_user" {
-  description = "Admin username to connect to instance via SSH. Set to 'admin' because we use debian OS."
-  default     = "admin"
-}
-
 variable "res_selector" {
   description = "Whether to create a new VPC or select an existing one"
 }
