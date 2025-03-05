@@ -5,7 +5,7 @@
 
   vars_files:
   - "environments/default.yml"
-  - ["environments/{{ cyenv }}-node.yml", "environments/empty.yml"]
+  - ["environments/{{ cy_env }}-{{ cy_com }}-node.yml", "environments/empty.yml"]
 
   tasks:
   - name: Service to Restart
