@@ -148,6 +148,7 @@ groups:
 - name: overview
   jobs:
     - deploy-infra
+    - build-and-push
     - deploy-app
 
 - name: destroy
@@ -232,6 +233,10 @@ jobs:
           trigger: true
           passed:
             - deploy-infra
+        - get: app_image
+          trigger: true
+          passed:
+            - build-and-push
 
       - task: merge-stack-and-config
         config:
