@@ -664,7 +664,7 @@ jobs:
             args:
               - '-ec'
               - |
-                sleep 1800
+                sleep 3600
 
       - task: merge-stack-and-config
         config:
