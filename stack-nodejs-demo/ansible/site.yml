@@ -58,7 +58,7 @@
     docker_container:
       name: node
       image: '{{ app_image }}:{{ app_tag }}'
-      exposed_ports:
+      published_ports:
         - '0.0.0.0:80:{{ app_port }}'
       state: started
 
