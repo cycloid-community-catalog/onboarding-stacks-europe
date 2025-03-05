@@ -1,0 +1,30 @@
+---
+# Configuration of the Cycloid stack
+version: '4'
+name: GCP Virtual Machine
+canonical: stack-compute-gcp-demo
+author: Cycloid
+description: |
+  Deploys a GCP Virtual Machine using Terraform.
+image: |
+  https://cycloid-demo-stacks-logo.s3.eu-west-1.amazonaws.com/gcp-vm.png
+keywords:
+  - virtual machine
+  - instance
+  - provider:gcp
+technologies:
+- technology: terraform
+  version: 1.8.3
+
+config:
+  default:
+    pipeline:
+      pipeline:
+        path: pipeline/pipeline.yml
+      variables:
+        path: pipeline/variables.sample.yml
+        destination: '($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/pipeline/variables.yml'
+    terraform:
+      main:
+        path: 'terraform/main.tf'
+        destination: '($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/terraform/main.tf'
