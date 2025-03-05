@@ -31,8 +31,9 @@ resource "aws_instance" "ec2" {
 
   vpc_security_group_ids = [aws_security_group.ec2.id]
 
-  subnet_id               = var.res_selector == "create" ? module.vpc[0].public_subnets[0] : data.aws_subnet.selected[0].id
-  disable_api_termination = false
+  subnet_id                   = var.res_selector == "create" ? module.vpc[0].public_subnets[0] : data.aws_subnet.selected[0].id
+  associate_public_ip_address = true
+  disable_api_termination     = false
 
   root_block_device {
     volume_size           = var.vm_disk_size

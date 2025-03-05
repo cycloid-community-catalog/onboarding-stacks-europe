@@ -32,6 +32,7 @@ module "vpc" {
   private_subnets     = ["10.77.0.0/19"]
   public_subnets      = ["10.77.96.0/19"]
 
-  enable_nat_gateway   = false
-  enable_dns_hostnames = true
+  enable_nat_gateway      = false
+  enable_dns_hostnames    = true
+  map_public_ip_on_launch = true
 }
