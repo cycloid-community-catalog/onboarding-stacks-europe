@@ -99,7 +99,7 @@ config:
   outscale:
     name: 'Outscale'
     description: 'Deploy a Node.js web application on Outscale instances'
-    cloud_provider: outscale
+    # cloud_provider: outscale
     pipeline:
       pipeline:
         path: pipeline/pipeline.yml
@@ -118,7 +118,7 @@ config:
   ionos:
     name: 'Ionos'
     description: 'Deploy a Node.js web application on Ionos instances'
-    cloud_provider: outscale
+    # cloud_provider: ionos
     pipeline:
       pipeline:
         path: pipeline/pipeline.yml
