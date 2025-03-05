@@ -12,7 +12,7 @@ resource "aws_security_group_rule" "egress-all" {
   security_group_id = aws_security_group.ec2.id
 }
 
-resource "aws_security_group_rule" "demo_ingress" {
+resource "aws_security_group_rule" "ingress" {
     for_each          = toset(var.vm_ports_in)
 
     type              = "ingress"
