@@ -1,0 +1,135 @@
+---
+# Configuration of the Cycloid stack
+version: '4'
+name: 'Node WebApp'
+canonical: stack-nodejs-demo
+author: Cycloid
+description: |
+  Deploy a Node.js web application on public and/or private clouds.
+image: |
+  https://cycloid-demo-stacks-logo.s3.eu-west-1.amazonaws.com/node.svg
+keywords:
+  - ec2
+  - virtual machine
+  - instance
+  - webapp
+  - nodejs
+technologies:
+- technology: terraform
+  version: 1.8.3
+
+
+config:
+  # aws:
+  #   name: 'AWS'
+  #   description: 'Deploy a Node.js web application on AWS EC2 instances'
+  #   cloud_provider: aws
+  #   pipeline:
+  #     pipeline:
+  #       path: 'pipeline/pipeline.yml'
+  #     variables:
+  #       path: 'pipeline/variables.sample.yml'
+  #       destination: '($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/pipeline/variables.yml'
+  #   ansible:
+  #     node:
+  #       path: 'ansible/environments/node.yml.sample'
+  #       destination: '($ .organization_canonical $)/($ .project $)/ansible/environments/($ .environment $)-($ .component $)-node.yml'
+  #   terraform:
+  #     main:
+  #       path: 'terraform/aws/main.tf'
+  #       destination: '($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/terraform/aws/main.tf'
+
+  # azure:
+  #   name: 'Azure'
+  #   description: 'Deploy a Node.js web application on Azure instances'
+  #   cloud_provider: azurerm
+  #   pipeline:
+  #     pipeline:
+  #       path: 'pipeline/pipeline.yml'
+  #     variables:
+  #       path: 'pipeline/variables.sample.yml'
+  #       destination: '($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/pipeline/variables.yml'
+  #   ansible:
+  #     node:
+  #       path: 'ansible/environments/node.yml.sample'
+  #       destination: '($ .organization_canonical $)/($ .project $)/ansible/environments/($ .environment $)-($ .component $)-node.yml'
+  #   terraform:
+  #     main:
+  #       path: 'terraform/azure/main.tf'
+  #       destination: '($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/terraform/azure/main.tf'
+
+  # gcp:
+  #   name: 'GCP'
+  #   description: 'Deploy a Node.js web application on GCP instances'
+  #   cloud_provider: google
+  #   pipeline:
+  #     pipeline:
+  #       path: 'pipeline/pipeline.yml'
+  #     variables:
+  #       path: 'pipeline/variables.sample.yml'
+  #       destination: '($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/pipeline/variables.yml'
+  #   ansible:
+  #     node:
+  #       path: 'ansible/environments/node.yml.sample'
+  #       destination: '($ .organization_canonical $)/($ .project $)/ansible/environments/($ .environment $)-($ .component $)-node.yml'
+  #   terraform:
+  #     main:
+  #       path: 'terraform/gcp/main.tf'
+  #       destination: '($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/terraform/gcp/main.tf'
+
+  # vmware:
+  #   name: 'VMware'
+  #   description: 'Deploy a Node.js web application on VMware instances'
+  #   cloud_provider: vmware
+  #   pipeline:
+  #     pipeline:
+  #       path: 'pipeline/pipeline.yml'
+  #     variables:
+  #       path: 'pipeline/variables.sample.yml'
+  #       destination: '($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/pipeline/variables.yml'
+  #   ansible:
+  #     node:
+  #       path: 'ansible/environments/node.yml.sample'
+  #       destination: '($ .organization_canonical $)/($ .project $)/ansible/environments/($ .environment $)-($ .component $)-node.yml'
+  #   terraform:
+  #     main:
+  #       path: 'terraform/vmware/main.tf'
+  #       destination: '($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/terraform/vmware/main.tf'
+
+  outscale:
+    name: 'Outscale'
+    description: 'Deploy a Node.js web application on Outscale instances'
+    cloud_provider: outscale
+    pipeline:
+      pipeline:
+        path: pipeline/pipeline.yml
+      variables:
+        path: pipeline/variables.sample.yml
+        destination: '($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/pipeline/variables.yml'
+    ansible:
+      node:
+        path: 'ansible/environments/node.yml.sample'
+        destination: '($ .organization_canonical $)/($ .project $)/ansible/environments/($ .environment $)-($ .component $)-node.yml'
+    terraform:
+      main:
+        path: 'terraform/outscale/main.tf'
+        destination: '($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/terraform/outscale/main.tf'
+
+  ionos:
+    name: 'Ionos'
+    description: 'Deploy a Node.js web application on Ionos instances'
+    cloud_provider: outscale
+    pipeline:
+      pipeline:
+        path: pipeline/pipeline.yml
+      variables:
+        path: pipeline/variables.sample.yml
+        destination: '($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/pipeline/variables.yml'
+    ansible:
+      node:
+        path: 'ansible/environments/node.yml.sample'
+        destination: '($ .organization_canonical $)/($ .project $)/ansible/environments/($ .environment $)-($ .component $)-node.yml'
+    terraform:
+      main:
+        path: 'terraform/ionos/main.tf'
+        destination: '($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/terraform/ionos/main.tf'
