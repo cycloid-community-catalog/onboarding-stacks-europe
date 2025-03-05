@@ -1,9 +1,5 @@
 # Stack-VMware
 
-<p align="center">
-<img src="docs/vmware-logo.png" width="300">
-</p>
-
 ### Tested on 
 
 | Environment | Version |             Result |
@@ -15,12 +11,6 @@
 ## Stack description
 
 This Stack will create a Virtual Machine (or VM) on your VMware infrastructure from scratch (via an ISO file) or by cloning a template.
-
-### Use cases
-
-Three use cases are currently present.
-
-<img src="docs/use-cases.png" width="300">
 
 
 ### Additional informations
@@ -46,16 +36,12 @@ In order to run this Stack, couple elements are required :
 
 ### Overview 
 
-<img src="docs/pipeline_overview.png" width="800">
-
 #### Jobs description
 
  - ```terraform-plan``` : Terraform job that will simply make a plan of the infrastructure's stack. It is automatically triggered upon resources changes
  - ```terraform-apply``` : Terraform job similar to the plan one, but will actually create/update everything that needs to. Please see the plan diff. for a better understanding. It is automatically triggered upon tfstate file changes after terraform-plan job completes
 
 ### Destroy
-
-<img src="docs/pipeline_destroy.png" width="800">
 
 #### Job description
 
