@@ -48,7 +48,7 @@ resource "azurerm_network_security_rule" "inbound" {
   resource_group_name         = local.resource_group_name
   network_security_group_name = azurerm_network_security_group.compute.name
 
-  name                       = "inbound-${each.value}/TCP"
+  name                       = "inbound-${each.value}"
   priority                   = 100 + each.key
   direction                  = "Inbound"
   access                     = "Allow"
