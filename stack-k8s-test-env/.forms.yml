@@ -44,7 +44,7 @@ use_cases:
             - ssh
         type: string
         default: "((($ .organization_canonical $)-($ .project $)-($ .environment $)-git-ssh.ssh_key))"
-        required: false
+        required: true
 
     - name: Container Registry
       technologies: [pipeline]
