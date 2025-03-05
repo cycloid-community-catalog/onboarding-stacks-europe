@@ -1,6 +1,6 @@
 resource "aws_security_group" "ec2" {
   name        = "${var.cy_org}-${var.cy_pro}-${var.cy_env}-${var.cy_com}"
-  vpc_id      = data.aws_subnet.selected.vpc_id
+  vpc_id      = var.res_selector == "create" ? module.vpc.vpc_id : data.aws_vpc.selected[0].id
 }
 
 resource "aws_security_group_rule" "egress-all" {
@@ -31,7 +31,7 @@ resource "aws_instance" "ec2" {
 
   vpc_security_group_ids = [aws_security_group.ec2.id]
 
-  subnet_id               = data.aws_subnet.selected.id
+  subnet_id               = var.res_selector == "create" ? module.vpc.public_subnets[0] : data.aws_subnet.selected[0].id
   disable_api_termination = false
 
   root_block_device {
