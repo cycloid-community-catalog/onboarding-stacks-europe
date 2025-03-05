@@ -47,6 +47,26 @@ resources:
       ionos_region: ((ionos_region))
 ($ end $)
 
+# The repo with our Dockerfile
+- name: git_app_code
+  type: git
+  icon: github-circle
+  source:
+    uri: ((git_url))
+    branch: ((git_branch))
+    private_key: ((git_ssh_key))
+    paths:
+      - ((git_path))/*
+
+# Where we will push the image
+- name: app_image
+  type: registry-image
+  icon: docker
+  source:
+    repository: ((registry_repository))
+    username: ((registry_username))
+    password: ((registry_password))
+    tag: ($ .environment $)
 
 # The Terraform stack (will be merged with the config)
 - name: git_stack-terraform
@@ -173,6 +193,31 @@ jobs:
         params:
           terraform_source: merged-stack/
 
+  - name: build-and-push
+    plan:
+    - get: git_app_code
+      trigger: true
+    - task: build-task-image
+      privileged: true
+      config:
+        platform: linux
+        image_resource:
+          type: registry-image
+          source:
+            repository: concourse/oci-build-task
+        inputs:
+        - name: git_app_code
+        outputs:
+        - name: image
+        params:
+          CONTEXT: git_app_code/((git_path))
+        caches:
+        - path: cache
+        run:
+          path: build
+    - put: app_image
+      params:
+        image: image/image.tar
 
   - name: deploy-app
     serial: true

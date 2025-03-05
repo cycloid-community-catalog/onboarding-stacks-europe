@@ -48,6 +48,45 @@ vsphere_cred: ((vsphere))
 
 ($ end $)
 
+
+#
+# Registry
+#
+
+#. registry_repository (required): ''
+#+ The repository path to use for the container images.
+registry_repository: "olivier2t/app-test-env"
+
+#. registry_username (required): ''
+#+ The username to access the registry.
+registry_username: "((dockerhub.username))"
+
+#. registry_password (required): ''
+#+ The password to access the registry.
+registry_password: "((dockerhub.password))"
+
+
+#
+# Application
+#
+
+#. git_url (required): ''
+#+ Public git URL where the application is stored.
+git_url: ""
+
+#. git_branch (required): ''
+#+ Git branch where the application is stored.
+git_branch: ""
+
+#. git_path (required): ''
+#+ Path to the application to build and deploy. A Dockerfile needs to be present in the root folder.
+git_path: ""
+
+#. git_ssh_key (required): ''
+#+ The SSH private key to access the git repository.
+git_ssh_key: ""
+
+
 #
 # Ansible Operations
 #

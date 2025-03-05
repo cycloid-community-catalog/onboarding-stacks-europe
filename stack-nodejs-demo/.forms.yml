@@ -6,16 +6,81 @@ use_cases:
   - name: NodeJS WebApp
     groups:
     - name: NodeJS Application
-      technologies: [terraform]
+      technologies: [pipeline]
       vars:
-      - name: "Webapp Public Git URL"
-        description: "Public git URL of the web application to build and deploy."
-        key: git_app_url
+      - name: "Application Git URL"
+        description: "Public git URL where the application is stored."
+        key: git_url
         widget: auto_complete
         type: string
-        values: ["https://github.com/Rahul-Pandey7/react-image-compressor.git","https://github.com/arnab-datta/counter-app.git","https://github.com/Yog9/SnapShot.git","https://github.com/ahfarmer/calculator.git","https://github.com/ahfarmer/emoji-search.git"]
-        default: "https://github.com/Yog9/SnapShot.git"
+        values: ["https://github.com/cycloid-community-catalog/onboarding-scaffold.git", "https://github.com/Rahul-Pandey7/react-image-compressor.git","https://github.com/arnab-datta/counter-app.git","https://github.com/Yog9/SnapShot.git","https://github.com/ahfarmer/calculator.git","https://github.com/ahfarmer/emoji-search.git"]
+        default: "https://github.com/cycloid-community-catalog/onboarding-scaffold.git"
         required: true
+
+      - name: "Application Git Branch"
+        description: "Git branch where the application is stored."
+        key: git_branch
+        widget: auto_complete
+        type: string
+        values: ["staging", "develop"]
+        default: "develop"
+        required: true
+
+      - name: "Application Path"
+        description: "Path to the application to build and deploy. A Dockerfile needs to be present in the target folder. For the repository root folder, enter '.'"
+        key: git_path
+        widget: simple_text
+        type: string
+        default: "simple-counter"
+        required: true
+
+      - name: "SSH Key"
+        description: "The SSH private key to access the git repository."
+        key: git_ssh_key
+        widget: cy_cred
+        widget_config:
+          display_keys: true
+          cred_types:
+            - ssh
+        type: string
+        default: "((($ .organization_canonical $)-($ .project $)-($ .environment $)-git-ssh.ssh_key))"
+        required: true
+
+    - name: Container Registry
+      technologies: [pipeline]
+      vars:
+      - name: "Repository Path"
+        description: "The repository path to use for the container images."
+        key: registry_repository
+        widget: simple_text
+        type: string
+        default: "olivier2t/app-test-env"
+        required: false
+
+      - name: "Repository Username"
+        description: "The username to access the registry."
+        key: registry_username
+        widget: cy_cred
+        widget_config:
+          display_keys: true
+          cred_types:
+            - basic_auth
+        type: string
+        default: "((dockerhub.username))"
+        required: true
+
+      - name: "Repository Password"
+        description: "The password to access the registry."
+        key: registry_password
+        widget: cy_cred
+        widget_config:
+          display_keys: true
+          cred_types:
+            - basic_auth
+        type: string
+        default: "((dockerhub.password))"
+        required: true
+
     - name: Day-2 Operations with Ansible
       technologies: [ansible]
       vars:
@@ -119,6 +184,8 @@ use_cases:
         required: true
 
     - name: NodeJS Application
+
+    - name: Container Registry
 
     - name: Day-2 Operations with Ansible
 
@@ -228,6 +295,8 @@ use_cases:
         required: true
 
     - name: NodeJS Application
+
+    - name: Container Registry
 
     - name: Day-2 Operations with Ansible
 
@@ -375,6 +444,8 @@ use_cases:
         required: true
 
     - name: NodeJS Application
+
+    - name: Container Registry
 
     - name: Day-2 Operations with Ansible
 
@@ -560,6 +631,11 @@ use_cases:
         type: string
         required: true
 
+    - name: NodeJS Application
+
+    - name: Container Registry
+
+    - name: Day-2 Operations with Ansible
 
 - name: ionos
   sections:
@@ -639,3 +715,9 @@ use_cases:
             type: ionoscloud_lan
         type: string
         required: true
+
+    - name: NodeJS Application
+
+    - name: Container Registry
+
+    - name: Day-2 Operations with Ansible
