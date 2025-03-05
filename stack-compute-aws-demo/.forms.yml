@@ -99,7 +99,7 @@ use_cases:
       condition: '$res_selector == "Enter manually"'
       vars:
       - name: "VPC ID"
-        description: "VPC ID where to deploy the resources."
+        description: "VPC ID where to deploy the resources. Make sure the VPC is in the same region as set previously."
         key: vpc_id_manual
         widget: simple_text
         type: string
