@@ -20,8 +20,6 @@ use_cases:
         default: "((vmware))"
         required: true
 
-  - name: Service Catalog
-    groups:
     - name: Virtual machine specifications
       technologies: [terraform]
       vars:
