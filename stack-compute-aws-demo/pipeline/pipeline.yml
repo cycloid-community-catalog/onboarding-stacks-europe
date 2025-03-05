@@ -112,7 +112,7 @@ jobs:
           - name: merged-stack
             path: "merged-stack"
         params:
-          CONFIG_PATH: ($ .project $)/terraform/($ .environment $)
+          CONFIG_PATH: ($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/terraform
           STACK_PATH: ($ .stack_path $)/terraform
 
       - put: tfstate
@@ -155,7 +155,7 @@ jobs:
           - name: merged-stack
             path: "merged-stack"
         params:
-          CONFIG_PATH: ($ .project $)/terraform/($ .environment $)
+          CONFIG_PATH: ($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/terraform
           STACK_PATH: ($ .stack_path $)/terraform
 
       - put: tfstate
@@ -195,7 +195,7 @@ jobs:
           - name: merged-stack
             path: "merged-stack"
         params:
-          CONFIG_PATH: ($ .project $)/terraform/($ .environment $)
+          CONFIG_PATH: ($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/terraform
           STACK_PATH: ($ .stack_path $)/terraform
 
       - put: tfstate
