@@ -15,12 +15,16 @@ resource "helm_release" "argocd" {
   create_namespace = true
 
   set {
-    name  = "configs.params.server.insecure"
+    name  = "global.domain"
+    value = "${var.cy_org}-${var.cy_pro}-${var.cy_env}-argocd"
+  }
+  set {
+    name  = "server.ingress.enabled"
     value = true
   }
   set {
-    name  = "configs.params.server.rootpath"
-    value = "/argocd"
+    name  = "configs.params.server.insecure"
+    value = true
   }
   set {
     name  = "configs.secret.argocdServerAdminPassword"
