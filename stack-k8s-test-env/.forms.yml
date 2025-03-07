@@ -46,41 +46,6 @@ use_cases:
         default: "((($ .organization_canonical $)-($ .project $)-($ .environment $)-git-ssh.ssh_key))"
         required: true
 
-    - name: Container Registry
-      technologies: [pipeline]
-      vars:
-      - name: "Repository Path"
-        description: "The repository path to use for the container images."
-        key: registry_repository
-        widget: simple_text
-        type: string
-        default: "olivier2t/app-test-env"
-        required: false
-
-      - name: "Repository Username"
-        description: "The username to access the registry."
-        key: registry_username
-        widget: cy_cred
-        widget_config:
-          display_keys: true
-          cred_types:
-            - basic_auth
-        type: string
-        default: "((dockerhub.username))"
-        required: true
-
-      - name: "Repository Password"
-        description: "The password to access the registry."
-        key: registry_password
-        widget: cy_cred
-        widget_config:
-          display_keys: true
-          cred_types:
-            - basic_auth
-        type: string
-        default: "((dockerhub.password))"
-        required: true
-
     - name: Kubernetes
       technologies: [pipeline]
       vars:
@@ -93,5 +58,5 @@ use_cases:
           cred_types:
             - custom
         type: string
-        default: (("($ .organization_canonical $)-($ .project $)-($ .environment $)-kubeconfig.kubeconfig"))
+        default: ((custom_($ .organization_canonical $)-($ .project $)-($ .environment $)-kubeconfig.kubeconfig))
         required: true
