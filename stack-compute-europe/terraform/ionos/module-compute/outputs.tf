@@ -1,7 +1,7 @@
-output "ipv4" {
+output "vm_public_ip" {
     value = ionoscloud_server.compute.primary_ip
 }
 
-output "username" {
+output "vm_os_user" {
     value = var.ionos_username
 }

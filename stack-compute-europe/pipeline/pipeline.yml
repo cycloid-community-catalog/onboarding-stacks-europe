@@ -85,7 +85,6 @@ jobs:
       - in_parallel:
         - get: git_stack-terraform
           trigger: true
-
         - get: git_config-terraform
           trigger: true
 
