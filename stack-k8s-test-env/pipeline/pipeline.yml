@@ -155,8 +155,8 @@ jobs:
           kubectl apply -f deploy.yaml
           kubectl rollout restart deployment ${APP_NAME} -n ${APP_NAME}
 
-          export APP_URL=$(kubectl get ing $APP_URL -n $APP_URL | awk '{print $3}')
-          export MESSAGE="A test environment have been deployed under http://$APP_URL"
+          export APP_URL=$(kubectl get ing ${APP_NAME} -n ${APP_NAME} | grep ${APP_NAME} | awk '{print $3}')
+          export MESSAGE="A test environment have been deployed under <a href='http://${APP_URL}'>http://${APP_URL}</a>"
           echo $MESSAGE
       params:
         KUBECONFIG_CONTENT: ((kubeconfig_content))
