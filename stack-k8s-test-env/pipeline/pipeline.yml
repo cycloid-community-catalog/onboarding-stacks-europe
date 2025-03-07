@@ -108,12 +108,13 @@ jobs:
                 labels:
                   app: ${APP_NAME}
               spec:
+                terminationGracePeriodSeconds: 0
                 containers:
                   - name: ${APP_NAME}
                     image: ${APP_IMAGE_REPO}:${APP_IMAGE_TAG}
                     ports:
                       - containerPort: ${APP_PORT}
-                    imagePullPolicy: Always
+                    imagePullPolicy: "Always"
           ---
           # Service
           apiVersion: v1
@@ -152,6 +153,7 @@ jobs:
           EOF
           echo "Deploying..."
           kubectl apply -f deploy.yaml
+          kubectl rollout restart deployment ${APP_NAME} -n ${APP_NAME}
       params:
         KUBECONFIG_CONTENT: ((kubeconfig_content))
         APP_NAME: ($ .organization_canonical $)-($ .project $)-($ .environment $)
