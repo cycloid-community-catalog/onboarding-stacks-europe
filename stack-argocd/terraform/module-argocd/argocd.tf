@@ -23,6 +23,10 @@ resource "helm_release" "argocd" {
     value = true
   }
   set {
+    name  = "server.ingress.ingressClassName"
+    value = "nginx"
+  }
+  set {
     name  = "configs.params.server.insecure"
     value = true
   }
