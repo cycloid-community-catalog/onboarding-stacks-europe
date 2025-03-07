@@ -16,6 +16,7 @@ variable "outscale_username" {
 
 variable "outscale_cpu_gen" {
   description = "The Outscale CPU Generation to deploy."
+  default = "6"
 }
 
 variable "outscale_cpu" {

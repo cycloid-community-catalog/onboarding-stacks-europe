@@ -37,17 +37,6 @@ use_cases:
     - name: Outscale Infrastructure
       technologies: [terraform]
       vars:
-      - name: "CPU Generation"
-        description: "The Outscale CPU Generation to deploy."
-        key: outscale_cpu_gen
-        widget: slider_list
-        type: integer
-        required: true
-        default: 6
-        values:
-        - 5
-        - 6
-        - 7
       - name: "CPU"
         description: "The number of CPU to deploy."
         key: outscale_cpu

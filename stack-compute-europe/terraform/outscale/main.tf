@@ -8,21 +8,20 @@ module "compute" {
   cy_com  = var.cy_com
   #####################################
 
+  # The Outscale CPU Generation to deploy
+  outscale_cpu_gen = "6"
+
   #. outscale_region: ""
   #+ The Outscale region where to deploy the infrastructure
   outscale_region = ""
 
-  #. outscale_cpu_gen: "5"
-  #+ The Outscale CPU Generation to deploy
-  outscale_cpu_gen = "5"
-
-  #. outscale_cpu: "1"
+  #. outscale_cpu: ""
   #+ The number of CPU to deploy
-  outscale_cpu = "1"
+  outscale_cpu = ""
 
-  #. outscale_mem: "1024"
+  #. outscale_mem: ""
   #+ The amount of memory to deploy
-  outscale_mem = "1024"
+  outscale_mem = ""
 
   #. outscale_net: ""
   #+ The network where to deploy the infrastructure.
