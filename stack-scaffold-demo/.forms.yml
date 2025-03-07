@@ -5,6 +5,18 @@ use_cases:
   sections:
   - name: config
     groups:
+    - name: Git Repository Creation
+      technologies: [pipeline]
+      vars:
+      - name: "GitHub PAT"
+        description: "GitHub Personal Access Token allowing to create the new code repository"
+        key: github_pat
+        widget: cy_cred
+        widget_config:
+          cred_types: ["custom"]
+        type: string
+        default: "((github-pat.key))"
+        required: true
     - name: Git Source
       technologies: [pipeline]
       vars:
@@ -62,13 +74,3 @@ use_cases:
           - array:
               max_elems: 4
             error_message: "4 feature flags can be selected at most."
-      - name: "GitHub PAT"
-        description: "GitHub Personal Access Token allowing to create the new code repository"
-        key: github_pat
-        widget: cy_cred
-        widget_config:
-          cred_types: ["custom"]
-        type: string
-        default: "((github-pat.key))"
-        required: true
-
