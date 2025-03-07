@@ -16,7 +16,7 @@ resource "helm_release" "argocd" {
 
   set {
     name  = "global.domain"
-    value = "${var.cy_org}-${var.cy_pro}-${var.cy_env}-argocd"
+    value = "${var.cy_org}-${var.cy_pro}-${var.cy_env}-argocd.5.104.98.15.nip.io"
   }
   set {
     name  = "server.ingress.enabled"
