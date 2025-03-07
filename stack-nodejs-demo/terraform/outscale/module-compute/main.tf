@@ -13,7 +13,7 @@ resource "outscale_vm" "compute" {
 
 resource "outscale_security_group" "security_group01" {
   description         = "vm security group"
-  security_group_name = "vm_security_group1"
+  security_group_name = "${var.cy_org}-${var.cy_pro}-${var.cy_env}-${var.cy_com}"
 }
 
 resource "outscale_security_group_rule" "ssh" {
@@ -49,15 +49,6 @@ resource "outscale_security_group_rule" "k8s" {
     security_group_id = outscale_security_group.security_group01.security_group_id
     from_port_range   = "6443"
     to_port_range     = "6443"
-    ip_protocol       = "tcp"
-    ip_range          = "0.0.0.0/0"
-}
-
-resource "outscale_security_group_rule" "wide" {
-    flow              = "Inbound"
-    security_group_id = outscale_security_group.security_group01.security_group_id
-    from_port_range   = "80"
-    to_port_range     = "9000"
     ip_protocol       = "tcp"
     ip_range          = "0.0.0.0/0"
 }
