@@ -1,7 +1,7 @@
 ---
 # Configuration of the Cycloid stack
 version: '4'
-name: 'K8s Test Env'
+name: 'Developer Test Environment'
 canonical: 'stack-k8s-test-env'
 description: 'Deploy an application test environment in a Kubernetes cluster.'
 author: 'Cycloid'
