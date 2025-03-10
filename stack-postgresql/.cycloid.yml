@@ -1,0 +1,34 @@
+---
+# Configuration of the Cycloid stack
+version: '4'
+name: 'PostgreSQL Database'
+canonical: stack-postgresql-demo
+author: Cycloid
+description: |
+  Deploys a PostgreSQL database.
+image: |
+  https://cycloid-demo-stacks-logo.s3.eu-west-1.amazonaws.com/postgresql.svg
+keywords:
+  - rds
+  - database
+  - postgresql
+technologies:
+- technology: terraform
+  version: 1.8.3
+
+config:
+  aws:
+    name: 'Amazon RDS for PostgreSQL'
+    description: 'Amazon Relational Database Service (Amazon RDS) is an easy-to-manage relational database service optimized for total cost of ownership. It is simple to set up, operate, and scale with demand.'
+    cloud_provider: aws
+    # Pipeline and variable configuration for the AWS CD pipeline use case
+    pipeline:
+      pipeline:
+        path: 'pipeline/pipeline.yml'
+      variables:
+        path: 'pipeline/variables.sample.yml'
+        destination: '($ .component_root $)/variables.yml'
+    terraform:
+      main:
+        path: 'terraform/aws/main.tf'
+        destination: '($ .component_root $)/terraform/aws/main.tf'
