@@ -7,7 +7,7 @@ author: Cycloid
 description: |
   Deploy a K3s cluster with NGINX as ingress controller on a cloud instance.
 image: |
-  https://cycloid-demo-stacks-logo.s3.eu-west-1.amazonaws.com/kubernetes.png
+  https://cycloid-demo-stacks-logo.s3.eu-west-1.amazonaws.com/k3s.png
 keywords:
   - kubernetes
   - rancher
