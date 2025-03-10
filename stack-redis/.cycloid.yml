@@ -1,0 +1,34 @@
+---
+# Configuration of the Cycloid stack
+version: '4'
+name: 'Redis Data Store'
+canonical: stack-redis-demo
+author: Cycloid
+description: |
+  Deploys a Redis data store.
+image: |
+  https://cycloid-demo-stacks-logo.s3.eu-west-1.amazonaws.com/redis.svg
+keywords:
+  - elasticache
+  - database
+  - redis
+technologies:
+- technology: terraform
+  version: 1.8.3
+
+config:
+  aws:
+    name: 'Amazon Elasticache'
+    description: 'Amazon ElastiCache with Redis OSS in-memory caching engine is a fully managed in-memory data store and cache service by Amazon Web Services (AWS).'
+    cloud_provider: aws
+    # Pipeline and variable configuration for the AWS CD pipeline use case
+    pipeline:
+      pipeline:
+        path: 'pipeline/pipeline.yml'
+      variables:
+        path: 'pipeline/variables.sample.yml'
+        destination: '($ .component_root $)/variables.yml'
+    terraform:
+      main:
+        path: 'terraform/aws/main.tf'
+        destination: '($ .component_root $)/terraform/aws/main.tf'
