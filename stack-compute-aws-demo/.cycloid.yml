@@ -1,7 +1,7 @@
 ---
 # Configuration of the Cycloid stack
 version: '4'
-name: 'AWS EC2 Instance'
+name: 'Compute Instance'
 canonical: stack-compute-aws-demo
 author: Cycloid
 description: |

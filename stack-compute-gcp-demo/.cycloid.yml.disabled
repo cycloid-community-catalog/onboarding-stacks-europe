@@ -1,17 +1,17 @@
 ---
 # Configuration of the Cycloid stack
 version: '4'
-name: Azure Virtual Machine
-canonical: stack-compute-azure-demo
+name: Compute Instance
+canonical: stack-compute-gcp-demo
 author: Cycloid
 description: |
-  Deploys an Azure Virtual Machine using Terraform.
+  Deploys a GCP Virtual Machine using Terraform.
 image: |
-  https://cycloid-demo-stacks-logo.s3.eu-west-1.amazonaws.com/azure-vm.png
+  https://cycloid-demo-stacks-logo.s3.eu-west-1.amazonaws.com/gcp-vm.png
 keywords:
   - virtual machine
   - instance
-  - provider:azure
+  - provider:gcp
 technologies:
 - technology: terraform
   version: 1.8.3
