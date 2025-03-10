@@ -1,7 +1,7 @@
 ---
 # Configuration of the Cycloid stack
 version: '4'
-name: 'Scaffold Project'
+name: 'Scaffold Software Project'
 canonical: stack-scaffold-demo
 author: Cycloid
 description: |
