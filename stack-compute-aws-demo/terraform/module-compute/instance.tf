@@ -13,7 +13,8 @@ resource "aws_security_group_rule" "egress-all" {
 }
 
 resource "aws_security_group_rule" "ingress" {
-    for_each          = toset(var.vm_ports_in)
+    #for_each          = toset(var.vm_ports_in)
+    for_each          = toset([for v in var.vm_ports_in : tostring(v)])
 
     type              = "ingress"
     description       = "Allow ${each.value}/TCP from internet"
