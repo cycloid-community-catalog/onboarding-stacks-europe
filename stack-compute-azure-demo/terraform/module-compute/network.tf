@@ -43,7 +43,7 @@ resource "azurerm_network_security_group" "compute" {
 }
 
 resource "azurerm_network_security_rule" "inbound" {
-  for_each          = toset(var.vm_ports_in)
+  for_each          = toset([for v in var.vm_ports_in : tostring(v)])
 
   resource_group_name         = local.resource_group_name
   network_security_group_name = azurerm_network_security_group.compute.name
