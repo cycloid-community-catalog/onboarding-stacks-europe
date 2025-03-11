@@ -58,12 +58,12 @@ use_cases:
       - name: "Ingress TCP ports"
         description: "Ingress TCP ports allowed from the internet. Type any ports as needed."
         key: vm_ports_in
-        widget: auto_complete
+        widget: dropdown
         widget_config:
           multiselect: true
         type: array
         values: [22,80,443,6443,8080]
-        default: [80,443]
+        default: [22,80,443,6443]
         required: false
 
       - name: "Create or Select VPC"
