@@ -16,9 +16,57 @@ use_cases:
         default: "Outscale"
         required: true
         values:
+        - "AWS"
+        - "Azure"
+        - "GCP"
         - "Ionos"
         - "Outscale"
         - "Other"
+
+    - name: AWS Infrastructure
+      technologies: [pipeline]
+      condition: '$cloud_type == "AWS"'
+      vars:
+      - name: "AWS Instance"
+        description: "The AWS instance where to install K3s."
+        key: aws_ip
+        widget: cy_inventory_resource
+        widget_config:
+          attribute: public_ip
+          filters:
+            type: aws_instance
+        type: string
+        required: true
+
+    - name: Azure Infrastructure
+      technologies: [pipeline]
+      condition: '$cloud_type == "Azure"'
+      vars:
+      - name: "Azure Instance"
+        description: "The Azure instance where to install K3s."
+        key: azure_ip
+        widget: cy_inventory_resource
+        widget_config:
+          attribute: public_ip_address
+          filters:
+            type: azurerm_linux_virtual_machine
+        type: string
+        required: true
+
+    - name: GCP Infrastructure
+      technologies: [pipeline]
+      condition: '$cloud_type == "GCP"'
+      vars:
+      - name: "GCP Instance"
+        description: "The GCP instance where to install K3s."
+        key: gcp_ip
+        widget: cy_inventory_resource
+        widget_config:
+          attribute: public_ip
+          filters:
+            type: google_compute_instance
+        type: string
+        required: true
 
     - name: Ionos Infrastructure
       technologies: [pipeline]
