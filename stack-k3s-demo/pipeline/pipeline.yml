@@ -33,6 +33,9 @@ jobs:
             eval "$(ssh-agent -s)"
             ssh-add ~/.ssh/git
             case $CLOUD_TYPE in
+              "AWS") IPADDR=${AWS_IP};;
+              "Azure") IPADDR=${AZURE_IP};;
+              "GCP") IPADDR=${GCP_IP};;
               "Ionos") IPADDR=${IONOS_IP};;
               "Outscale") IPADDR=${OUTSCALE_IP};;
               "Other") IPADDR=${OTHER_IP};;
@@ -70,6 +73,9 @@ jobs:
         params:
           SSH_PRIVATE_KEY: ((ssh_key))
           CLOUD_TYPE: ((cloud_type))
+          AWS_IP: ((aws_ip))
+          AZURE_IP: ((azure_ip))
+          GCP_IP: ((gcp_ip))
           IONOS_IP: ((ionos_ip))
           OUTSCALE_IP: ((outscale_ip))
           OTHER_IP: ((other_ip))

@@ -18,7 +18,7 @@ resources:
     repository: ((registry_repository))
     username: ((registry_username))
     password: ((registry_password))
-    tag: ($ .environment $)
+    tag: ((git_branch))
 
 
 groups:

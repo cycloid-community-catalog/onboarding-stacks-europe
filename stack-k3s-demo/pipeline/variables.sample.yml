@@ -6,6 +6,18 @@
 #+ The cloud hosting the instance where to install K3s.
 cloud_type: ""
 
+#. aws_ip (required): ""
+#+ The AWS instance IP address where to install K3s.
+aws_ip: ""
+
+#. azure_ip (required): ""
+#+ The Azure instance IP address where to install K3s.
+azure_ip: ""
+
+#. gcp_ip (required): ""
+#+ The GCP instance IP address where to install K3s.
+gcp_ip: ""
+
 #. ionos_ip (required): ""
 #+ The Ionos instance IP address where to install K3s.
 ionos_ip: ""
