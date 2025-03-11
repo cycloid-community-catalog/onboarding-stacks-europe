@@ -62,7 +62,7 @@ use_cases:
         widget_config:
           multiselect: true
         type: array
-        values: [22,80,443,8080]
+        values: [22,80,443,6443,8080]
         default: [80,443]
         required: false
 
