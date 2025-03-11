@@ -13,7 +13,6 @@ use_cases:
         key: cloud_type
         widget: dropdown
         type: string
-        default: "Outscale"
         required: true
         values:
         - "AWS"
