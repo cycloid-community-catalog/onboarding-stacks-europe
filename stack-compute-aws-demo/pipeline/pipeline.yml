@@ -119,6 +119,8 @@ jobs:
       - in_parallel:
         - get: tfstate
           trigger: true
+          passed:
+            - deploy
 
       - task: run-cli-operations
         config:
