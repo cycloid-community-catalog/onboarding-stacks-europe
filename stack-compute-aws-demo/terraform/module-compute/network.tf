@@ -1,7 +1,7 @@
 data "aws_vpc" "selected" {
   count = var.res_selector == "create" ? 0 : 1
 
-  id = var.res_selector == "inventory" ? var.vpc_id_inventory : var.vpc_id_manual
+  id = var.res_selector == "inventory" ? var.vpc_id_inventory : "aws" ? var.vpc_id_aws : var.vpc_id_manual
 }
 
 data "aws_subnets" "selected" {

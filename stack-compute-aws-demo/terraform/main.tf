@@ -32,6 +32,10 @@ module "compute" {
   #+ VPC where to deploy the resources
   vpc_id_inventory = "Value injected by StackForms"
 
+  #. vpc_id_aws: ''
+  #+ VPC where to deploy the resources
+  vpc_id_aws = "Value injected by StackForms"
+
   #. vpc_id_manual: ''
   #+ VPC where to deploy the resources
   vpc_id_manual = "Value injected by StackForms"

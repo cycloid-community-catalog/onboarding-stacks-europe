@@ -38,6 +38,10 @@ variable "vpc_id_inventory" {
   description = "VPC where to deploy the resources"
 }
 
+variable "vpc_id_aws" {
+  description = "VPC where to deploy the resources"
+}
+
 variable "vpc_id_manual" {
   description = "VPC where to deploy the resources"
 }
