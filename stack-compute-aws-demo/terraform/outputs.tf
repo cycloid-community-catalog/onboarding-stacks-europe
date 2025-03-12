@@ -7,3 +7,7 @@ output "url" {
   description = "The URL of the wepapp"
   value       = "http://${module.compute.vm_public_ip}"
 }
+
+output "instance_id" {
+  value = module.compute.instance_id
+}
