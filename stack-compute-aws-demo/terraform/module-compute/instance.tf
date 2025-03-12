@@ -40,6 +40,10 @@ resource "aws_instance" "ec2" {
     delete_on_termination = true
   }
 
+  user_data_base64 = base64encode(templatefile(
+    "${path.module}/userdata.sh", {}
+  ))
+
   lifecycle {
     ignore_changes = [ami]
   }
