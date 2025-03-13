@@ -149,7 +149,7 @@ jobs:
                 for i in $ffarr; do
                     FF="$FF --$i"
                 done
-                npm create vue@latest --yes -- --no-git --name $PROJECT $FF
+                npm create vue@latest --yes --name $PROJECT $FF
                 shopt -s dotglob
                 mv $PROJECT/* template/
               else

@@ -11,10 +11,6 @@ github_pat: "((github-pat.key))"
 # Application Source
 #
 
-#. git_source (required): []
-#+ Which source to use for the first commit. Could be vuejs or git.
-git_source: []
-
 #. git_source_url (required): []
 #+ The public git repo source URL to copy for the first commit when git_source is set to git.
 git_source_url: []
