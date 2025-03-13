@@ -28,12 +28,10 @@ use_cases:
         values_ref: https://cycloid-demo-stackforms-values.s3.eu-west-1.amazonaws.com/aws-regions.json
         default: eu-west-1
         required: true
-
-
+        
     - name: Virtual machine specifications
       technologies: [terraform]
       vars:
-
       - name: "Instance type"
         description: "Instance type for the VM."
         key: vm_instance_type
@@ -44,27 +42,4 @@ use_cases:
             - "t3a.small"
             - "t3a.medium"
             - "t3a.large"
-        required: true
-      - name: "Disk size"
-        unit: Go
-        description: "Disk size for the VM."
-        key: vm_disk_size
-        widget: slider_range
-        type: integer
-        default: 30
-        values:
-            - 30
-            - 100
-        required: true
-
-        
-    - name: Networking
-      technologies: [terraform]
-      vars:
-
-      - name: "VPC"
-        description: "VPC where to deploy the ec2 instance."
-        key: vpc_id
-        widget: simple_text
-        type: string
         required: true
