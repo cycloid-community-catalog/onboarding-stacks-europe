@@ -115,6 +115,17 @@ jobs:
         params:
           terraform_source: merged-stack/
 
+  - name: run-operations
+    serial: true
+    max_in_flight: 1
+    build_logs_to_retain: 10
+    plan:
+      - in_parallel:
+        - get: tfstate
+          trigger: true
+          passed:
+            - deploy
+
       - task: run-cli-operations
         config:
           platform: linux
@@ -128,8 +139,8 @@ jobs:
             args:
               - '-c'
               - |
-                source ansible-playbook/env
                 apt-get install jq -y >/dev/null
+                export vm_name=$(cat tfstate/metadata | jq -r .vm_name)
                 echo ${GOOGLE_CRED} | jq -r .key >/tmp/gcp_credentials_json
                 gcloud auth activate-service-account --key-file /tmp/gcp_credentials_json
                 if [[ "$vm_instance_status" = "Started" ]]; then
@@ -140,8 +151,8 @@ jobs:
                   gcloud compute instances stop ${vm_name} --zone=${GOOGLE_ZONE}
                 fi
           inputs:
-          - name: merged-stack
-            path: ansible-playbook
+          - name: tfstate
+            path: tfstate
         params:
           vm_instance_status: '((vm_instance_status))'
           GOOGLE_PROJECT: ((gcp_project))

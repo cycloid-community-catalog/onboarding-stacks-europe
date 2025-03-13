@@ -108,6 +108,17 @@ jobs:
         params:
           terraform_source: merged-stack/
 
+  - name: run-operations
+    serial: true
+    max_in_flight: 1
+    build_logs_to_retain: 10
+    plan:
+      - in_parallel:
+        - get: tfstate
+          trigger: true
+          passed:
+            - deploy
+
       - task: run-cli-operations
         config:
           platform: linux
@@ -121,7 +132,8 @@ jobs:
             args:
               - '-c'
               - |
-                source ansible-playbook/env
+                export vm_name=$(cat tfstate/metadata | jq -r .vm_name)
+                export resource_group_name=$(cat tfstate/metadata | jq -r .resource_group_name)
                 export AZURE_CLIENT_ID=$(echo ${CY_AZURE_CRED} | jq -r .client_id)
                 export AZURE_CLIENT_SECRET=$(echo ${CY_AZURE_CRED} | jq -r .client_secret)
                 export AZURE_TENANT_ID=$(echo ${CY_AZURE_CRED} | jq -r .tenant_id)
@@ -135,8 +147,8 @@ jobs:
                   az vm stop --resource-group ${resource_group_name} --name ${vm_name}
                 fi
           inputs:
-          - name: merged-stack
-            path: ansible-playbook
+          - name: tfstate
+            path: tfstate
         params:
           vm_instance_status: '((vm_instance_status))'
           CY_AZURE_CRED: '((azure_cred))'
