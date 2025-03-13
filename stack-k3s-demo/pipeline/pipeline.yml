@@ -42,14 +42,14 @@ jobs:
               *) IPADDR="unknown";;
             esac
             ssh-keyscan -t rsa ${IPADDR} >> ~/.ssh/known_hosts
-            for user in admin root outscale; do
+            for user in admin root cycloid ec2-user debian outscale; do
               if ssh -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" -o "ConnectTimeout=5" -t ${user}@${IPADDR} pwd &>/dev/null; then
                 USERNAME=$user
                 break
               fi
             done
             if [[ -z "$USERNAME" ]]; then
-              echo "Error: SSH user not found... Tried [admin, root, outscale]"
+              echo "Error: SSH user not found... Tried [admin, root, cycloid, ec2-user, debian, outscale]"
               exit 1
             fi
             echo "Installing K3s..."
