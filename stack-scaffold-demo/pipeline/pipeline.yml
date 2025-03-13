@@ -161,7 +161,6 @@ jobs:
           GIT_SOURCE_PATH: ((git_source_path))
           GIT_KEY: ((($ .organization_canonical $)-($ .project $)-($ .environment $)-git-ssh.ssh_key))
           PROJECT: ($ .project $)
-          FEATURE_FLAGS: ((vuejs_feature_flags))
 
 
   # Destroy the infrastructure
