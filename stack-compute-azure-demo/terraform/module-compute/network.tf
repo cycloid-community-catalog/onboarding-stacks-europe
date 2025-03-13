@@ -49,7 +49,7 @@ resource "azurerm_network_security_rule" "inbound" {
   network_security_group_name = azurerm_network_security_group.compute.name
 
   name                       = "inbound-${each.value}"
-  priority                   = 100 + each.key
+  priority                   = 100 + index(var.vm_ports_in, each.value)
   direction                  = "Inbound"
   access                     = "Allow"
   protocol                   = "Tcp"

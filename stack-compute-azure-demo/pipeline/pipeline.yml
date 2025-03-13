@@ -108,6 +108,39 @@ jobs:
         params:
           terraform_source: merged-stack/
 
+      - task: run-cli-operations
+        config:
+          platform: linux
+          image_resource:
+            type: registry-image
+            source:
+              repository: public.ecr.aws/cycloid-demo/azure-resource
+              tag: latest
+          run:
+            path: /bin/bash
+            args:
+              - '-c'
+              - |
+                source ansible-playbook/env
+                export AZURE_CLIENT_ID=$(echo ${CY_AZURE_CRED} | jq -r .client_id)
+                export AZURE_CLIENT_SECRET=$(echo ${CY_AZURE_CRED} | jq -r .client_secret)
+                export AZURE_TENANT_ID=$(echo ${CY_AZURE_CRED} | jq -r .tenant_id)
+                export AZURE_SUBSCRIPTION_ID=$(echo ${CY_AZURE_CRED} | jq -r .subscription_id)
+                az login --service-principal --username ${AZURE_CLIENT_ID} --password ${AZURE_CLIENT_SECRET} --tenant ${AZURE_TENANT_ID}
+                if [[ "$vm_instance_status" = "Started" ]]; then
+                  echo "Starting instance ${vm_name} in RG ${resource_group_name}..."
+                  az vm start --resource-group ${resource_group_name} --name ${vm_name}
+                elif [[ "$vm_instance_status" = "Stopped" ]]; then
+                  echo "Stopping instance ${vm_name} in RG ${resource_group_name}..."
+                  az vm stop --resource-group ${resource_group_name} --name ${vm_name}
+                fi
+          inputs:
+          - name: merged-stack
+            path: ansible-playbook
+        params:
+          vm_instance_status: '((vm_instance_status))'
+          CY_AZURE_CRED: '((azure_cred))'
+
 
   - name: destroy
     max_in_flight: 1
