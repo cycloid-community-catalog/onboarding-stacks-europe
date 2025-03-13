@@ -62,8 +62,8 @@ use_cases:
         widget_config:
           multiselect: true
         type: array
-        values: [22,80,443,6443,8080]
-        default: [22,80,443,6443]
+        values: ["22","80","443","6443","8080"]
+        default: ["22","80","443","6443"]
         required: false
 
       - name: "Create or Select VPC"

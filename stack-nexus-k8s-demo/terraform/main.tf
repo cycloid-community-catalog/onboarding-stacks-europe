@@ -10,5 +10,5 @@ module "nexus" {
 
   #. vm_disk_size: 20
   #+ Disk size for the Nexus Repository (Go)
-  vm_disk_size = "Value injected by StackForms"
+  vm_disk_size = ""
 }

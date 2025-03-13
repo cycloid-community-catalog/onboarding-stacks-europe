@@ -20,12 +20,12 @@ gcp_zone: "europe-west1-b"
 
 
 #
-# Key pair to provision in newly created instances
+# Day 2 CLI Operations
 #
 
-#. key_pair_public (required): ((key_pair.public_key))
-#+ The public SSH key to provision for external access through SSH
-key_pair_public: ((key_pair.public_key))
+#. vm_instance_status (required): "Started"
+#+ Status for the deployed instances.
+vm_instance_status: "Started"
 
 
 #

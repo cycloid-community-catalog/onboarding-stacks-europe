@@ -128,12 +128,12 @@ use_cases:
       - name: "Ingress TCP ports"
         description: "Ingress TCP ports allowed from the internet. Type any ports as needed."
         key: vm_ports_in
-        widget: auto_complete
+        widget: dropdown
         widget_config:
           multiselect: true
         type: array
-        values: ["22","80","443","8080"]
-        default: ["80","443"]
+        values: ["22","80","443","6443","8080"]
+        default: ["22","80","443","6443"]
         required: false
 
       - name: "Create or Select VPC"
@@ -172,4 +172,18 @@ use_cases:
         key: vpc_name_manual
         widget: simple_text
         type: string
+        required: true
+
+    - name: Day-2 Operations
+      technologies: [pipeline]
+      vars:
+      - name: "Instance status"
+        description: "Status for the deployed instances."
+        key: vm_instance_status
+        widget: radios
+        type: string
+        default: "Started"
+        values:
+            - "Started"
+            - "Stopped"
         required: true
