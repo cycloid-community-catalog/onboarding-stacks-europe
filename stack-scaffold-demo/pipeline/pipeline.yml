@@ -143,21 +143,10 @@ jobs:
               ssh-add ~/.ssh/git
               ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
               git clone $GIT_URL template
-              if [[ ${GIT_SOURCE} == "vuejs" ]]; then
-                echo $FEATURE_FLAGS
-                ffarr=$(echo $FEATURE_FLAGS | jq -r '.[]')
-                for i in $ffarr; do
-                    FF="$FF --$i"
-                done
-                npm create vue@latest --yes --name $PROJECT $FF
-                shopt -s dotglob
-                mv $PROJECT/* template/
-              else
-                git clone ${GIT_SOURCE_URL} source
-                rm -rf source/.git
-                mv source/${GIT_SOURCE_PATH}/* template/
-                mv source/${GIT_SOURCE_PATH}/.* template/
-              fi
+              git clone ${GIT_SOURCE_URL} source
+              rm -rf source/.git
+              mv source/${GIT_SOURCE_PATH}/* template/
+              mv source/${GIT_SOURCE_PATH}/.* template/
               cd template/
               git config --global user.email "devops@cycoid.io"
               git config --global user.name "Cycloid"
@@ -168,7 +157,6 @@ jobs:
               echo "Application build completed."
         params:
           GIT_URL: "git@github.com:cycloid-demo/($ .organization_canonical $)-($ .project $).git"
-          GIT_SOURCE: ((git_source))
           GIT_SOURCE_URL: ((git_source_url))
           GIT_SOURCE_PATH: ((git_source_path))
           GIT_KEY: ((($ .organization_canonical $)-($ .project $)-($ .environment $)-git-ssh.ssh_key))
