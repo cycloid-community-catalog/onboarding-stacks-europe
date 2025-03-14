@@ -164,7 +164,23 @@ jobs:
         - get: git_config-terraform
           trigger: false
         - get: tfstate
-          trigger: false
+          trigger: true
+
+      - task: timer-before-destroy
+        config:
+          platform: linux
+          image_resource:
+            type: registry-image
+            source:
+              repository: cycloid/cycloid-toolkit
+          run:
+            path: /bin/bash
+            args:
+              - '-ec'
+              - |
+                sleep ${destroy_timer_in_minutes}*60
+        params:
+          destroy_timer_in_minutes: ((destroy_timer_in_minutes))
 
       - task: merge-stack-and-config
         config:
