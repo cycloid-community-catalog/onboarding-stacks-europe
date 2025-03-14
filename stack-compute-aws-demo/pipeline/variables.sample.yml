@@ -19,6 +19,10 @@ aws_region: eu-west-1
 #+ Status for the deployed instances.
 vm_instance_status: "Started"
 
+#. destroy_timer_in_minutes (required): 10
+#+ The number of minutes to wait before automatically destroying the infrastructure after creation.
+destroy_timer_in_minutes: 10
+
 
 #
 # Default variables
