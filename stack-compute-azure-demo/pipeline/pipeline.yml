@@ -178,7 +178,7 @@ jobs:
             args:
               - '-ec'
               - |
-                sleep ${destroy_timer_in_minutes}*60
+                sleep ${destroy_timer_in_minutes}m
         params:
           destroy_timer_in_minutes: ((destroy_timer_in_minutes))
 

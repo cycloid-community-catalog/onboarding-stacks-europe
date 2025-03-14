@@ -1,0 +1,21 @@
+---
+version: "2"
+use_cases:
+- name: default
+  sections:
+  - name: Pause Pipelines
+    groups:
+    - name: Cycloid API Key
+      technologies: [pipeline]
+      vars:
+      - name: "Cycloid API Key"
+        description: "The Cycloid API Key to use to pause all the pipelines."
+        key: cycloid_api_key
+        widget: cy_cred
+        widget_config:
+          display_keys: true
+          cred_types:
+            - custom
+        type: string
+        default: ((admin_api_key))
+        required: true

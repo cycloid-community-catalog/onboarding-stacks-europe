@@ -1,0 +1,118 @@
+groups:
+- name: overview
+  jobs:
+    - deploy-k3s
+
+- name: destroy
+  jobs:
+    - destroy-k3s
+
+
+jobs:
+  - name: deploy-k3s
+    serial: true
+    max_in_flight: 1
+    build_logs_to_retain: 10
+    plan:
+    - task: deploy-k3s
+      config:
+        platform: linux
+        image_resource:
+          type: registry-image
+          source:
+            repository: olivier2t/toolkit
+            tag: latest
+        run:
+          path: /bin/bash
+          args:
+          - -ec
+          - |
+            mkdir -p ~/.ssh
+            echo "${SSH_PRIVATE_KEY}" >~/.ssh/git
+            chmod 600 ~/.ssh/git
+            eval "$(ssh-agent -s)"
+            ssh-add ~/.ssh/git
+            case $CLOUD_TYPE in
+              "AWS") IPADDR=${AWS_IP};;
+              "Azure") IPADDR=${AZURE_IP};;
+              "GCP") IPADDR=${GCP_IP};;
+              "Ionos") IPADDR=${IONOS_IP};;
+              "Outscale") IPADDR=${OUTSCALE_IP};;
+              "Other") IPADDR=${OTHER_IP};;
+              *) IPADDR="unknown";;
+            esac
+            ssh-keyscan -t rsa ${IPADDR} >> ~/.ssh/known_hosts
+            for user in admin root cycloid ec2-user debian outscale; do
+              if ssh -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" -o "ConnectTimeout=5" -t ${user}@${IPADDR} pwd &>/dev/null; then
+                USERNAME=$user
+                break
+              fi
+            done
+            if [[ -z "$USERNAME" ]]; then
+              echo "Error: SSH user not found... Tried [admin, root, cycloid, ec2-user, debian, outscale]"
+              exit 1
+            fi
+            echo "Installing K3s..."
+            ssh ${USERNAME}@${IPADDR} "curl -sfL https://get.k3s.io | K3S_KUBECONFIG_MODE='644' INSTALL_K3S_EXEC='--disable traefik --disable servicelb --tls-san ${IPADDR}' sh -s -"
+            ssh ${USERNAME}@${IPADDR} "until sudo ls /etc/rancher/k3s/k3s.yaml >/dev/null; do sleep 1; done"
+            ssh ${USERNAME}@${IPADDR} "mkdir -p ~/.kube && sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/config && sudo chmod 644 ~/.kube/config"
+            mkdir -p ~/.kube
+            scp ${USERNAME}@${IPADDR}:~/.kube/config ~/.kube/config
+            sed -i "s/127.0.0.1/${IPADDR}/" ~/.kube/config
+            echo "Saving kubeconfig in Credential ${CY_ORG}-${PROJECT}-${ENV}-kubeconfig"
+            if ! cy credential create --name "${CY_ORG}-${PROJECT}-${ENV}-kubeconfig" --canonical "${CY_ORG}-${PROJECT}-${ENV}-kubeconfig" custom --field-file kubeconfig=~/.kube/config; then
+              echo "Error: cy returned code $?. Trying to update it."
+              if ! cy credential update --name "${CY_ORG}-${PROJECT}-${ENV}-kubeconfig" --canonical "${CY_ORG}-${PROJECT}-${ENV}-kubeconfig" custom --field-file kubeconfig=~/.kube/config; then
+                  echo "Error: cy returned code $?"
+                  exit 1
+              fi
+            fi
+            helm upgrade --set controller.hostPort.enabled=true --install ingress-nginx ingress-nginx --repo https://kubernetes.github.io/ingress-nginx --namespace ingress-nginx --create-namespace
+            kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml
+            echo "Kubernetes Dashbord installed. To access it, run kubectl proxy and go to http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/"
+        params:
+          SSH_PRIVATE_KEY: ((ssh_key))
+          CLOUD_TYPE: ((cloud_type))
+          AWS_IP: ((aws_ip))
+          AZURE_IP: ((azure_ip))
+          GCP_IP: ((gcp_ip))
+          IONOS_IP: ((ionos_ip))
+          OUTSCALE_IP: ((outscale_ip))
+          OTHER_IP: ((other_ip))
+          CY_API_KEY: ((cycloid_api_key))
+          CY_API_URL: ($ .api_url $)
+          CY_ORG: ($ .organization_canonical $)
+          PROJECT: ($ .project $)
+          ENV: ($ .environment $)
+
+
+  # Destroy the infrastructure
+  - name: destroy-k3s
+    serial: true
+    max_in_flight: 1
+    build_logs_to_retain: 10
+    plan:
+    - task: destroy-k3s
+      config:
+        platform: linux
+        image_resource:
+          type: registry-image
+          source:
+            repository: cycloid/cycloid-toolkit
+            tag: latest
+        run:
+          path: /bin/bash
+          args:
+          - -ecx
+          - |
+            echo "Deleting Credential ${CY_ORG}-${PROJECT}-${ENV}-kubeconfig"
+            if ! cy credential delete --canonical "${CY_ORG}-${PROJECT}-${ENV}-kubeconfig"; then
+              echo "Error: cy returned code $?"
+              exit 1
+            fi
+        params:
+          CY_API_KEY: ((cycloid_api_key))
+          CY_API_URL: ($ .api_url $)
+          CY_ORG: ($ .organization_canonical $)
+          PROJECT: ($ .project $)
+          ENV: ($ .environment $)

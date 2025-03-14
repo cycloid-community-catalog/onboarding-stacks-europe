@@ -1,0 +1,22 @@
+---
+# Configuration of the Cycloid stack
+version: '4'
+name: 'Pause Pipelines'
+canonical: stack-pause-pipelines
+author: Cycloid
+description: |
+  Pause all pipelines in the current organization.
+image: |
+  https://www.cycloid.io/themes/cycloid/images/owl_logo.png
+keywords:
+  - cycloid
+  - pipeline
+
+config:
+  default:
+    pipeline:
+      pipeline:
+        path: pipeline/pipeline.yml
+      variables:
+        path: pipeline/variables.sample.yml
+        destination: '($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/pipeline/variables.yml'
