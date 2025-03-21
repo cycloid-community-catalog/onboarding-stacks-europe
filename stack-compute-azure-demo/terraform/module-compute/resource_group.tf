@@ -13,4 +13,5 @@ resource "azurerm_resource_group" "compute" {
 
 locals {
   resource_group_name = var.res_selector == "create" ? azurerm_resource_group.compute[0].name : data.azurerm_resource_group.selected[0].name
+  resource_group_location = var.res_selector == "create" ? azurerm_resource_group.compute[0].name : data.azurerm_resource_group.selected[0].location
 }
