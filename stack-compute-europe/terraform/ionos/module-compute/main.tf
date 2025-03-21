@@ -1,5 +1,5 @@
 resource "ionoscloud_server" "compute" {
-  name              = "${var.cy_pro}-${var.cy_env}-${var.cy_com}"
+  name              = "${var.cypro}-${var.cyenv}-${var.cycom}"
   datacenter_id     = ionoscloud_datacenter.datacenter.id
   availability_zone = "AUTO"
   type              = "CUBE"
@@ -33,7 +33,7 @@ resource "ionoscloud_server" "compute" {
 # }
 
 resource "ionoscloud_datacenter" "datacenter" {
-  name     = "${var.cy_org}-${var.cy_pro}-${var.cy_env}-${var.cy_com}"
+  name     = "${var.cyorg}-${var.cypro}-${var.cyenv}-${var.cycom}"
   location = var.ionos_region
 }
 

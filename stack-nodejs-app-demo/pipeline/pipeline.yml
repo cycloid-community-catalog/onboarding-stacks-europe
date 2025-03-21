@@ -18,10 +18,10 @@ resources:
     vars:
       cycloid_api_key: ((cycloid_api_key))
       cycloid_api_url: ($ .api_url $)
-      cy_org: ($ .organization_canonical $)
-      cy_pro: ($ .project $)
-      cy_env: ($ .environment $)
-      cy_com: ($ .component $)
+      cyorg: ($ .organization_canonical $)
+      cypro: ($ .project $)
+      cyenv: ($ .environment $)
+      cycom: ($ .component $)
 ($ if eq .use_case "aws" $)
       aws_cred: ((aws_cred))
       aws_region: ((aws_region))
@@ -621,10 +621,10 @@ jobs:
           ANSIBLE_PLAYBOOK_PATH: ansible-playbook
           ANSIBLE_PLAYBOOK_NAME: site.yml
           ANSIBLE_EXTRA_VARS:
-            cy_org: ($ .organization_canonical $)
-            cy_pro: ($ .project $)
-            cy_env: ($ .environment $)
-            cy_com: ($ .component $)
+            cyorg: ($ .organization_canonical $)
+            cypro: ($ .project $)
+            cyenv: ($ .environment $)
+            cycom: ($ .component $)
             app_image: ((registry_repository))
             app_tag: ((git_branch))
             app_port: 8080
@@ -707,9 +707,9 @@ jobs:
             args:
               - '-ec'
               - |
-                echo "Pause pipeline ${PROJECT}/${ENV} in org ${CY_ORG}:"
+                echo "Pause pipeline ${PROJECT}/${ENV} in org ${cyorg}:"
                 cy pipeline pause \
-                --org ${CY_ORG} \
+                --org ${cyorg} \
                 --project ${PROJECT} \
                 --env ${ENV} >output
                 if [[ "$?" != "0" ]]; then
@@ -721,6 +721,6 @@ jobs:
           params:
             CY_API_KEY: ((cycloid_api_key))
             CY_API_URL: ($ .api_url $)
-            CY_ORG: ($ .organization_canonical $)
+            cyorg: ($ .organization_canonical $)
             PROJECT: ($ .project $)
             ENV: ($ .environment $)

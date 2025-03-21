@@ -2,10 +2,10 @@ module "vmware" {
   #####################################
   # Do not modify the following lines #
   source   = "./module-vmware"
-  cy_org  = var.cy_org
-  cy_pro  = var.cy_pro
-  cy_env  = var.cy_env
-  cy_com  = var.cy_com
+  cyorg  = var.cyorg
+  cypro  = var.cypro
+  cyenv  = var.cyenv
+  cycom  = var.cycom
   #####################################
 
   #. vm_ip (required,string): "212.129.18.92"

@@ -2,10 +2,10 @@ module "argocd" {
   #####################################
   # Do not modify the following lines #
   source = "./module-argocd"
-  cy_org  = var.cy_org
-  cy_pro  = var.cy_pro
-  cy_env  = var.cy_env
-  cy_com  = var.cy_com
+  cyorg  = var.cyorg
+  cypro  = var.cypro
+  cyenv  = var.cyenv
+  cycom  = var.cycom
   #####################################
 
   #. argocd_version:  "7.8.3"

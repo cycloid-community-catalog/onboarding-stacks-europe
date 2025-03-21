@@ -8,7 +8,7 @@ provider "vsphere" {
 }
 
 provider "cycloid" {
-  organization_canonical = var.cy_org
+  organization_canonical = var.cyorg
   jwt                    = var.cycloid_api_key
   url                    = var.cycloid_api_url
 }

@@ -1,7 +1,7 @@
 # Create compute VM
 resource "azurerm_linux_virtual_machine" "compute" {
-  name                  = "${var.cy_org}-${var.cy_pro}-${var.cy_env}-${var.cy_com}"
-  computer_name         = "${var.cy_org}-${var.cy_pro}-${var.cy_env}-${var.cy_com}"
+  name                  = "${var.cyorg}-${var.cypro}-${var.cyenv}-${var.cycom}"
+  computer_name         = "${var.cyorg}-${var.cypro}-${var.cyenv}-${var.cycom}"
   resource_group_name   = local.resource_group_name
   location              = local.resource_group_location
   network_interface_ids = [azurerm_network_interface.compute.id]
@@ -29,7 +29,7 @@ resource "azurerm_linux_virtual_machine" "compute" {
   }
   
   tags = {
-    Name = "${var.cy_org}-${var.cy_pro}-${var.cy_env}-${var.cy_com}"
+    Name = "${var.cyorg}-${var.cypro}-${var.cyenv}-${var.cycom}"
     role = "compute"
   }
 }

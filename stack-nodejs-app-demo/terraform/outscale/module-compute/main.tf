@@ -7,13 +7,13 @@ resource "outscale_vm" "compute" {
     placement_tenancy        = "default"
     tags {
         key   = "name"
-        value = "${var.cy_org}-${var.cy_pro}-${var.cy_env}-${var.cy_com}"
+        value = "${var.cyorg}-${var.cypro}-${var.cyenv}-${var.cycom}"
     }
 }
 
 resource "outscale_security_group" "security_group01" {
   description         = "vm security group"
-  security_group_name = "${var.cy_org}-${var.cy_pro}-${var.cy_env}-${var.cy_com}"
+  security_group_name = "${var.cyorg}-${var.cypro}-${var.cyenv}-${var.cycom}"
 }
 
 resource "outscale_security_group_rule" "ssh" {

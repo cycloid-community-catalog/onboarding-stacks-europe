@@ -1,8 +1,8 @@
 # Cycloid
-variable "cy_org" {}
-variable "cy_pro" {}
-variable "cy_env" {}
-variable "cy_com" {}
+variable "cyorg" {}
+variable "cypro" {}
+variable "cyenv" {}
+variable "cycom" {}
 
 variable "outscale_region" {
   description = "The Outscale region where to deploy the infrastructure."
@@ -21,10 +21,10 @@ variable "extra_tags" {
 
 locals {
   cycloid_tags = {
-    cycloid_organization = var.cy_org
-    cycloid_project      = var.cy_pro
-    cycloid_environment  = var.cy_env
-    cycloid_component    = var.cy_com
+    cycloid_organization = var.cyorg
+    cycloid_project      = var.cypro
+    cycloid_environment  = var.cyenv
+    cycloid_component    = var.cycom
   }
   merged_tags = merge(local.cycloid_tags, var.extra_tags)
 }

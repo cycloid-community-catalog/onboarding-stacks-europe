@@ -1,6 +1,6 @@
 resource "github_repository" "argocd" {
-  name        = "${var.cy_org}-${var.cy_pro}-argocd"
-  description = "ArgoCD repo managed by Cycloid in ${var.cy_pro} project in ${var.cy_org} org"
+  name        = "${var.cyorg}-${var.cypro}-argocd"
+  description = "ArgoCD repo managed by Cycloid in ${var.cypro} project in ${var.cyorg} org"
 
   visibility = "private"
   auto_init  = true
@@ -21,17 +21,17 @@ resource "tls_private_key" "github_generated_key" {
 }
 
 resource "github_repository_deploy_key" "argocd" {
-  title      = "${var.cy_pro}"
+  title      = "${var.cypro}"
   repository = github_repository.argocd.name
   key        = tls_private_key.github_generated_key.public_key_openssh
   read_only  = false
 }
 
 resource "cycloid_credential" "ssh_key" {
-  name                   = "${var.cy_org}-${var.cy_pro}-${var.cy_env}-github-argocd"
+  name                   = "${var.cyorg}-${var.cypro}-${var.cyenv}-github-argocd"
   description            = "SSH Key Pair used to access ArgoCD GitHub repo."
-  path                   = "${var.cy_org}-${var.cy_pro}-${var.cy_env}-github-argocd"
-  canonical              = "${var.cy_org}-${var.cy_pro}-${var.cy_env}-github-argocd"
+  path                   = "${var.cyorg}-${var.cypro}-${var.cyenv}-github-argocd"
+  canonical              = "${var.cyorg}-${var.cypro}-${var.cyenv}-github-argocd"
 
   type = "ssh"
   body = {

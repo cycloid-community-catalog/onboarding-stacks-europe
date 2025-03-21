@@ -1,5 +1,5 @@
 resource "aws_security_group" "ec2" {
-  name        = "${var.cy_org}-${var.cy_pro}-${var.cy_env}-${var.cy_com}"
+  name        = "${var.cyorg}-${var.cypro}-${var.cyenv}-${var.cycom}"
   vpc_id      = var.res_selector == "create" ? module.vpc[0].vpc_id : data.aws_vpc.selected[0].id
 }
 
