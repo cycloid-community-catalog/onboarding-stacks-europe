@@ -11,7 +11,7 @@ resources:
   type: terraform
   icon: terraform
   source:
-    env_name: ($ .environment $)
+    env_name: ($ .env $)
     backend_type: http
     backend_config:
       address: '($ .api_url $)/inventory?jwt=($ .inventory_jwt $)'
@@ -19,12 +19,12 @@ resources:
       gcp_project: ((gcp_project))
       gcp_region: ((gcp_region))
       gcp_zone: ((gcp_zone))
-      cycloid_api_key: ((cycloid_api_key))
-      cycloid_api_url: ($ .api_url $)
-      cyorg: ($ .organization_canonical $)
-      cypro: ($ .project $)
-      cyenv: ($ .environment $)
-      cycom: ($ .component $)
+      cy_api_key: ((cy_api_key))
+      cy_api_url: ($ .api_url $)
+      cy_org: ($ .org $)
+      cy_project: ($ .project $)
+      cy_env: ($ .env $)
+      cy_component: ($ .component $)
     env:
       GOOGLE_PROJECT: ((gcp_project))
       GOOGLE_REGION: ((gcp_region))
@@ -64,7 +64,7 @@ resources:
     private_key: ((($ .cr_cred_path $).ssh_key))
     ($- end $)
     paths:
-      - ($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/terraform/*
+      - ($ .org $)/($ .project $)/($ .env $)/($ .component $)/terraform/*
 
 
 groups:
@@ -109,7 +109,7 @@ jobs:
           - name: merged-stack
             path: "merged-stack"
         params:
-          CONFIG_PATH: ($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/terraform
+          CONFIG_PATH: ($ .org $)/($ .project $)/($ .env $)/($ .component $)/terraform
           STACK_PATH: ($ .stack_path $)/terraform
 
       - put: tfstate
@@ -209,7 +209,7 @@ jobs:
           - name: merged-stack
             path: "merged-stack"
         params:
-          CONFIG_PATH: ($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/terraform
+          CONFIG_PATH: ($ .org $)/($ .project $)/($ .env $)/($ .component $)/terraform
           STACK_PATH: ($ .stack_path $)/terraform
 
       - put: tfstate

@@ -13,14 +13,14 @@ data "google_compute_subnetwork" "selected" {
 resource "google_compute_network" "compute" {
   count = var.res_selector == "create" ? 1 : 0
 
-  name = "${var.cyorg}-${var.cypro}-${var.cyenv}-${var.cycom}"
+  name = "${var.cy_org}-${var.cy_project}-${var.cy_env}-${var.cy_component}"
   auto_create_subnetworks = false
 }
 
 resource "google_compute_subnetwork" "compute" {
   count = var.res_selector == "create" ? 1 : 0
 
-  name          = "${var.cyorg}-${var.cypro}-${var.cyenv}-${var.cycom}"
+  name          = "${var.cy_org}-${var.cy_project}-${var.cy_env}-${var.cy_component}"
   ip_cidr_range = "10.77.0.0/16"
   network       = google_compute_network.compute[0].id
 }

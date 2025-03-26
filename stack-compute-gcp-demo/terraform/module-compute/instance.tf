@@ -1,5 +1,5 @@
 resource "google_compute_firewall" "compute" {
-  name    = "${var.cyorg}-${var.cypro}-${var.cyenv}-${var.cycom}"
+  name    = "${var.cy_org}-${var.cy_project}-${var.cy_env}-${var.cy_component}"
   network = local.compute_network_name
 
   allow {
@@ -15,7 +15,7 @@ data "google_compute_zones" "available" {
 }
 
 resource "google_compute_instance" "compute" {
-  name           = "${var.cyorg}-${var.cypro}-${var.cyenv}-${var.cycom}"
+  name           = "${var.cy_org}-${var.cy_project}-${var.cy_env}-${var.cy_component}"
   machine_type   = var.vm_machine_type
   can_ip_forward = false
   zone           = data.google_compute_zones.available.names[length(data.google_compute_zones.available.names)-1]
@@ -46,10 +46,10 @@ resource "google_compute_instance" "compute" {
   }
 
   labels = {
-    cyorg = var.cyorg
-    cypro = var.cypro
-    cyenv = var.cyenv
-    cycom = var.cycom
+    cy_org = var.cy_org
+    cy_project = var.cy_project
+    cy_env = var.cy_env
+    cy_component = var.cy_component
     role = "compute"
   }
 }
