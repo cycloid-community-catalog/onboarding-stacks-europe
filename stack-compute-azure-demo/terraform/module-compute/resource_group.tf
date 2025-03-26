@@ -7,7 +7,7 @@ data "azurerm_resource_group" "selected" {
 resource "azurerm_resource_group" "compute" {
   count = var.res_selector == "create" ? 1 : 0
 
-  name     = "${var.cyorg}-${var.cypro}-${var.cyenv}-${var.cycom}"
+  name     = "${var.cy_org}-${var.cy_project}-${var.cy_env}-${var.cy_component}"
   location = var.azure_location
 }
 

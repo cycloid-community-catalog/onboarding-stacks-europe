@@ -8,7 +8,7 @@ provider "azurerm" {
 }
 
 provider "cycloid" {
-  organization_canonical = var.cyorg
+  organization_canonical = var.cy_org
   jwt                    = var.cycloid_api_key
   url                    = var.cycloid_api_url
 }

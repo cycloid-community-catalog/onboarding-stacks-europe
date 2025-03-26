@@ -1,8 +1,8 @@
 # Cycloid
-variable "cyorg" {}
-variable "cypro" {}
-variable "cyenv" {}
-variable "cycom" {}
+variable "cy_org" {}
+variable "cy_project" {}
+variable "cy_env" {}
+variable "cy_component" {}
 
 # Infra
 variable "vm_instance_type" {

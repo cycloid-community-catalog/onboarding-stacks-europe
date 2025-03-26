@@ -1,11 +1,11 @@
 module "compute" {
   #####################################
   # Do not modify the following lines #
-  source   = "./module-compute"
-  cyorg  = var.cyorg
-  cypro  = var.cypro
-  cyenv  = var.cyenv
-  cycom  = var.cycom
+  source       = "./module-compute"
+  cy_org       = ($ .org $)
+  cy_project   = ($ .project $)
+  cy_env       = ($ .env $)
+  cy_component = ($ .component $)
   #####################################
 
   #. vm_instance_type: 'Standard_DS2_v2'

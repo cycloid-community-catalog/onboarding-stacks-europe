@@ -16,7 +16,7 @@ data "azurerm_subnet" "selected" {
 resource "azurerm_virtual_network" "compute" {
   count = var.res_selector == "create" ? 1 : 0
 
-  name                = "${var.cyorg}-${var.cypro}-${var.cyenv}-${var.cycom}"
+  name                = "${var.cy_org}-${var.cy_project}-${var.cy_env}-${var.cy_component}"
   resource_group_name = local.resource_group_name
   location            = local.resource_group_location
   address_space       = ["10.77.0.0/16"]
@@ -25,19 +25,19 @@ resource "azurerm_virtual_network" "compute" {
 resource "azurerm_subnet" "compute" {
   count = var.res_selector == "create" ? 1 : 0
 
-  name                 = "${var.cyorg}-${var.cypro}-${var.cyenv}-${var.cycom}"
+  name                 = "${var.cy_org}-${var.cy_project}-${var.cy_env}-${var.cy_component}"
   resource_group_name  = local.resource_group_name
   virtual_network_name = azurerm_virtual_network.compute[0].name
   address_prefixes     = ["10.77.1.0/24"]
 }
 
 resource "azurerm_network_security_group" "compute" {
-  name                = "${var.cyorg}-${var.cypro}-${var.cyenv}-${var.cycom}"
+  name                = "${var.cy_org}-${var.cy_project}-${var.cy_env}-${var.cy_component}"
   resource_group_name = local.resource_group_name
   location            = local.resource_group_location
 
   tags = {
-    Name = "${var.cyorg}-${var.cypro}-${var.cyenv}-${var.cycom}"
+    Name = "${var.cy_org}-${var.cy_project}-${var.cy_env}-${var.cy_component}"
     role = "security_group"
   }
 }
@@ -61,32 +61,32 @@ resource "azurerm_network_security_rule" "inbound" {
 
 # Get a Static Public IP
 resource "azurerm_public_ip" "compute" {
-  name                = "${var.cyorg}-${var.cypro}-${var.cyenv}-${var.cycom}"
+  name                = "${var.cy_org}-${var.cy_project}-${var.cy_env}-${var.cy_component}"
   resource_group_name = local.resource_group_name
   location            = local.resource_group_location
   allocation_method   = "Dynamic"
 
   tags = {
-    Name = "${var.cyorg}-${var.cypro}-${var.cyenv}-${var.cycom}"
+    Name = "${var.cy_org}-${var.cy_project}-${var.cy_env}-${var.cy_component}"
     role = "public_ip"
   }
 }
 
 # Create Network Card for the VM
 resource "azurerm_network_interface" "compute" {
-  name                = "${var.cyorg}-${var.cypro}-${var.cyenv}-${var.cycom}"
+  name                = "${var.cy_org}-${var.cy_project}-${var.cy_env}-${var.cy_component}"
   resource_group_name = local.resource_group_name
   location            = local.resource_group_location
 
   ip_configuration {
-      name                          = "${var.cyorg}-${var.cypro}-${var.cyenv}-${var.cycom}"
+      name                          = "${var.cy_org}-${var.cy_project}-${var.cy_env}-${var.cy_component}"
       subnet_id                     = var.res_selector == "create" ? azurerm_subnet.compute[0].id : data.azurerm_subnet.selected[0].id
       private_ip_address_allocation = "Dynamic"
       public_ip_address_id          = azurerm_public_ip.compute.id
   }
 
   tags = {
-    Name = "${var.cyorg}-${var.cypro}-${var.cyenv}-${var.cycom}"
+    Name = "${var.cy_org}-${var.cy_project}-${var.cy_env}-${var.cy_component}"
     role = "network_interface"
   }
 }
