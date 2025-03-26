@@ -143,7 +143,7 @@ jobs:
                 apt-get install jq -y >/dev/null
                 export vm_name=$(cat tfstate/metadata | jq -r .vm_name)
                 echo ${GOOGLE_CRED} | jq -r .key >/tmp/gcp_credentials_json
-                gcloud auth activate-service-account --key-file /tmp/gcp_credentials_json
+                gcloud auth activate-service-account --key-file=/path/key.json --project=${GOOGLE_PROJECT}
                 if [[ "$vm_instance_status" = "Started" ]]; then
                   echo "Starting instance ${vm_name} in zone ${GOOGLE_ZONE}..."
                   gcloud compute instances start ${vm_name} --zone=${GOOGLE_ZONE}
