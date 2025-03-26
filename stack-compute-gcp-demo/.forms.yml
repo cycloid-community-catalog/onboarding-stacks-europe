@@ -187,3 +187,11 @@ use_cases:
             - "Started"
             - "Stopped"
         required: true
+
+      - name: "Destroy Timer"
+        description: "The number of minutes to wait before automatically destroying the infrastructure after creation."
+        key: destroy_timer_in_minutes
+        widget: number
+        type: integer
+        default: 10
+        required: true

@@ -71,6 +71,7 @@ groups:
 - name: overview
   jobs:
     - deploy
+    - run-operations
 
 - name: destroy
   jobs:
