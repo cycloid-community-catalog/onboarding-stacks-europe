@@ -134,7 +134,7 @@ jobs:
             type: registry-image
             source:
               repository: google/cloud-sdk
-              tag: debian_component_based
+              tag: latest
           run:
             path: /bin/bash
             args:
