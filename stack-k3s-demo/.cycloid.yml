@@ -24,4 +24,4 @@ config:
         path: pipeline/pipeline.yml
       variables:
         path: pipeline/variables.sample.yml
-        destination: '($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/pipeline/variables.yml'
+        destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/pipeline/variables.yml'

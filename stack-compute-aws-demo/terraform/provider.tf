@@ -6,10 +6,10 @@ provider "aws" {
   default_tags { # The default_tags block applies tags to all resources managed by this provider, except for the Auto Scaling groups (ASG).
     tags = {
       cycloid      = true
-      cycloid_org  = var.cyorg
-      cycloid_pro  = var.cypro
-      cycloid_env  = var.cyenv
-      cycloid_com  = var.cycom
+      cy_org  = var.cy_org
+      cy_project  = var.cy_project
+      cy_env  = var.cy_env
+      cy_component  = var.cy_component
       demo         = true
       monitoring_discovery = false
     }
@@ -17,7 +17,7 @@ provider "aws" {
 }
 
 provider "cycloid" {
-  organization_canonical = var.cyorg
-  jwt                    = var.cycloid_api_key
-  url                    = var.cycloid_api_url
+  organization_canonical = var.cy_org
+  jwt                    = var.cy_api_key
+  url                    = var.cy_api_url
 }

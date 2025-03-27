@@ -29,11 +29,11 @@ config:
         path: pipeline/pipeline.yml
       variables:
         path: pipeline/variables.sample.yml
-        destination: '($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/pipeline/variables.yml'
+        destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/pipeline/variables.yml'
     terraform:
       main:
         path: 'terraform/outscale/main.tf'
-        destination: '($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/terraform/outscale/main.tf'
+        destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/terraform/outscale/main.tf'
 
   ionos:
     name: 'IONOS'
@@ -43,8 +43,8 @@ config:
         path: pipeline/pipeline.yml
       variables:
         path: pipeline/variables.sample.yml
-        destination: '($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/pipeline/variables.yml'
+        destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/pipeline/variables.yml'
     terraform:
       main:
         path: 'terraform/ionos/main.tf'
-        destination: '($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/terraform/ionos/main.tf'
+        destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/terraform/ionos/main.tf'

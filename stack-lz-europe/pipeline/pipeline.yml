@@ -24,7 +24,7 @@ resources:
   type: terraform
   icon: terraform
   source:
-    env_name: ($ .environment $)
+    env_name: ($ .env $)
     backend_type: http
     backend_config:
       address: '($ .api_url $)/inventory?jwt=($ .inventory_jwt $)'
@@ -33,10 +33,10 @@ resources:
       outscale_region: ((outscale_region))
       ionos_cred: ((ionos_cred))
       ionos_region: ((ionos_region))
-      cyorg: ($ .organization_canonical $)
-      cypro: ($ .project $)
-      cyenv: ($ .environment $)
-      cycom: ($ .component $)
+      cy_org: ($ .org $)
+      cy_project: ($ .project $)
+      cy_env: ($ .env $)
+      cy_component: ($ .component $)
 
 
 # The Terraform stack (will be merged with the config)
@@ -71,7 +71,7 @@ resources:
     private_key: ((($ .cr_cred_path $).ssh_key))
     ($- end $)
     paths:
-      - ($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/terraform/*
+      - ($ .org $)/($ .project $)/($ .env $)/($ .component $)/terraform/*
 
 
 groups:
@@ -109,7 +109,7 @@ jobs:
           - name: merged-stack
             path: "merged-stack"
         params:
-          CONFIG_PATH: ($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/terraform
+          CONFIG_PATH: ($ .org $)/($ .project $)/($ .env $)/($ .component $)/terraform
           STACK_PATH: ($ .stack_path $)/terraform
 
       - put: tfstate
@@ -141,7 +141,7 @@ jobs:
           - name: merged-stack
             path: "merged-stack"
         params:
-          CONFIG_PATH: ($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/terraform
+          CONFIG_PATH: ($ .org $)/($ .project $)/($ .env $)/($ .component $)/terraform
           STACK_PATH: ($ .stack_path $)/terraform
 
       - put: tfstate

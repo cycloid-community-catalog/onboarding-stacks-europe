@@ -32,5 +32,5 @@ use_cases:
           cred_types:
             - custom
         type: string
-        default: (("custom_($ .organization_canonical $)-($ .project $)-($ .environment $)-kubeconfig.kubeconfig"))
+        default: (("custom_($ .org $)-($ .project $)-($ .env $)-kubeconfig.kubeconfig"))
         required: true

@@ -160,11 +160,11 @@ jobs:
           echo $MESSAGE
       params:
         KUBECONFIG_CONTENT: ((kubeconfig_content))
-        APP_NAME: ($ .organization_canonical $)-($ .project $)-($ .environment $)
+        APP_NAME: ($ .org $)-($ .project $)-($ .env $)
         APP_PORT: 8080
         APP_REPLICAS: 3
         APP_IMAGE_REPO: ((registry_repository))
-        APP_IMAGE_TAG: ($ .environment $)
+        APP_IMAGE_TAG: ($ .env $)
 
 
 - name: delete-app
@@ -259,8 +259,8 @@ jobs:
           kubectl delete -f deploy.yaml
       params:
         KUBECONFIG_CONTENT: ((kubeconfig_content))
-        APP_NAME: ($ .organization_canonical $)-($ .project $)-($ .environment $)
+        APP_NAME: ($ .org $)-($ .project $)-($ .env $)
         APP_PORT: 8080
         APP_REPLICAS: 3
         APP_IMAGE_REPO: ((registry_repository))
-        APP_IMAGE_TAG: ($ .environment $)
+        APP_IMAGE_TAG: ($ .env $)

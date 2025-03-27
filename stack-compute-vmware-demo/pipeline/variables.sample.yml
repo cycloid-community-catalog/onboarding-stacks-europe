@@ -15,9 +15,9 @@ vmware_server: "212.83.169.2"
 # Default variables
 #
 
-#. cycloid_api_key (required): ((admin-api-key.key))
+#. cy_api_key (required): ((admin-api-key.key))
 #+ API key to grant admin acess to Cycloid API.
-cycloid_api_key: ((admin-api-key.key))
+cy_api_key: ((admin-api-key.key))
 
 #. terraform_version (required): '1.8.3'
 #+ terraform version used to execute your code.

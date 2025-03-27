@@ -2,9 +2,9 @@
 # Kubernetes
 #
 
-#. kubeconfig_content (required): "((custom_($ .organization_canonical $)-($ .project $)-($ .environment $)-kubeconfig.kubeconfig))"
+#. kubeconfig_content (required): "((custom_($ .org $)-($ .project $)-($ .env $)-kubeconfig.kubeconfig))"
 #+ Kubeconfig content from Cycloid vault.
-kubeconfig_content: "((custom_($ .organization_canonical $)-($ .project $)-($ .environment $)-kubeconfig.kubeconfig))"
+kubeconfig_content: "((custom_($ .org $)-($ .project $)-($ .env $)-kubeconfig.kubeconfig))"
 
 #
 # GitHub
@@ -18,9 +18,9 @@ github_pat: "((github-pat.key))"
 # Default variables
 #
 
-#. cycloid_api_key (required): ((admin-api-key.key))
+#. cy_api_key (required): ((admin-api-key.key))
 #+ API key to grant admin acess to Cycloid API.
-cycloid_api_key: ((admin-api-key.key))
+cy_api_key: ((admin-api-key.key))
 
 #. terraform_version (required): '1.8.3'
 #+ terraform version used to execute your code.

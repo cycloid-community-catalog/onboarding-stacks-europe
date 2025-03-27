@@ -8,7 +8,7 @@ resource "outscale_vm" "compute" {
     # user_data                = base64encode(local.cloud_init)
     tags {
         key   = "name"
-        value = "${var.cyorg}-${var.cypro}-${var.cyenv}-${var.cycom}"
+        value = "${var.cy_org}-${var.cy_project}-${var.cy_env}-${var.cy_component}"
     }
 }
 

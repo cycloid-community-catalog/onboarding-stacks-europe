@@ -6,6 +6,6 @@ resource "ionoscloud_datacenter" "datacenter" {
 
 resource "ionoscloud_lan" "lans" {
   datacenter_id = ionoscloud_datacenter.datacenter.id
-  name          = "${var.cyorg}-${var.cypro}-${var.cyenv}"
+  name          = "${var.cy_org}-${var.cy_project}-${var.cy_env}"
   public        = false
 }

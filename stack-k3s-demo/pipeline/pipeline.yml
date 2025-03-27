@@ -79,11 +79,11 @@ jobs:
           IONOS_IP: ((ionos_ip))
           OUTSCALE_IP: ((outscale_ip))
           OTHER_IP: ((other_ip))
-          CY_API_KEY: ((cycloid_api_key))
+          CY_API_KEY: ((cy_api_key))
           CY_API_URL: ($ .api_url $)
-          CY_ORG: ($ .organization_canonical $)
+          CY_ORG: ($ .org $)
           PROJECT: ($ .project $)
-          ENV: ($ .environment $)
+          ENV: ($ .env $)
 
 
   # Destroy the infrastructure
@@ -105,14 +105,14 @@ jobs:
           args:
           - -ecx
           - |
-            echo "Deleting Credential ${cyorg}-${PROJECT}-${ENV}-kubeconfig"
-            if ! cy credential delete --canonical "${cyorg}-${PROJECT}-${ENV}-kubeconfig"; then
+            echo "Deleting Credential ${CY_ORG}-${PROJECT}-${ENV}-kubeconfig"
+            if ! cy credential delete --canonical "${CY_ORG}-${PROJECT}-${ENV}-kubeconfig"; then
               echo "Error: cy returned code $?"
               exit 1
             fi
         params:
-          CY_API_KEY: ((cycloid_api_key))
+          CY_API_KEY: ((cy_api_key))
           CY_API_URL: ($ .api_url $)
-          CY_ORG: ($ .organization_canonical $)
+          CY_ORG: ($ .org $)
           PROJECT: ($ .project $)
-          ENV: ($ .environment $)
+          ENV: ($ .env $)

@@ -3,7 +3,7 @@ provider "ionoscloud" {
 }
 
 provider "cycloid" {
-  organization_canonical = var.cyorg
-  jwt                    = var.cycloid_api_key
-  url                    = var.cycloid_api_url
+  organization_canonical = var.cy_org
+  jwt                    = var.cy_api_key
+  url                    = var.cy_api_url
 }

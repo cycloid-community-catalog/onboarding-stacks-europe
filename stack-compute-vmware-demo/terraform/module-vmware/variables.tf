@@ -1,8 +1,8 @@
 # Cycloid
-variable "cyorg" {}
-variable "cypro" {}
-variable "cyenv" {}
-variable "cycom" {}
+variable "cy_org" {}
+variable "cy_project" {}
+variable "cy_env" {}
+variable "cy_component" {}
 
 #
 # vSphere
@@ -39,7 +39,7 @@ variable "vsphere_network" {
 
 variable "vm_name" {
   description = "Name of the virtual machine"
-  default     = "($ .organization_canonical $)-($ .project $)-($ .environment $)-vm"
+  default     = "($ .org $)-($ .project $)-($ .env $)-vm"
 }
 
 variable "vm_ip" {

@@ -2,10 +2,10 @@ module "compute" {
   #####################################
   # Do not modify the following lines #
   source   = "./module-compute"
-  cyorg  = var.cyorg
-  cypro  = var.cypro
-  cyenv  = var.cyenv
-  cycom  = var.cycom
+  cy_org       = var.cy_org
+  cy_project   = var.cy_project
+  cy_env       = var.cy_env
+  cy_component = var.cy_component
   #####################################
 
   #. aws_region: ''

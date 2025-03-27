@@ -1,8 +1,8 @@
 # Cycloid variables
-variable "cyorg" {}
-variable "cypro" {}
-variable "cyenv" {}
-variable "cycom" {}
+variable "cy_org" {}
+variable "cy_project" {}
+variable "cy_env" {}
+variable "cy_component" {}
 
 # Outscale
 variable "outscale_cred" {

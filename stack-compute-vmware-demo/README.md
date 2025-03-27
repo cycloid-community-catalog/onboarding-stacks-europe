@@ -70,7 +70,7 @@ In order to run this Stack, couple elements are required :
 | `vm_disk_size`          | Disk size allocated to the virtual machine (Go)               | `integer` |                               `20`                                |  `True`  |
 | `vm_iso`                | Path to ISO file needed to bootstrap the virtual machine      | `string`  |              `ISOs/debian-9.13.0-amd64-netinst.iso`               |  `True`  |
 | `vm_memory`             | Memory allocated to the virtual machine (Mo)                  | `integer` |                              `2048`                               |  `True`  |
-| `vm_name`               | Name of the virtual machine                                   | `string`  | `($ .organization_canonical $)-($ .project $)-($ .environment $)-vm` |  `True`  |
+| `vm_name`               | Name of the virtual machine                                   | `string`  | `($ .org $)-($ .project $)-($ .env $)-vm` |  `True`  |
 | `vsphere_datacenter`    | Datacenter where to create the virtual machine                | `string`  |                               `dc1`                               |  `True`  |
 | `vsphere_datastore`     | Datastore where to create the virtual machine                 | `string`  |                           `datastore1`                            |  `True`  |
 | `vsphere_datastore_iso` | Datastore where the ISO file will be located                  | `string`  |                           `datastore1`                            |  `True`  |
@@ -85,7 +85,7 @@ In order to run this Stack, couple elements are required :
 | `vm_disk_size`          | Disk size allocated to the virtual machine (Go)          | `integer` |                               `20`                                |  `True`  |
 | `vm_iso`                | Path to ISO file needed to bootstrap the virtual machine | `string`  |              `ISOs/debian-9.13.0-amd64-netinst.iso`               |  `True`  |
 | `vm_memory`             | Memory allocated to the virtual machine (Mo)             | `integer` |                              `2048`                               |  `True`  |
-| `vm_name`               | Name of the virtual machine                              | `string`  | `($ .organization_canonical $)-($ .project $)-($ .environment $)-vm` |  `True`  |
+| `vm_name`               | Name of the virtual machine                              | `string`  | `($ .org $)-($ .project $)-($ .env $)-vm` |  `True`  |
 | `vsphere_cluster`       | Cluster where to create the virtual machine              | `string`  |                            `cluster1`                             |  `True`  |
 | `vsphere_datacenter`    | Datacenter where to create the virtual machine           | `string`  |                               `dc1`                               |  `True`  |
 | `vsphere_datastore`     | Datastore where to create the virtual machine            | `string`  |                           `datastore1`                            |  `True`  |
@@ -99,7 +99,7 @@ In order to run this Stack, couple elements are required :
 | `vm_cpu`             | Number of CPU allocated to the virtual machine  | `integer` |                                `2`                                |  `True`  |
 | `vm_disk_size`       | Disk size allocated to the virtual machine (Go) | `integer` |                               `20`                                |  `True`  |
 | `vm_memory`          | Memory allocated to the virtual machine (Mo)    | `integer` |                              `2048`                               |  `True`  |
-| `vm_name`            | Name of the virtual machine                     | `string`  | `($ .organization_canonical $)-($ .project $)-($ .environment $)-vm` |  `True`  |
+| `vm_name`            | Name of the virtual machine                     | `string`  | `($ .org $)-($ .project $)-($ .env $)-vm` |  `True`  |
 | `vsphere_cluster`    | Cluster where to create the virtual machine     | `string`  |                            `cluster1`                             |  `True`  |
 | `vsphere_datacenter` | Datacenter where to create the virtual machine  | `string`  |                               `dc1`                               |  `True`  |
 | `vsphere_datastore`  | Datastore where to create the virtual machine   | `string`  |                           `datastore1`                            |  `True`  |

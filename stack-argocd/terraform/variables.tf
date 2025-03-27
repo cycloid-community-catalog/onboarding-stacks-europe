@@ -1,8 +1,8 @@
 # Cycloid variables
-variable "cyorg" {}
-variable "cypro" {}
-variable "cyenv" {}
-variable "cycom" {}
+variable "cy_org" {}
+variable "cy_project" {}
+variable "cy_env" {}
+variable "cy_component" {}
 
 # GitHub
 variable "github_pat" {
@@ -12,12 +12,12 @@ variable "github_pat" {
 }
 
 # Cycloid
-variable "cycloid_api_url" {
+variable "cy_api_url" {
   type        = string
   description = "Cycloid API endpoint"
 }
 
-variable "cycloid_api_key" {
+variable "cy_api_key" {
   type        = string
   description = "Org JWT used for authentication"
   sensitive   = true
