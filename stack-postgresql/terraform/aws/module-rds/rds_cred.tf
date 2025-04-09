@@ -8,6 +8,6 @@ resource "cycloid_credential" "rds" {
   type = "basic_auth"
   body = {
     username = aws_db_instance.db.username
-    password = random_password.rds
+    password = random_password.rds.result
   }
 }
