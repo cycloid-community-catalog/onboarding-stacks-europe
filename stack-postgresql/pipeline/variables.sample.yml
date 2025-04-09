@@ -36,42 +36,16 @@ gcp_region: "europe-west1"
 #+ Google Cloud Platform zone to use for Terraform.
 gcp_zone: "europe-west1-b"
 
-($ else if eq .use_case "vmware" $)
-
-#. vsphere_server (required): ""
-#+ vSphere server for Terraform
-vsphere_server: "212.83.169.2"
-
-#. vsphere_cred (required): ((vsphere))
-#+ vSphere credentials
-vsphere_cred: ((vsphere))
-
 ($ end $)
-
-#
-# Ansible Operations
-#
-
-#. hosts_service (required): ''
-#+ Service to restart.
-hosts_service: ''
-
-#. hosts_package (required): ''
-#+ Package to install.
-hosts_package: ''
-
-#. hosts_user (required): ''
-#+ User to create.
-hosts_user: ''
 
 
 #
 # Day 2 CLI Operations
 #
 
-#. vm_instance_status (required): "Started"
-#+ Status for the deployed instances.
-vm_instance_status: "Started"
+#. destroy_timer_in_minutes (required): 10
+#+ The number of minutes to wait before automatically destroying the infrastructure after creation.
+destroy_timer_in_minutes: 10
 
 #
 # Default variables
@@ -84,7 +58,3 @@ cy_api_key: ((admin-api-key.key))
 #. terraform_version (required): '1.8.3'
 #+ terraform version used to execute your code.
 terraform_version: '1.8.3'
-
-#. cycloid-toolkit ansible version (required): 'v8.3'
-#+ cycloid-toolkit docker image tag to use (https://hub.docker.com/r/cycloid/cycloid-toolkit/tags).
-ansible_version: 'v8.3'
