@@ -1,5 +1,5 @@
 resource "aws_db_parameter_group" "rds-optimized" {
-  name        = "${var.cyorg}-${var.cyproject}-${var.cyenv}-${var.cycomp}"
+  name        = "${var.cy_org}-${var.cy_project}-${var.cy_env}-${var.cy_component}"
   family      = "mysql8.0"
   description = "Cycloid optimizations"
 

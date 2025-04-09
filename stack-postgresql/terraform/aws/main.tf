@@ -2,14 +2,14 @@ module "rds" {
   #####################################
   # Do not modify the following lines #
   source    = "./module-rds"
-  cycomp    = var.cycomp
-  cyenv     = var.cyenv
-  cyproject = var.cyproject
-  cyorg     = var.cyorg
+  cy_org       = var.cy_org
+  cy_project   = var.cy_project
+  cy_env       = var.cy_env
+  cy_component = var.cy_component
   #####################################
 
   #. rds_engine_version: '8.0'
-  #+ The MySQL engine version to use.
+  #+ The PostgreSQL engine version to use.
   rds_engine_version = "8.0"
 
   #. rds_instance_class: 'db.t4g.micro'
