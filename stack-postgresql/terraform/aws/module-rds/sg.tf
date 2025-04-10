@@ -10,7 +10,7 @@ resource "aws_security_group" "rds" {
 
 resource "aws_vpc_security_group_ingress_rule" "postgresql" {
   security_group_id = aws_security_group.rds.id
-  cidr_ipv4         = var.res_selector == "create" ? module.vpc[0].default_vpc_cidr_block : data.aws_vpc.selected[0].cidr_block
+  cidr_ipv4         = var.res_selector == "create" ? module.vpc[0].vpc_cidr_block : data.aws_vpc.selected[0].cidr_block
   from_port         = 5432
   to_port           = 5432
   ip_protocol       = "tcp"
