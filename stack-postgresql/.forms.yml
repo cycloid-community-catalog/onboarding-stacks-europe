@@ -87,7 +87,7 @@ use_cases:
       vars:
       - name: "Subnet"
         description: "Subnet where to deploy the resources."
-        key: rds_subnet_id_inventory
+        key: rds_subnet_ids_inventory
         widget: cy_inventory_resource
         widget_config:
           attribute: id
@@ -107,9 +107,15 @@ use_cases:
       vars:
       - name: "Subnet ID"
         description: "Subnet ID where to deploy the resources. Make sure the Subnet is in the same region as the one set previously."
-        key: rds_subnet_id_manual
-        widget: simple_text
-        type: string
+        key: rds_subnet_ids_manual
+        widget: auto_complete
+        widget_config:
+          multiselect: true
+        validations:
+          - array:
+              min_elems: 2
+            error_message: "At least two subnets must be selected"
+        type: array
         required: true
 
     - name: Day-2 Operations
