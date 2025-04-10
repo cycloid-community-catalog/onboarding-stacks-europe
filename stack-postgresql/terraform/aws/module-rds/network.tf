@@ -19,7 +19,7 @@ module "vpc" {
   name = "${var.cy_org}-${var.cy_project}-${var.cy_env}-${var.cy_component}"
   
   azs                 = ["${var.aws_region}a", "${var.aws_region}b", "${var.aws_region}c"]
-  cidr                = ["10.77.0.0/16", "10.77.0.0/16", "10.77.0.0/16"]
+  cidr                = "10.77.0.0/16"
   private_subnets     = ["10.77.1.0/24", "10.77.2.0/24", "10.77.3.0/24"]
   public_subnets      = ["10.77.101.0/24", "10.77.102.0/24", "10.77.103.0/24"]
 
