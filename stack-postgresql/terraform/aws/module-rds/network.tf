@@ -7,7 +7,7 @@
 data "aws_vpc" "selected" {
   count = var.res_selector == "create" ? 0 : 1
 
-  id = var.rds_subnet_ids_inventory[0].vpc_id
+  id = var.rds_subnet_ids_inventory[0]
 }
 
 module "vpc" {
