@@ -87,7 +87,7 @@ use_cases:
       vars:
       - name: "Subnet"
         description: "Subnet where to deploy the resources."
-        key: subnet_id_inventory
+        key: rds_subnet_id_inventory
         widget: cy_inventory_resource
         widget_config:
           attribute: id
@@ -103,7 +103,7 @@ use_cases:
       vars:
       - name: "Subnet ID"
         description: "Subnet ID where to deploy the resources. Make sure the Subnet is in the same region as the one set previously."
-        key: subnet_id_manual
+        key: rds_subnet_id_manual
         widget: simple_text
         type: string
         required: true
