@@ -8,6 +8,10 @@ module "rds" {
   cy_component = var.cy_component
   #####################################
 
+  #. aws_region: ''
+  #+ AWS region where to deploy the resoureces
+  aws_region = var.aws_region
+
   #. rds_engine_version: '8.0'
   #+ The PostgreSQL engine version to use.
   rds_engine_version = "8.0"
@@ -20,12 +24,20 @@ module "rds" {
   #+ Create this database from a snapshot. This corresponds to the snapshot ID you'd find in the RDS console, e.g: rds:production-2015-06-26-06-05.
   rds_snapshot_identifier = ""
 
-  #. rds_subnet_id: ''
-  #+ Subnets where to deploy the resources
-  rds_subnet_id = ""
-
   #. app_security_group_id: ''
   #+ The application security group to grant access to the database
   app_security_group_id = ""
+
+  #. res_selector: ''
+  #+ Whether to create a new VPC  and Subnet or select an existing Subnet
+  res_selector = ""
+
+  #. rds_subnet_id_inventory: ''
+  #+ Subnet where to deploy the resources
+  rds_subnet_id_inventory = ""
+
+  #. rds_subnet_id_manual: ''
+  #+ Subnet where to deploy the resources
+  rds_subnet_id_manual = ""
 
 }

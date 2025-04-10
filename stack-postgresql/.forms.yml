@@ -53,25 +53,68 @@ use_cases:
             - "db.t4g.small"
             - "db.t4g.medium"
         required: true
-      - name: "Snapshot Identifier"
-        description: "(Optional) Specifies whether or not to create this database from a snapshot. This corresponds to the snapshot ID you'd find in the RDS console, e.g: rds:production-2015-06-26-06-05."
-        key: rds_snapshot_identifier
-        widget: simple_text
-        type: string
-        required: false
-      - name: "Subnets"
-        description: "Subnets where to deploy the resources."
-        key: rds_subnet_id
-        widget: simple_text
-        type: string
+      # - name: "Snapshot Identifier"
+      #   description: "(Optional) Specifies whether or not to create this database from a snapshot. This corresponds to the snapshot ID you'd find in the RDS console, e.g: rds:production-2015-06-26-06-05."
+      #   key: rds_snapshot_identifier
+      #   widget: simple_text
+      #   type: string
+      #   required: false
+      # - name: "Security Group"
+      #   description: "The application security group to grant access to the database."
+      #   key: app_security_group_id
+      #   type: "string"
+      #   widget: cy_inventory_resource
+      #   widget_config:
+      #     attribute: id
+      #     filters:
+      #       type: aws_security_group
+
+      - name: "Create or Select Subnet"
+        description: "Whether to create a new VPC and Subnet or select an existing Subnet."
+        key: res_selector
+        widget: dropdown
+        type: map
         required: true
-      - name: "Security Group"
-        description: "The application security group to grant access to the database."
-        key: app_security_group_id
-        type: "string"
+        default: "Create new"
+        values:
+        - {"label": "Create new", "value": "create"}
+        - {"label": "Select from Asset Inventory", "value": "inventory"}
+        - {"label": "Enter manually", "value": "manual"}
+
+    - name: Select from Asset Inventory
+      technologies: [terraform]
+      condition: '$res_selector == "Select from Asset Inventory"'
+      vars:
+      - name: "Subnet"
+        description: "Subnet where to deploy the resources."
+        key: subnet_id_inventory
         widget: cy_inventory_resource
         widget_config:
           attribute: id
           filters:
-            type: aws_security_group
+            type: aws_subnet
+            attributes: 'arn[rlike]="*:${aws_region}:*'
+        type: string
+        required: true
 
+    - name: Enter manually
+      technologies: [terraform]
+      condition: '$res_selector == "Enter manually"'
+      vars:
+      - name: "Subnet ID"
+        description: "Subnet ID where to deploy the resources. Make sure the Subnet is in the same region as the one set previously."
+        key: subnet_id_manual
+        widget: simple_text
+        type: string
+        required: true
+
+    - name: Day-2 Operations
+      technologies: [pipeline]
+      vars:
+      - name: "Destroy Timer"
+        description: "The number of minutes to wait before automatically destroying the infrastructure after creation."
+        key: destroy_timer_in_minutes
+        widget: number
+        type: integer
+        default: 60
+        required: true

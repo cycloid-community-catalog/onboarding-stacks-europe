@@ -4,6 +4,10 @@ variable "cy_project" {}
 variable "cy_env" {}
 variable "cy_component" {}
 
+variable "aws_region" {
+  description = "AWS region where to deploy the resources."
+}
+
 variable "rds_engine_version" {
   description = "The engine version to use."
   default = "8.0"
@@ -19,10 +23,18 @@ variable "rds_snapshot_identifier" {
   default = ""
 }
 
-variable "rds_subnet_id" {
+variable "app_security_group_id" {
+  description = "The application security group to grant access to the database."
+}
+
+variable "res_selector" {
+  description = "Whether to create a new VPC  and Subnet or select an existing Subnet."
+}
+
+variable "rds_subnet_id_inventory" {
   description = "Subnets where to deploy the RDS instance."
 }
 
-variable "app_security_group_id" {
-  description = "The application security group to grant access to the database."
+variable "rds_subnet_id_manual" {
+  description = "Subnets where to deploy the RDS instance."
 }
