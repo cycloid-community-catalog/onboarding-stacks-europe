@@ -85,17 +85,6 @@ use_cases:
       technologies: [terraform]
       condition: '$res_selector == "Select from Asset Inventory"'
       vars:
-      - name: "VPC"
-        description: "Subnet where to deploy the resources."
-        key: rds_vpc_id_inventory
-        widget: cy_inventory_resource
-        widget_config:
-          attribute: id
-          filters:
-            type: aws_vpc
-            attributes: 'arn[rlike]="*:${aws_region}:*'
-        type: string
-        required: true
       - name: "Subnet"
         description: "Subnet where to deploy the resources."
         key: rds_subnet_id_inventory
@@ -104,7 +93,7 @@ use_cases:
           attribute: id
           filters:
             type: aws_subnet
-            attributes: 'vpc_id[eq]=${rds_vpc_id_inventory}'
+            attributes: 'availability_zone[rlike]=${aws_region}*'
         type: string
         required: true
 
