@@ -53,6 +53,17 @@ use_cases:
             - "db.t4g.small"
             - "db.t4g.medium"
         required: true
+      - name: "Allocated Storage"
+        unit: Go
+        description: "The amount of allocated storage."
+        key: rds_allocated_storage
+        widget: slider_range
+        type: integer
+        default: 20
+        values:
+            - 10
+            - 100
+        required: true
       # - name: "Snapshot Identifier"
       #   description: "(Optional) Specifies whether or not to create this database from a snapshot. This corresponds to the snapshot ID you'd find in the RDS console, e.g: rds:production-2015-06-26-06-05."
       #   key: rds_snapshot_identifier

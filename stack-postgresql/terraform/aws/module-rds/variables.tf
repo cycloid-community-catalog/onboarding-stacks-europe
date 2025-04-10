@@ -18,6 +18,10 @@ variable "rds_instance_class" {
   default = "db.t4g.micro"
 }
 
+variable "rds_allocated_storage" {
+  description = "The amount of allocated storage."
+}
+
 variable "rds_snapshot_identifier" {
   description = "Create this database from a snapshot. This corresponds to the snapshot ID you'd find in the RDS console, e.g: rds:production-2015-06-26-06-05."
   default = ""

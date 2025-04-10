@@ -9,8 +9,7 @@ resource "aws_db_instance" "db" {
   instance_class          = "${var.rds_instance_class}"
   multi_az                = false
   parameter_group_name    = aws_db_parameter_group.rds-optimized.name
-  storage_type            = "gp3"
-  allocated_storage       = 10
+  allocated_storage       = var.rds_allocated_storage
   snapshot_identifier     = var.rds_snapshot_identifier == "" ? null : var.rds_snapshot_identifier
   username                = "cycloid"
   password                = random_password.rds.result

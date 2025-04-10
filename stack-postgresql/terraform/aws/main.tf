@@ -20,6 +20,10 @@ module "rds" {
   #+ The instance type of the RDS instance.
   rds_instance_class = "db.t4g.micro"
 
+  #. rds_allocated_storage: "20"
+  #+ The amount of allocated storage.
+  rds_allocated_storage = "20"
+
   #. rds_snapshot_identifier: ''
   #+ Create this database from a snapshot. This corresponds to the snapshot ID you'd find in the RDS console, e.g: rds:production-2015-06-26-06-05.
   rds_snapshot_identifier = ""
