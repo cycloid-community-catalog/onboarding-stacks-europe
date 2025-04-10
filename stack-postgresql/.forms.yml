@@ -86,7 +86,7 @@ use_cases:
       condition: '$res_selector == "Select from Asset Inventory"'
       vars:
       - name: "Subnet"
-        description: "Subnet where to deploy the resources."
+        description: "Subnets where to deploy the resources. You must select at least 2 subnets."
         key: rds_subnet_ids_inventory
         widget: cy_inventory_resource
         widget_config:
@@ -106,16 +106,10 @@ use_cases:
       condition: '$res_selector == "Enter manually"'
       vars:
       - name: "Subnet ID"
-        description: "Subnet ID where to deploy the resources. Make sure the Subnet is in the same region as the one set previously."
+        description: "Subnet IDs where to deploy the resources. Make sure you enter at least 2 subnets and they are in the same region."
         key: rds_subnet_ids_manual
-        widget: auto_complete
-        widget_config:
-          multiselect: true
-        validations:
-          - array:
-              min_elems: 2
-            error_message: "At least two subnets must be selected"
-        type: array
+        widget: text_area
+        type: string
         required: true
 
     - name: Day-2 Operations
