@@ -12,7 +12,7 @@ resource "aws_db_instance" "db" {
   storage_type            = "gp3"
   allocated_storage       = 10
   snapshot_identifier     = var.rds_snapshot_identifier == "" ? null : var.rds_snapshot_identifier
-  username                = "${var.cy_project}-${var.cy_env}-${var.cy_component}"
+  username                = "cycloid"
   password                = random_password.rds.result
   vpc_security_group_ids  = ["${aws_security_group.rds.id}"]
 }
