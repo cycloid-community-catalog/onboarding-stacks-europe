@@ -94,7 +94,11 @@ use_cases:
           filters:
             type: aws_subnet
             attributes: 'availability_zone[rlike]=${aws_region}*'
-        type: string
+        validations:
+          - array:
+              min_elems: 2
+            error_message: "At least two subnets must be selected"
+        type: array
         required: true
 
     - name: Enter manually
