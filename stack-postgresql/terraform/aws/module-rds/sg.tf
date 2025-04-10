@@ -1,7 +1,7 @@
 resource "aws_security_group" "rds" {
   name        = "${var.cy_org}-${var.cy_project}-${var.cy_env}-${var.cy_component}"
   description = "${var.cy_project} ${var.cy_env} ${var.cy_component}"
-  vpc_id      = data.aws_vpc.selected[0].id
+  vpc_id      = var.res_selector == "create" ? module.vpc[0].identifier : data.aws_vpc.selected[0].id
 
   tags = {
     Name = "${var.cy_org}-${var.cy_project}-${var.cy_env}-${var.cy_component}"
