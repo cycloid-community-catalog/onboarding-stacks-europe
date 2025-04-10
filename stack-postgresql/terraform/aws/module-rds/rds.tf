@@ -11,6 +11,7 @@ resource "aws_db_instance" "db" {
   parameter_group_name    = aws_db_parameter_group.rds-optimized.name
   allocated_storage       = var.rds_allocated_storage
   snapshot_identifier     = var.rds_snapshot_identifier == "" ? null : var.rds_snapshot_identifier
+  skip_final_snapshot     = true
   username                = "cycloid"
   password                = random_password.rds.result
   vpc_security_group_ids  = ["${aws_security_group.rds.id}"]
