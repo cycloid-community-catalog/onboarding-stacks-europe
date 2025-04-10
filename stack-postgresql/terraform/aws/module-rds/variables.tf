@@ -31,10 +31,10 @@ variable "res_selector" {
   description = "Whether to create a new VPC  and Subnet or select an existing Subnet."
 }
 
-variable "rds_subnet_id_inventory" {
+variable "rds_subnet_ids_inventory" {
   description = "Subnets where to deploy the RDS instance."
 }
 
-variable "rds_subnet_id_manual" {
+variable "rds_subnet_ids_manual" {
   description = "Subnets where to deploy the RDS instance."
 }

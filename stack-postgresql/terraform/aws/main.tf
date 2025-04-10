@@ -32,12 +32,11 @@ module "rds" {
   #+ Whether to create a new VPC  and Subnet or select an existing Subnet
   res_selector = ""
 
-  #. rds_subnet_id_inventory: ''
-  #+ Subnet where to deploy the resources
-  rds_subnet_id_inventory = ""
+  #. rds_subnet_ids_inventory: []
+  #+ Subnets where to deploy the resources
+  rds_subnet_ids_inventory = []
 
-  #. rds_subnet_id_manual: ''
-  #+ Subnet where to deploy the resources
-  rds_subnet_id_manual = ""
-
+  #. rds_subnet_ids_manual: []
+  #+ Subnets where to deploy the resources
+  rds_subnet_ids_manual = []
 }
