@@ -7,7 +7,7 @@ data "aws_subnet" "selected" {
 data "aws_vpc" "selected" {
   count = var.res_selector == "create" ? 0 : 1
 
-  id = data.aws_subnet.selected.vpc_id
+  id = data.aws_subnet.selected[0].vpc_id
 }
 
 module "vpc" {
