@@ -4,7 +4,7 @@ resource "aws_db_instance" "db" {
   backup_window           = "02:00-04:00"
   maintenance_window      = "tue:06:00-tue:07:00"
   db_subnet_group_name    = aws_db_subnet_group.rds.name
-  engine                  = "mysql"
+  engine                  = "postgresql"
   engine_version          = "${var.rds_engine_version}"
   instance_class          = "${var.rds_instance_class}"
   multi_az                = false
