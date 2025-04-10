@@ -1,7 +1,7 @@
 resource "aws_security_group" "rds" {
   name        = "${var.cy_org}-${var.cy_project}-${var.cy_env}-${var.cy_component}"
   description = "${var.cy_project} ${var.cy_env} ${var.cy_component}"
-  vpc_id      = data.aws_vpc.selected.id
+  vpc_id      = data.aws_vpc.selected[0].id
 
   tags = {
     Name = "${var.cy_org}-${var.cy_project}-${var.cy_env}-${var.cy_component}"
@@ -10,7 +10,7 @@ resource "aws_security_group" "rds" {
 
 resource "aws_vpc_security_group_ingress_rule" "mysql" {
   security_group_id = aws_security_group.rds.id
-  cidr_ipv4         = data.aws_vpc.selected.cidr_block
+  cidr_ipv4         = data.aws_vpc.selected[0].cidr_block
   from_port         = 3306
   to_port           = 3306
   ip_protocol       = "tcp"
