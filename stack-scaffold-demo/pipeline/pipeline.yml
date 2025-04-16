@@ -159,7 +159,7 @@ jobs:
           GIT_URL: "git@github.com:cycloid-demo/($ .org $)-($ .project $).git"
           GIT_SOURCE_URL: ((git_source_url))
           GIT_SOURCE_PATH: ((git_source_path))
-          GIT_KEY: ((($ .org $)-($ .project $)-($ .env $)-git-ssh.ssh_key))
+          GIT_KEY: ((($ .org $)-($ .project $)-git-ssh.ssh_key))
           PROJECT: ($ .project $)
 
 
