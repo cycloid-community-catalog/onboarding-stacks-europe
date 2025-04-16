@@ -11,13 +11,13 @@ github_pat: "((github-pat.key))"
 # Application Source
 #
 
-#. git_source_url (required): []
-#+ The public git repo source URL to copy for the first commit when git_source is set to git.
-git_source_url: []
+#. git_source_url (required): "https://github.com/cycloid-community-catalog/onboarding-scaffold.git"
+#+ The public git repo source URL to copy for the first commit.
+git_source_url: "https://github.com/cycloid-community-catalog/onboarding-scaffold.git"
 
-#. git_source_url (required): []
-#+ The path in the public git repo to copy for the first commit when git_source is set to git.
-git_source_path: []
+#. git_source_url (required): "express"
+#+ The path in the public git repo to copy for the first commit.
+git_source_path: "express"
 
 
 #

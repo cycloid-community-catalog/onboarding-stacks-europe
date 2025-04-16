@@ -5,7 +5,7 @@ name: 'Scaffold Software Project'
 canonical: stack-scaffold-demo
 author: Cycloid
 description: |
-  Create a GitHub repository with with an access token and scaffold a new project with my organization best practices and security rules.
+  Create a GitHub repository and scaffold a new project with my organization best practices and security rules.
 image: |
   https://cycloid-demo-stacks-logo.s3.eu-west-1.amazonaws.com/git.png
 keywords:

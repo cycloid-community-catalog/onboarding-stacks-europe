@@ -5,32 +5,71 @@ use_cases:
   sections:
   - name: config
     groups:
-    - name: Git Repository Creation
+    - name: Scaffolding Template
       technologies: [pipeline]
       vars:
-      - name: "GitHub PAT"
-        description: "GitHub Personal Access Token allowing to create the new code repository"
-        key: github_pat
-        widget: cy_cred
-        widget_config:
-          cred_types: ["custom"]
-        type: string
-        default: "((github-pat.key))"
+      - name: "Development Stack"
+        description: "Select a scaffolding template according to your desired development stack."
+        key: scaffolding_template
+        widget: dropdown
         required: true
-    - name: Git Repository
-      technologies: [pipeline]
-      vars:
-      - name: "Git Repository"
-        description: "Git repository URL to copy for the first commit."
-        key: git_source_url
-        widget: simple_text
-        type: string
-        default: "https://github.com/cycloid-community-catalog/onboarding-scaffold.git"
-        required: true
-      - name: "Git Path"
-        description: "Path in the Git repository to copy for the first commit."
-        key: git_source_path
-        widget: simple_text
-        type: string
-        default: "simple-counter"
-        required: false
+        type: map
+        values:
+        - {label: "REST API using Express and Prisma Client", value: "express"}
+        - {label: "REST API using Fastify and Prisma Client", value: "fastify"}
+        - {label: "REST API using hapi and Prisma Client", value: "hapi"}
+        - {label: "REST API using Koa and Prisma Client", value: "koa"}
+        - {label: "REST API using NestJS and Prisma Client", value: "nest"}
+        - {label: "Web app using Next.js and Prisma Client", value: "nextjs"}
+        - {label: "Fullstack app with Nuxt using Vue and Prisma Client", value: "nuxt"}
+        - {label: "Web app using React Router 7 and Prisma ORM", value: "react-router-7"}
+        default: "REST API using Express and Prisma Client"
+    #   - name: "Database Engine"
+    #     description: "Select the database engine that Prisma will connect to."
+    #     key: database_engine
+    #     widget: radios
+    #     required: true
+    #     type: map
+    #     values:
+    #     - {label: "PostgreSQL", value: "postgresql"}
+    #     - {label: "MySQL", value: "mysql"}
+    #     - {label: "SQLite", value: "sqlite"}
+    #     default: "PostgreSQL"
+    #   - name: "Managed Database Provider"
+    #     description: "Select the database engine that Prisma will connect to."
+    #     key: database_cloud
+    #     widget: radios
+    #     required: true
+    #     type: map
+    #     values:
+    #     - {label: "AWS RDS", value: "aws"}
+    #     - {label: "Azure Managed Database", value: "azure"}
+    #     default: "AWS RDS"
+    # - name: AWS RDS Selection
+    #   technologies: [pipeline]
+    #   condition: "database_cloud=='AWS RDS'"
+    #   vars:
+    #   - name: "AWS RDS"
+    #     description: "Select the AWS RDS instance that Prisma will connect to."
+    #     key: database_aws
+    #     widget: cy_inventory_resource
+    #     widget_config:
+    #       attribute: id
+    #       filters:
+    #         type: aws_db_instance
+    #     required: true
+    #     type: string
+    # - name: Azure Managed Database Selection
+    #   technologies: [pipeline]
+    #   condition: "database_cloud=='Azure Managed Database'"
+    #   vars:
+    #   - name: "Azure Managed Database"
+    #     description: "Select the Azure Managed Database that Prisma will connect to."
+    #     key: database_azure
+    #     widget: cy_inventory_resource
+    #     widget_config:
+    #       attribute: id
+    #       filters:
+    #         type: azurerm_postgresql_server
+    #     required: true
+    #     type: string
