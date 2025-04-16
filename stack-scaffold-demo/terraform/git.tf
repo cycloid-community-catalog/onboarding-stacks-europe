@@ -1,5 +1,5 @@
 resource "github_repository" "scaffold" {
-  name        = "${var.cy_org}-${var.cy_project}"
+  name        = "${var.cy_project}"
   description = "Repo for ${var.cy_project} project"
 
   visibility = "private"
