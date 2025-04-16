@@ -60,9 +60,9 @@ jobs:
             scp ${USERNAME}@${IPADDR}:~/.kube/config ~/.kube/config
             sed -i "s/127.0.0.1/${IPADDR}/" ~/.kube/config
             echo "Saving kubeconfig in Credential ${CY_ORG}-${PROJECT}-${ENV}-kubeconfig"
-            if ! cy credential create --name "${CY_ORG}-${PROJECT}-${ENV}-kubeconfig" --canonical "${CY_ORG}-${PROJECT}-${ENV}-kubeconfig" custom --field-file kubeconfig=~/.kube/config; then
+            if ! cy credential create --name "${PROJECT}-kubeconfig" --canonical "${PROJECT}-kubeconfig" custom --field-file kubeconfig=~/.kube/config; then
               echo "Error: cy returned code $?. Trying to update it."
-              if ! cy credential update --name "${CY_ORG}-${PROJECT}-${ENV}-kubeconfig" --canonical "${CY_ORG}-${PROJECT}-${ENV}-kubeconfig" custom --field-file kubeconfig=~/.kube/config; then
+              if ! cy credential update --name "${PROJECT}-kubeconfig" --canonical "${PROJECT}-kubeconfig" custom --field-file kubeconfig=~/.kube/config; then
                   echo "Error: cy returned code $?"
                   exit 1
               fi
