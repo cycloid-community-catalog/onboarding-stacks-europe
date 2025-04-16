@@ -34,10 +34,6 @@ git_url: ""
 #+ Git branch where the application is stored.
 git_branch: ""
 
-#. git_path (required): ''
-#+ Path to the application to build and deploy. A Dockerfile needs to be present in the root folder.
-git_path: ""
-
 #. git_ssh_key (required): ''
 #+ The SSH private key to access the git repository.
 git_ssh_key: ""

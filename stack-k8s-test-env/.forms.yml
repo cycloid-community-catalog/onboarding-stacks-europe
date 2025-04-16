@@ -22,16 +22,8 @@ use_cases:
         key: git_branch
         widget: auto_complete
         type: string
-        values: ["staging", "develop"]
+        values: ["develop", "main", "master"]
         default: "develop"
-        required: true
-
-      - name: "Application Path"
-        description: "Path to the application to build and deploy. A Dockerfile needs to be present in the target folder. For the repository root folder, enter '.'"
-        key: git_path
-        widget: simple_text
-        type: string
-        default: "simple-counter"
         required: true
 
       - name: "SSH Key"

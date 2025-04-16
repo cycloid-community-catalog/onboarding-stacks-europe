@@ -7,8 +7,6 @@ resources:
     uri: ((git_url))
     branch: ((git_branch))
     private_key: ((git_ssh_key))
-    paths:
-      - ((git_path))/*
 
 # Where we will push the image
 - name: app_image
@@ -50,7 +48,7 @@ jobs:
       outputs:
       - name: image
       params:
-        CONTEXT: git_app_code/((git_path))
+        CONTEXT: git_app_code
       caches:
       - path: cache
       run:
