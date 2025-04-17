@@ -66,26 +66,37 @@ data "aws_instance" "ec2" {
   instance_id = aws_instance.ec2.id
 }
 
-resource "aws_iam_instance_profile" "iam-profile" {
-  name = "${var.cy_org}-${var.cy_project}-${var.cy_env}-${var.cy_component}"
-  role = aws_iam_role.iam-role.name
+resource "aws_iam_role" "ssm-role" {
+  name        = "${var.cy_org}-${var.cy_project}-${var.cy_env}-${var.cy_component}"
+  path        = "/"
+
+  assume_role_policy = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Action": "sts:AssumeRole",
+            "Principal": {
+               "Service": "ec2.amazonaws.com"
+            },
+            "Effect": "Allow",
+            "Sid": ""
+        }
+    ]
+}
+EOF
 }
 
-resource "aws_iam_role" "iam-role" {
-  name        = "${var.cy_org}-${var.cy_project}-${var.cy_env}-${var.cy_component}"
-  description = "The role for the developer resources EC2"
-  assume_role_policy = <<-EOF
-  {
-  "Version": "2012-10-17",
-  "Statement": {
-  "Effect": "Allow",
-  "Principal": {"Service": "ec2.amazonaws.com"},
-  "Action": "sts:AssumeRole"
-  }
-  }
-  EOF
+resource "aws_iam_instance_profile" "ssm-profile" {
+  name = "${var.cy_org}-${var.cy_project}-${var.cy_env}-${var.cy_component}"
+  role = aws_iam_role.ssm-role.name
 }
+
+data "aws_iam_policy" "AmazonSSMManagedInstanceCore" {
+  arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+}
+
 resource "aws_iam_role_policy_attachment" "ssm-policy" {
-  role       = aws_iam_role.iam-role.name
-  policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+  role       = aws_iam_role.ssm-role.name
+  policy_arn = data.aws_iam_policy.AmazonSSMManagedInstanceCore.arn
 }
