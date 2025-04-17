@@ -24,17 +24,17 @@ resource "aws_security_group_rule" "ingress" {
     to_port           = each.value
 }
 
-# resource "aws_security_group_rule" "ingress-k3s" {
-#     count             = var.install_k3s ? 1 : 0
+resource "aws_security_group_rule" "ingress-k3s" {
+    count             = var.install_k3s ? 1 : 0
 
-#     type              = "ingress"
-#     description       = "Allow 6443/TCP from internet"
-#     security_group_id = aws_security_group.ec2.id
-#     cidr_blocks       = ["0.0.0.0/0"]
-#     protocol          = "tcp"
-#     from_port         = 6443
-#     to_port           = 6443
-# }
+    type              = "ingress"
+    description       = "Allow 6443/TCP from internet"
+    security_group_id = aws_security_group.ec2.id
+    cidr_blocks       = ["0.0.0.0/0"]
+    protocol          = "tcp"
+    from_port         = 6443
+    to_port           = 6443
+}
 
 resource "aws_instance" "ec2" {
   ami           = data.aws_ami.debian.id
@@ -52,17 +52,17 @@ resource "aws_instance" "ec2" {
     delete_on_termination = true
   }
 
-  # user_data_base64 = base64encode(templatefile(
-  #   "${path.module}/userdata.sh",
-  #   {
-  #     INSTALL_K3S=var.install_k3s
-  #     SSH_PRIVATE_KEY=tls_private_key.ssh_key.private_key_openssh
-  #     IPADDR=data.aws_instance.ec2.public_ip
-  #     USERNAME=var.vm_os_user
-  #     PROJECT=var.cy_project
-  #     ENV=var.cy_env
-  #   }
-  # ))
+  user_data_base64 = base64encode(templatefile(
+    "${path.module}/userdata.sh",
+    {
+      INSTALL_K3S = var.install_k3s
+      SSH_PRIVATE_KEY = tls_private_key.ssh_key.private_key_openssh
+      IPADDR = data.aws_instance.ec2.public_ip
+      USERNAME = var.vm_os_user
+      PROJECT = var.cy_project
+      ENV = var.cy_env
+    }
+  ))
 
   lifecycle {
     ignore_changes = [ami]
