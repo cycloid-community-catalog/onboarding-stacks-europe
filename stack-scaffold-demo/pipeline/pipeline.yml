@@ -142,19 +142,23 @@ jobs:
               eval "$(ssh-agent -s)"
               ssh-add ~/.ssh/git
               ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
-              git clone $GIT_DEST_URL template
               git clone ${GIT_SOURCE_URL} source
-              rm -rf source/.git
-              mv source/${GIT_SOURCE_PATH}/* template/
-              mv source/${GIT_SOURCE_PATH}/.* template/
-              cd template/
-              git config --global user.email "devops@cycoid.io"
-              git config --global user.name "Cycloid"
-              git add .
-              git commit -m "Initial commit"
-              git push
+              git clone $GIT_DEST_URL dest
+              if [ -z "$( ls -A '/path/to/dir' )" ]; then
+                rm -rf source/.git
+                mv source/${GIT_SOURCE_PATH}/* dest/
+                mv source/${GIT_SOURCE_PATH}/.* dest/
+                cd dest/
+                git config --global user.email "devops@cycoid.io"
+                git config --global user.name "Cycloid"
+                git add .
+                git commit -m "Initial commit"
+                git push
 
-              echo "Application build completed."
+                echo "Application scaffolding completed."
+              else
+                echo "Application scaffolding aborted. Your GIT repository is not empty."
+              fi
         params:
           GIT_SOURCE_URL: ((git_source_url))
           GIT_SOURCE_PATH: ((git_source_path))
