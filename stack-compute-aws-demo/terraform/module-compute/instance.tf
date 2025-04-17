@@ -26,7 +26,7 @@ resource "aws_security_group_rule" "ingress" {
 
 resource "aws_security_group_rule" "ingress-k3s" {
     count             = var.install_k3s ? 1 : 0
-    
+
     type              = "ingress"
     description       = "Allow 6443/TCP from internet"
     security_group_id = aws_security_group.ec2.id
@@ -72,4 +72,5 @@ resource "aws_instance" "ec2" {
 # This is a trick to get the updated public IP address even after a change
 data "aws_instance" "ec2" {
   instance_id = aws_instance.ec2.id
+  depends_on = [ aws_instance.ec2 ]
 }
