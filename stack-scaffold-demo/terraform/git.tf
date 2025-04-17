@@ -1,6 +1,6 @@
 resource "github_repository" "scaffold" {
-  name        = "${var.cy_project}"
-  description = "Repo for ${var.cy_project} project"
+  name        = "${var.cy_project}-${var.cy_env}"
+  description = "Repo for ${var.cy_project}-${var.cy_env} project"
 
   visibility = "private"
   auto_init  = true
@@ -16,7 +16,7 @@ resource "tls_private_key" "github_generated_key" {
 }
 
 resource "github_repository_deploy_key" "scaffold" {
-  title      = "${var.cy_project}"
+  title      = "${var.cy_project}-${var.cy_env}"
   repository = github_repository.scaffold.name
   key        = tls_private_key.github_generated_key.public_key_openssh
   read_only  = false

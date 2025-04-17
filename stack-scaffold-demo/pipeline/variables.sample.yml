@@ -19,6 +19,14 @@ git_source_url: "https://github.com/cycloid-community-catalog/onboarding-scaffol
 #+ The path in the public git repo to copy for the first commit.
 git_source_path: "express"
 
+#. git_dest_url (required): "git@github.com:cycloid-demo/($ .project $)-($ .env $).git"
+#+ The url of the destination scaffolded git repo.
+git_dest_url: "git@github.com:cycloid-demo/($ .project $)-($ .env $).git"
+
+#. git_dest_key (required): ((($ .project $)-($ .env $)-git-ssh.ssh_key))
+#+ The ssh key of the destination scaffolded git repo.
+git_dest_key: ((($ .project $)-($ .env $)-git-ssh.ssh_key))
+
 
 #
 # Default variables
