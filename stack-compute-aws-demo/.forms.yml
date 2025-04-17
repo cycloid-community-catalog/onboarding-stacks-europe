@@ -56,14 +56,6 @@ use_cases:
             - 250
         required: true
         
-      - name: "Install K3s"
-        description: "Whether to install K3s or not."
-        key: install_k3s
-        widget: switch
-        type: boolean
-        default: true
-        required: true
-
       - name: "Ingress TCP ports"
         description: "Ingress TCP ports allowed from the internet. Type any ports as needed."
         key: vm_ports_in
@@ -87,6 +79,17 @@ use_cases:
         - {"label": "Select from Asset Inventory", "value": "inventory"}
         - {"label": "Select from AWS API", "value": "aws"}
         - {"label": "Enter manually", "value": "manual"}
+
+    - name: Applications
+      technologies: [terraform]
+      vars:
+      - name: "Install K3s"
+        description: "Whether to install K3s or not."
+        key: install_k3s
+        widget: switch
+        type: boolean
+        default: true
+        required: true
 
     - name: Select from Asset Inventory
       technologies: [terraform]
