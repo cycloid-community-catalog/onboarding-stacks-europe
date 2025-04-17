@@ -9,10 +9,10 @@ resource "aws_key_pair" "key_pair" {
 }
 
 resource "cycloid_credential" "ssh_key" {
-  name                   = "${var.cy_org}-${var.cy_project}-${var.cy_env}-compute-ssh"
+  name                   = "${var.cy_project}-${var.cy_env}-compute-ssh"
   description            = "SSH Key Pair used in newly provisionned workloads."
-  path                   = "${var.cy_org}-${var.cy_project}-${var.cy_env}-compute-ssh"
-  canonical              = "${var.cy_org}-${var.cy_project}-${var.cy_env}-compute-ssh"
+  path                   = "${var.cy_project}-${var.cy_env}-compute-ssh"
+  canonical              = "${var.cy_project}-${var.cy_env}-compute-ssh"
 
   type = "ssh"
   body = {

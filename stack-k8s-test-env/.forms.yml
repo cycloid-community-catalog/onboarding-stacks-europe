@@ -11,10 +11,9 @@ use_cases:
       - name: "Application Git URL"
         description: "Public git URL where the application is stored."
         key: git_url
-        widget: auto_complete
+        widget: simple_text
         type: string
-        values: ["https://github.com/cycloid-community-catalog/onboarding-scaffold.git", "https://github.com/Rahul-Pandey7/react-image-compressor.git","https://github.com/arnab-datta/counter-app.git","https://github.com/Yog9/SnapShot.git","https://github.com/ahfarmer/calculator.git","https://github.com/ahfarmer/emoji-search.git"]
-        default: "https://github.com/cycloid-community-catalog/onboarding-scaffold.git"
+        default: "https://github.com/"
         required: true
 
       - name: "Application Git Branch"
@@ -35,10 +34,67 @@ use_cases:
           cred_types:
             - ssh
         type: string
-        default: "((($ .org $)-($ .project $)-($ .env $)-git-ssh.ssh_key))"
+        default: "((($ .project $)-($ .env $)-git-ssh.ssh_key))"
         required: true
 
-    - name: Kubernetes
+    - name: Database
+      technologies: [pipeline]
+      vars:
+      - name: "Database Engine"
+        description: "Select the database engine that Prisma will connect to."
+        key: database_engine
+        widget: radios
+        required: true
+        type: map
+        values:
+        - {label: "PostgreSQL", value: "postgresql"}
+        - {label: "MySQL", value: "mysql"}
+        - {label: "None", value: ""}
+        default: "PostgreSQL"
+      - name: "Managed Database Provider"
+        description: "Select the database engine that Prisma will connect to."
+        key: database_cloud
+        widget: radios
+        required: true
+        type: map
+        values:
+        - {label: "AWS RDS", value: "aws"}
+        - {label: "Azure Managed Database", value: "azure"}
+        default: "AWS RDS"
+    - name: AWS RDS Selection
+      technologies: [pipeline]
+      condition: "database_cloud=='AWS RDS'"
+      vars:
+      - name: "AWS RDS"
+        description: "Select the AWS RDS instance that Prisma will connect to."
+        key: database_aws
+        widget: cy_inventory_resource
+        widget_config:
+          attribute: id
+          filters:
+            type: aws_db_instance
+            project: ($ .project $)
+            environment: ($ .env $)
+        required: true
+        type: string
+    - name: Azure Managed Database Selection
+      technologies: [pipeline]
+      condition: "database_cloud=='Azure Managed Database'"
+      vars:
+      - name: "Azure Managed Database"
+        description: "Select the Azure Managed Database that Prisma will connect to."
+        key: database_azure
+        widget: cy_inventory_resource
+        widget_config:
+          attribute: id
+          filters:
+            type: azurerm_postgresql_server
+            project: ($ .project $)
+            environment: ($ .env $)
+        required: true
+        type: string
+
+    - name: Kubernetes Test Cluster
       technologies: [pipeline]
       vars:
       - name: "Kubeconfig"
@@ -50,5 +106,5 @@ use_cases:
           cred_types:
             - custom
         type: string
-        default: ((custom_($ .org $)-($ .project $)-($ .env $)-kubeconfig.kubeconfig))
+        default: ((custom_($ .project $)-($ .env $)-kubeconfig.kubeconfig))
         required: true

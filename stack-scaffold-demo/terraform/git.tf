@@ -11,11 +11,6 @@ resource "github_branch" "develop" {
   branch     = "develop"
 }
 
-resource "github_branch_default" "develop"{
-  repository = github_repository.scaffold.name
-  branch     = github_branch.develop.branch
-}
-
 resource "tls_private_key" "github_generated_key" {
   algorithm   = "ED25519"
 }

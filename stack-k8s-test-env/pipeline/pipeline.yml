@@ -83,6 +83,7 @@ jobs:
           export KUBECONFIG="$(pwd)/kubeconfig"
           export K8S_EXTERNAL_IP=$(kubectl config view -o json | jq .clusters[0].cluster.server | gawk -F[/:] '{print $4}')
           export APP_NAME=$(echo ${APP_NAME} | sed 's/_//')
+          export DATABASE_URL="postgres"
           cat <<-EOF >deploy.yaml
           ---
           apiVersion: v1
@@ -163,6 +164,10 @@ jobs:
         APP_REPLICAS: 3
         APP_IMAGE_REPO: ((registry_repository))
         APP_IMAGE_TAG: ($ .env $)
+        DATABASE_ENGINE: ((database_engine))
+        DATABASE_CLOUD: ((database_cloud))
+        DATABASE_AWS: ((database_aws))
+        DATABASE_AZURE: ((database_azure))
 
 
 - name: delete-app

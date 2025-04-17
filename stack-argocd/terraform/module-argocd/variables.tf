@@ -24,7 +24,7 @@ variable "extra_tags" {
 locals {
   cycloid_tags = {
     cy_organization = var.cy_org
-    cy_projectject      = var.cy_project
+    cy_project      = var.cy_project
     cy_environment  = var.cy_env
     cy_component    = var.cy_component
   }

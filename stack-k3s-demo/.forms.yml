@@ -35,6 +35,7 @@ use_cases:
           filters:
             type: aws_instance
             project: ($ .project $)
+            environment: ($ .env $)
         type: string
         required: true
 
@@ -51,6 +52,7 @@ use_cases:
           filters:
             type: azurerm_linux_virtual_machine
             project: ($ .project $)
+            environment: ($ .env $)
         type: string
         required: true
 
@@ -67,6 +69,7 @@ use_cases:
           filters:
             type: google_compute_instance
             project: ($ .project $)
+            environment: ($ .env $)
         type: string
         required: true
 
@@ -83,6 +86,7 @@ use_cases:
           filters:
             type: ionoscloud_server
             project: ($ .project $)
+            environment: ($ .env $)
         type: string
         required: true
 
@@ -99,6 +103,7 @@ use_cases:
           filters:
             type: outscale_vm
             project: ($ .project $)
+            environment: ($ .env $)
         type: string
         required: true
 
@@ -128,5 +133,5 @@ use_cases:
           cred_types:
             - ssh
         type: string
-        default: "((($ .org $)-($ .project $)-($ .env $)-compute-ssh.ssh_key))"
+        default: "((($ .project $)-($ .env $)-compute-ssh.ssh_key))"
         required: true

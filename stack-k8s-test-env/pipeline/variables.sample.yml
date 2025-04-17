@@ -4,7 +4,7 @@
 
 #. kubeconfig_content (required): ''
 #+ Kubeconfig content from Cycloid vault.
-kubeconfig_content: "((custom_($ .org $)-($ .project $)-($ .env $)-kubeconfig.kubeconfig))"
+kubeconfig_content: "((custom_($ .project $)-kubeconfig.kubeconfig))"
 
 #
 # Registry
@@ -37,6 +37,26 @@ git_branch: ""
 #. git_ssh_key (required): ''
 #+ The SSH private key to access the git repository.
 git_ssh_key: ""
+
+#
+# Database
+#
+
+#. database_engine (required): "postgresql"
+#+ Select the database engine that Prisma will connect to.
+database_engine: "postgresql"
+
+#. database_cloud (required): "postgresql"
+#+ Select the database engine that Prisma will connect to.
+database_cloud: "aws"
+
+#. database_aws (required): ""
+#+ Select the AWS RDS instance that Prisma will connect to.
+database_aws: ""
+
+#. database_azure (required): ""
+#+ Select the Azure Managed Database that Prisma will connect to.
+database_azure: ""
 
 #
 # Default variables

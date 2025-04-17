@@ -32,7 +32,7 @@ other_ip: ""
 
 #. ssh_key (required): "((($ .org $)-($ .project $)-($ .env $)-compute-ssh.ssh_key))"
 #+ The SSH private key to access the instance where to install K3s.
-ssh_key: "((($ .org $)-($ .project $)-($ .env $)-compute-ssh.ssh_key))"
+ssh_key: "((($ .project $)-${var.cy_env}-compute-ssh.ssh_key))"
 
 
 #

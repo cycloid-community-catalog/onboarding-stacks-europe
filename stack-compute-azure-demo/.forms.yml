@@ -143,5 +143,5 @@ use_cases:
         key: destroy_timer_in_minutes
         widget: number
         type: integer
-        default: 10
+        default: 60
         required: true
