@@ -55,12 +55,11 @@ resource "aws_instance" "ec2" {
   user_data_base64 = base64encode(templatefile(
     "${path.module}/userdata.sh",
     {
-      INSTALL_K3S = var.install_k3s
+      INSTALL_K3S     = var.install_k3s
       SSH_PRIVATE_KEY = tls_private_key.ssh_key.private_key_openssh
-      IPADDR = data.aws_instance.ec2.public_ip
-      USERNAME = var.vm_os_user
-      PROJECT = var.cy_project
-      ENV = var.cy_env
+      USERNAME        = var.vm_os_user
+      PROJECT         = var.cy_project
+      ENV             = var.cy_env
     }
   ))
 

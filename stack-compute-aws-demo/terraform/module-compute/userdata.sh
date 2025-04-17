@@ -10,6 +10,7 @@ systemctl enable amazon-ssm-agent
 systemctl start amazon-ssm-agent
 # Install K3s if enabled
 if [[ "$INSTALL_K3S" -eq "true" ]]; then
+    IPADDR=$(curl http://169.254.169.254/latest/meta-data/local-ipv4)
     mkdir -p ~/.ssh
     echo "${SSH_PRIVATE_KEY}" >~/.ssh/git
     chmod 600 ~/.ssh/git
