@@ -14,7 +14,7 @@ module "compute" {
 
   #. install_k3s: ''
   #+ Whether to install K3s or not
-  install_k3s = true
+  install_k3s = var.install_k3s
 
   #. vm_instance_type: 't3.micro'
   #+ Instance type for the VM

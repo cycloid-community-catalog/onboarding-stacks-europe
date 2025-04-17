@@ -81,7 +81,7 @@ use_cases:
         - {"label": "Enter manually", "value": "manual"}
 
     - name: Applications
-      technologies: [terraform]
+      technologies: [pipeline]
       vars:
       - name: "Install K3s"
         description: "Whether to install K3s or not."
