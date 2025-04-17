@@ -6,10 +6,10 @@ resource "github_repository" "scaffold" {
   auto_init  = true
 }
 
-resource "github_branch" "develop" {
-  repository = github_repository.scaffold.name
-  branch     = "develop"
-}
+# resource "github_branch" "develop" {
+#   repository = github_repository.scaffold.name
+#   branch     = "develop"
+# }
 
 resource "tls_private_key" "github_generated_key" {
   algorithm   = "ED25519"
