@@ -40,7 +40,8 @@ resource "aws_instance" "ec2" {
   ami           = data.aws_ami.debian.id
   instance_type = var.vm_instance_type
   key_name      = aws_key_pair.key_pair.key_name
-
+  
+  iam_instance_profile   = aws_iam_instance_profile.ssm-profile.name
   vpc_security_group_ids = [aws_security_group.ec2.id]
 
   subnet_id                   = var.res_selector == "create" ? module.vpc[0].public_subnets[0] : data.aws_subnet.selected[0].id
@@ -70,21 +71,20 @@ resource "aws_iam_role" "ssm-role" {
   name        = "${var.cy_org}-${var.cy_project}-${var.cy_env}-${var.cy_component}"
   path        = "/"
 
-  assume_role_policy = <<EOF
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Action": "sts:AssumeRole",
-            "Principal": {
-               "Service": "ec2.amazonaws.com"
-            },
-            "Effect": "Allow",
-            "Sid": ""
-        }
-    ]
+  assume_role_policy = data.aws_iam_policy_document.assume-role.json
 }
-EOF
+
+data "aws_iam_policy_document" "assume-role" {
+  statement {
+    effect = "Allow"
+
+    principals {
+      type        = "Service"
+      identifiers = ["ec2.amazonaws.com"]
+    }
+
+    actions = ["sts:AssumeRole"]
+  }
 }
 
 resource "aws_iam_instance_profile" "ssm-profile" {
@@ -92,11 +92,7 @@ resource "aws_iam_instance_profile" "ssm-profile" {
   role = aws_iam_role.ssm-role.name
 }
 
-data "aws_iam_policy" "AmazonSSMManagedInstanceCore" {
-  arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
-}
-
 resource "aws_iam_role_policy_attachment" "ssm-policy" {
   role       = aws_iam_role.ssm-role.name
-  policy_arn = data.aws_iam_policy.AmazonSSMManagedInstanceCore.arn
+  policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
 }
