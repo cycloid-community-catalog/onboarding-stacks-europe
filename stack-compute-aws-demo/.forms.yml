@@ -56,6 +56,14 @@ use_cases:
             - 250
         required: true
         
+      - name: "Install K3s"
+        description: "Whether to install K3s or not."
+        key: install_k3s
+        widget: switch
+        type: boolean
+        default: true
+        required: true
+
       - name: "Ingress TCP ports"
         description: "Ingress TCP ports allowed from the internet. Type any ports as needed."
         key: vm_ports_in
@@ -63,8 +71,8 @@ use_cases:
         widget_config:
           multiselect: true
         type: array
-        values: ["22","80","443","6443","8080"]
-        default: ["22","80","443","6443"]
+        values: ["22","80","443","8080"]
+        default: ["22","80","443"]
         required: false
 
       - name: "Create or Select VPC"

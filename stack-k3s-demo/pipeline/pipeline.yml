@@ -105,8 +105,8 @@ jobs:
           args:
           - -ecx
           - |
-            echo "Deleting Credential ${CY_ORG}-${PROJECT}-${ENV}-kubeconfig"
-            if ! cy credential delete --canonical "${CY_ORG}-${PROJECT}-${ENV}-kubeconfig"; then
+            echo "Deleting Credential ${PROJECT}-${ENV}-kubeconfig"
+            if ! cy credential delete --canonical "${PROJECT}-${ENV}-kubeconfig"; then
               echo "Error: cy returned code $?"
               exit 1
             fi
