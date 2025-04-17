@@ -129,14 +129,13 @@ jobs:
           image_resource:
             type: registry-image
             source:
-              repository: olivier2t/toolkit
+              repository: cycloid/cycloid-toolkit
               tag: latest
           run:
             path: /bin/bash
             args:
               - '-c'
               - |
-                yum install jq -y >/dev/null
                 export INSTANCE_ID=$(cat tfstate/metadata | jq -r .instance_id)
                 export AWS_ACCESS_KEY_ID=$(echo ${CY_AWS_CRED} | jq -r .access_key)
                 export AWS_SECRET_ACCESS_KEY=$(echo ${CY_AWS_CRED} | jq -r .secret_key)
@@ -155,6 +154,10 @@ jobs:
                     cp /etc/rancher/k3s/k3s.yaml /home/admin/.kube/public_ip_config
                     sed -i "s/127.0.0.1/${PUBLIC_IP}/" ~/.kube/public_ip_config
                     chmod 644 /home/admin/.kube/public_ip_config
+                    curl -sL https://get.helm.sh/helm-v3.17.1-linux-amd64.tar.gz | tar -xvz
+                    mv linux-amd64/helm /usr/bin/helm
+                    chmod +x /usr/bin/helm
+                    rm -rf linux-amd64
                     helm upgrade --set controller.hostPort.enabled=true --install ingress-nginx ingress-nginx --repo https://kubernetes.github.io/ingress-nginx --namespace ingress-nginx --create-namespace
                     kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml
                   \"" \
