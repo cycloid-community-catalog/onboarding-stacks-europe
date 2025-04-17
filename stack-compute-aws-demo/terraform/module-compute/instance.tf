@@ -64,5 +64,28 @@ resource "aws_instance" "ec2" {
 # This is a trick to get the updated public IP address even after a change
 data "aws_instance" "ec2" {
   instance_id = aws_instance.ec2.id
-  depends_on = [ aws_instance.ec2 ]
+}
+
+resource "aws_iam_instance_profile" "iam-profile" {
+  name = "${var.cy_org}-${var.cy_project}-${var.cy_env}-${var.cy_component}"
+  role = aws_iam_role.iam-role.name
+}
+
+resource "aws_iam_role" "iam-role" {
+  name        = "${var.cy_org}-${var.cy_project}-${var.cy_env}-${var.cy_component}"
+  description = "The role for the developer resources EC2"
+  assume_role_policy = <<-EOF
+  {
+  "Version": "2012-10-17",
+  "Statement": {
+  "Effect": "Allow",
+  "Principal": {"Service": "ec2.amazonaws.com"},
+  "Action": "sts:AssumeRole"
+  }
+  }
+  EOF
+}
+resource "aws_iam_role_policy_attachment" "ssm-policy" {
+  role       = aws_iam_role.iam-role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
 }
