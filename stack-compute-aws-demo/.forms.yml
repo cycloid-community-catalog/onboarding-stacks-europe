@@ -80,17 +80,6 @@ use_cases:
         - {"label": "Select from AWS API", "value": "aws"}
         - {"label": "Enter manually", "value": "manual"}
 
-    - name: Applications
-      technologies: [pipeline]
-      vars:
-      - name: "Install K3s"
-        description: "Whether to install K3s or not."
-        key: install_k3s
-        widget: switch
-        type: boolean
-        default: true
-        required: true
-
     - name: Select from Asset Inventory
       technologies: [terraform]
       condition: '$res_selector == "Select from Asset Inventory"'
@@ -128,6 +117,17 @@ use_cases:
         key: vpc_id_manual
         widget: simple_text
         type: string
+        required: true
+
+    - name: Applications
+      technologies: [pipeline]
+      vars:
+      - name: "Install K3s"
+        description: "Whether to install K3s or not."
+        key: install_k3s
+        widget: switch
+        type: boolean
+        default: true
         required: true
 
     - name: Day-2 Operations
