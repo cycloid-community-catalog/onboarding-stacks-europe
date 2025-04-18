@@ -34,6 +34,14 @@ git_ssh_key: ""
 # Database
 #
 
+#. database_integration (required): false
+#+ Is there a connection string to build from a Cycloid inventory database and a Cycloid secret?
+database_integration: false
+
+#. database_env_var_name (required): false
+#+ Name of the environment variable where the database connection string will be stored for your application
+database_env_var_name: false
+
 #. database_engine (required): "postgresql"
 #+ Select the database engine that Prisma will connect to.
 database_engine: "postgresql"
@@ -49,6 +57,10 @@ database_aws: ""
 #. database_azure (required): ""
 #+ Select the Azure Managed Database that Prisma will connect to.
 database_azure: ""
+
+#. database_name (required): ""
+#+ Database name that Prisma will connect to.
+database_name: ""
 
 #
 # Application
