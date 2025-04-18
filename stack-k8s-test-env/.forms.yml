@@ -8,13 +8,25 @@ use_cases:
     - name: Application Git
       technologies: [pipeline]
       vars:
+      # - name: "Application Git URL"
+      #   description: "Git URL where the application is stored."
+      #   key: git_url
+      #   widget: simple_text
+      #   type: string
+      #   default: "git@github.com:"
+      #   required: true
       - name: "Application Git URL"
         description: "Git URL where the application is stored."
         key: git_url
-        widget: simple_text
-        type: string
-        default: "git@github.com:"
+        widget: cy_inventory_resource
+        widget_config:
+          attribute: ssh_clone_url
+          filters:
+            type: github_repository
+            project: ($ .project $)
+            environment: ($ .env $)
         required: true
+        type: string
 
       - name: "Application Git Branch"
         description: "Git branch where the application is stored."
