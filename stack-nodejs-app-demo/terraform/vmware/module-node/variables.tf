@@ -1,7 +1,7 @@
 # Cycloid
-variable "cyenv" {}
-variable "cyproject" {}
-variable "cyorg" {}
+variable "cy_env" {}
+variable "cy_project" {}
+variable "cy_org" {}
 
 variable "git_app_url" {
   description = "Public git URL of the web application to build and deploy."
@@ -36,9 +36,9 @@ variable "extra_tags" {
 locals {
   standard_tags = {
     "cycloidio" = "true"
-    cyenv        = var.cyenv
-    cyproject    = var.cyproject
-    cyorg        = var.cyorg
+    cy_env        = var.cy_env
+    cy_project    = var.cy_project
+    cy_org        = var.cy_org
     demo         = true
   }
   merged_tags = merge(local.standard_tags, var.extra_tags)

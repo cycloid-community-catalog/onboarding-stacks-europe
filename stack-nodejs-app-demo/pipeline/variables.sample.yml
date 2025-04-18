@@ -24,9 +24,9 @@ azure_cred: ((azure))
 #+ Google Cloud Platform JSON credentials to use for Terraform. See value format [here](https://docs.cycloid.io/advanced-guide/integrate-and-use-cycloid-credentials-manager.html#vault-in-the-pipeline)
 gcp_cred: ((gcp))
 
-#. gcp_project (required): ($ .organization_canonical $)
+#. gcp_project (required): ($ .org $)
 #+ Google Cloud Platform project to use for Terraform.
-gcp_project: ($ .organization_canonical $)
+gcp_project: ($ .org $)
 
 #. gcp_region (required): europe-west1
 #+ Google Cloud Platform region to use for Terraform.
@@ -116,9 +116,9 @@ vm_instance_status: "Started"
 # Default variables
 #
 
-#. cycloid_api_key (required): ((admin-api-key.key))
+#. cy_api_key (required): ((admin-api-key.key))
 #+ API key to grant admin acess to Cycloid API.
-cycloid_api_key: ((admin-api-key.key))
+cy_api_key: ((admin-api-key.key))
 
 #. terraform_version (required): '1.8.3'
 #+ terraform version used to execute your code.

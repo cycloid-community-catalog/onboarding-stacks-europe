@@ -43,7 +43,7 @@ use_cases:
           cred_types:
             - ssh
         type: string
-        default: "((($ .organization_canonical $)-($ .project $)-($ .environment $)-git-ssh.ssh_key))"
+        default: "((($ .org $)-($ .project $)-($ .env $)-git-ssh.ssh_key))"
         required: true
 
     - name: Day-2 Operations with Ansible

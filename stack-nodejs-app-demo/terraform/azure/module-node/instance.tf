@@ -1,7 +1,7 @@
 # Create node VM
 resource "azurerm_linux_virtual_machine" "node" {
-  name                  = "${var.cyorg}-${var.cyproject}-${var.cyenv}"
-  computer_name         = "${var.cyorg}-${var.cyproject}-${var.cyenv}"
+  name                  = "${var.cy_org}-${var.cy_project}-${var.cy_env}"
+  computer_name         = "${var.cy_org}-${var.cy_project}-${var.cy_env}"
   resource_group_name   = data.azurerm_resource_group.node.name
   location              = data.azurerm_resource_group.node.location
   network_interface_ids = [azurerm_network_interface.node.id]
@@ -36,7 +36,7 @@ resource "azurerm_linux_virtual_machine" "node" {
   ))
 
   tags = merge(local.merged_tags, {
-    Name = "${var.cyorg}-${var.cyproject}-${var.cyenv}"
+    Name = "${var.cy_org}-${var.cy_project}-${var.cy_env}"
     role = "node"
   })
 }

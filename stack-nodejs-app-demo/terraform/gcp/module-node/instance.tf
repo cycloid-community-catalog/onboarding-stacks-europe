@@ -1,5 +1,5 @@
 resource "google_compute_firewall" "compute" {
-  name    = "${var.cyorg}-${var.cyproject}-${var.cyenv}"
+  name    = "${var.cy_org}-${var.cy_project}-${var.cy_env}"
   network = data.google_compute_network.selected.name
 
   allow {
@@ -15,7 +15,7 @@ resource "google_compute_firewall" "compute" {
 # }
 
 resource "google_compute_instance" "compute" {
-  name           = "${var.cyorg}-${var.cyproject}-${var.cyenv}"
+  name           = "${var.cy_org}-${var.cy_project}-${var.cy_env}"
   machine_type   = var.vm_machine_type
   can_ip_forward = false
   # zone           = data.google_compute_zones.available.names[length(data.google_compute_zones.available.names)-1]

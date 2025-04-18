@@ -9,11 +9,11 @@ use_cases:
       technologies: [pipeline]
       vars:
       - name: "Application Git URL"
-        description: "Public git URL where the application is stored."
+        description: "Git URL where the application is stored."
         key: git_url
         widget: simple_text
         type: string
-        default: "https://github.com/"
+        default: "git@github.com:"
         required: true
 
       - name: "Application Git Branch"

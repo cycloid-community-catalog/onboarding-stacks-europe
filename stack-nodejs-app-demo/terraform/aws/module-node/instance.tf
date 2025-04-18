@@ -1,5 +1,5 @@
 resource "aws_security_group" "ec2" {
-  name        = "${var.cyorg}-${var.cyproject}-${var.cyenv}"
+  name        = "${var.cy_org}-${var.cy_project}-${var.cy_env}"
   description = "Allow accessing the instance from the internet."
   vpc_id      = data.aws_vpc.selected.id
 }
@@ -56,7 +56,7 @@ resource "aws_instance" "ec2" {
   ))
 
   tags = {
-    Name = "${var.cyorg}-${var.cyproject}-${var.cyenv}"
+    Name = "${var.cy_org}-${var.cy_project}-${var.cy_env}"
   }
 
   lifecycle {

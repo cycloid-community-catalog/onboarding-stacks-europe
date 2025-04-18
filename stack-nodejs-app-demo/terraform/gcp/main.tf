@@ -2,9 +2,10 @@ module "node" {
   #####################################
   # Do not modify the following lines #
   source   = "./module-node"
-  cyproject  = var.cyproject
-  cyenv      = var.cyenv
-  cyorg      = var.cyorg
+  cy_org       = var.cy_org
+  cy_project   = var.cy_project
+  cy_env       = var.cy_env
+  cy_component = var.cy_component
   #####################################
 
   #. extra_tags (optional): {}

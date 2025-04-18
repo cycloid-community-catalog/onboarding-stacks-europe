@@ -1,7 +1,7 @@
 # Cycloid variables
-variable "cyenv" {}
-variable "cyproject" {}
-variable "cyorg" {}
+variable "cy_env" {}
+variable "cy_project" {}
+variable "cy_org" {}
 
 # AWS variables
 variable "aws_cred" {
@@ -13,12 +13,12 @@ variable "aws_region" {
   default     = "eu-west-1"
 }
 
-variable "cycloid_api_url" {
+variable "cy_api_url" {
   type        = string
   description = "Cycloid API endpoint"
 }
 
-variable "cyorg_jwt" {
+variable "cy_api_key" {
   type        = string
   description = "Org JWT used for authentication"
   sensitive   = true

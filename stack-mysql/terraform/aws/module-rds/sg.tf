@@ -1,10 +1,10 @@
 resource "aws_security_group" "rds" {
-  name        = "${var.cyorg}-${var.cyproject}-${var.cyenv}-${var.cycomp}"
-  description = "${var.cyproject} ${var.cyenv} ${var.cycomp}"
+  name        = "${var.cy_org}-${var.cy_project}-${var.cy_env}-${var.cy_component}"
+  description = "${var.cy_project} ${var.cy_env} ${var.cy_component}"
   vpc_id      = aws_subnet.selected.vpc_id
 
   tags = {
-    Name = "${var.cyorg}-${var.cyproject}-${var.cyenv}-${var.cycomp}"
+    Name = "${var.cy_org}-${var.cy_project}-${var.cy_env}-${var.cy_component}"
   }
 }
 

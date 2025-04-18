@@ -1,7 +1,7 @@
 # Cycloid variables
-variable "cyenv" {}
-variable "cyproject" {}
-variable "cyorg" {}
+variable "cy_env" {}
+variable "cy_project" {}
+variable "cy_org" {}
 
 # GCP variables
 variable "gcp_project" {}
@@ -14,12 +14,12 @@ variable "gcp_zone" {
   default     = "europe-west1-b"
 }
 
-variable "cycloid_api_url" {
+variable "cy_api_url" {
   type        = string
   description = "Cycloid API endpoint"
 }
 
-variable "cyorg_jwt" {
+variable "cy_api_key" {
   type        = string
   description = "Org JWT used for authentication"
   sensitive   = true

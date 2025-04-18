@@ -1,5 +1,5 @@
 resource "aws_db_instance" "db" {
-  identifier              = "${var.cyorg}-${var.cyproject}-${var.cyenv}-${var.cycomp}"
+  identifier              = "${var.cy_org}-${var.cy_project}-${var.cy_env}-${var.cy_component}"
   apply_immediately       = true
   backup_window           = "02:00-04:00"
   maintenance_window      = "tue:06:00-tue:07:00"
@@ -12,7 +12,7 @@ resource "aws_db_instance" "db" {
   storage_type            = "gp3"
   allocated_storage       = 10
   snapshot_identifier     = var.rds_snapshot_identifier == "" ? null : var.rds_snapshot_identifier
-  username                = "${var.cyproject}-${var.cyenv}-${var.cycomp}"
-  password                = random_password.rds
+  username                = "${var.cy_project}-${var.cy_env}-${var.cy_component}"
+  password                = random_password.rds.result
   vpc_security_group_ids  = ["${aws_security_group.rds.id}"]
 }

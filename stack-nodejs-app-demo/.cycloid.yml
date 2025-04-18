@@ -29,15 +29,15 @@ config:
   #       path: 'pipeline/pipeline.yml'
   #     variables:
   #       path: 'pipeline/variables.sample.yml'
-  #       destination: '($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/pipeline/variables.yml'
+  #       destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/pipeline/variables.yml'
   #   ansible:
   #     node:
   #       path: 'ansible/environments/node.yml.sample'
-  #       destination: '($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/ansible/environments/node.yml'
+  #       destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/ansible/environments/node.yml'
   #   terraform:
   #     main:
   #       path: 'terraform/aws/main.tf'
-  #       destination: '($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/terraform/aws/main.tf'
+  #       destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/terraform/aws/main.tf'
 
   # azure:
   #   name: 'Azure'
@@ -48,15 +48,15 @@ config:
   #       path: 'pipeline/pipeline.yml'
   #     variables:
   #       path: 'pipeline/variables.sample.yml'
-  #       destination: '($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/pipeline/variables.yml'
+  #       destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/pipeline/variables.yml'
   #   ansible:
   #     node:
   #       path: 'ansible/environments/node.yml.sample'
-  #       destination: '($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/ansible/environments/node.yml'
+  #       destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/ansible/environments/node.yml'
   #   terraform:
   #     main:
   #       path: 'terraform/azure/main.tf'
-  #       destination: '($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/terraform/azure/main.tf'
+  #       destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/terraform/azure/main.tf'
 
   # gcp:
   #   name: 'GCP'
@@ -67,15 +67,15 @@ config:
   #       path: 'pipeline/pipeline.yml'
   #     variables:
   #       path: 'pipeline/variables.sample.yml'
-  #       destination: '($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/pipeline/variables.yml'
+  #       destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/pipeline/variables.yml'
   #   ansible:
   #     node:
   #       path: 'ansible/environments/node.yml.sample'
-  #       destination: '($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/ansible/environments/node.yml'
+  #       destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/ansible/environments/node.yml'
   #   terraform:
   #     main:
   #       path: 'terraform/gcp/main.tf'
-  #       destination: '($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/terraform/gcp/main.tf'
+  #       destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/terraform/gcp/main.tf'
 
   # vmware:
   #   name: 'VMware'
@@ -86,15 +86,15 @@ config:
   #       path: 'pipeline/pipeline.yml'
   #     variables:
   #       path: 'pipeline/variables.sample.yml'
-  #       destination: '($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/pipeline/variables.yml'
+  #       destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/pipeline/variables.yml'
   #   ansible:
   #     node:
   #       path: 'ansible/environments/node.yml.sample'
-  #       destination: '($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/ansible/environments/node.yml'
+  #       destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/ansible/environments/node.yml'
   #   terraform:
   #     main:
   #       path: 'terraform/vmware/main.tf'
-  #       destination: '($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/terraform/vmware/main.tf'
+  #       destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/terraform/vmware/main.tf'
 
   outscale:
     name: 'Outscale'
@@ -105,15 +105,15 @@ config:
         path: pipeline/pipeline.yml
       variables:
         path: pipeline/variables.sample.yml
-        destination: '($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/pipeline/variables.yml'
+        destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/pipeline/variables.yml'
     ansible:
       node:
         path: 'ansible/environments/node.yml.sample'
-        destination: '($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/ansible/environments/node.yml'
+        destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/ansible/environments/node.yml'
     terraform:
       main:
         path: 'terraform/outscale/main.tf'
-        destination: '($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/terraform/outscale/main.tf'
+        destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/terraform/outscale/main.tf'
 
   ionos:
     name: 'Ionos'
@@ -124,12 +124,12 @@ config:
         path: pipeline/pipeline.yml
       variables:
         path: pipeline/variables.sample.yml
-        destination: '($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/pipeline/variables.yml'
+        destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/pipeline/variables.yml'
     ansible:
       node:
         path: 'ansible/environments/node.yml.sample'
-        destination: '($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/ansible/environments/node.yml'
+        destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/ansible/environments/node.yml'
     terraform:
       main:
         path: 'terraform/ionos/main.tf'
-        destination: '($ .organization_canonical $)/($ .project $)/($ .environment $)/($ .component $)/terraform/ionos/main.tf'
+        destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/terraform/ionos/main.tf'

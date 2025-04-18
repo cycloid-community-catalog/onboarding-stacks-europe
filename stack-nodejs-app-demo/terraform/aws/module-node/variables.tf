@@ -1,7 +1,7 @@
 # Cycloid
-variable "cyenv" {}
-variable "cyproject" {}
-variable "cyorg" {}
+variable "cy_env" {}
+variable "cy_project" {}
+variable "cy_org" {}
 
 variable "git_app_url" {
   description = "Public git URL of the web application to build and deploy."

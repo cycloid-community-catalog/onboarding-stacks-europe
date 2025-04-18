@@ -4,15 +4,15 @@ resource "tls_private_key" "ssh_key" {
 }
 
 resource "outscale_keypair" "cycloid_keypair" {
-    keypair_name = "${var.cyorg}-${var.cypro}-${var.cyenv}"
+    keypair_name = "${var.cy_org}-${var.cy_project}-${var.cy_env}"
     public_key   = tls_private_key.ssh_key.public_key_openssh
 }
 
 resource "cycloid_credential" "ssh_key" {
-  name                   = "${var.cyorg}-${var.cypro}-${var.cyenv}-compute-ssh"
+  name                   = "${var.cy_org}-${var.cy_project}-${var.cy_env}-compute-ssh"
   description            = "SSH Key Pair used in newly provisionned workloads."
-  path                   = "${var.cyorg}-${var.cypro}-${var.cyenv}-compute-ssh"
-  canonical              = "${var.cyorg}-${var.cypro}-${var.cyenv}-compute-ssh"
+  path                   = "${var.cy_org}-${var.cy_project}-${var.cy_env}-compute-ssh"
+  canonical              = "${var.cy_org}-${var.cy_project}-${var.cy_env}-compute-ssh"
 
   type = "ssh"
   body = {
