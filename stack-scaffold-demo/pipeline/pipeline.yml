@@ -144,7 +144,7 @@ jobs:
               ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
               git clone ${GIT_SOURCE_URL} source
               git clone $GIT_DEST_URL dest
-              if [ -z "$( ls -dA dest )" ]; then
+              if [ -z "$(ls -A dest | grep -v README.md)" ]; then
                 rm -rf source/.git
                 mv source/${GIT_SOURCE_PATH}/* dest/
                 mv source/${GIT_SOURCE_PATH}/.* dest/
