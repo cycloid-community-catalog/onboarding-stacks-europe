@@ -110,13 +110,14 @@ use_cases:
         required: true
         type: map 
         default:
-          - ENV_VAR_1: VAL1
-          - ENV_VAR_2: VAL2
+          vars:
+            ENV_VAR_1: VAL1
+            ENV_VAR_2: VAL2
       - name: "Number of Replicas"
         description: "The number of replicas to deploy in the Kubernetes Cluster."
         key: app_replicas
         widget: number
-        type: integer
+        type: "integer"
         default: 3
         required: true
 
