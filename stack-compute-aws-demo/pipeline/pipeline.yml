@@ -164,6 +164,11 @@ jobs:
           CY_AWS_CRED: '((aws_cred))'
           AWS_DEFAULT_REGION: '((aws_region))'
           INSTALL_K3S: ((install_k3s))
+          CY_ORG: ($ .organization_canonical $)
+          CY_API_URL: ($ .api_url $)
+          CY_API_KEY: ((cycloid_api_key))
+          PROJECT: ($ .project $)
+          ENV: ($ .environment $)
 
       - task: run-cli-operations
         config:
