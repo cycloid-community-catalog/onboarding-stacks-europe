@@ -11,14 +11,14 @@ systemctl start amazon-ssm-agent
 # Install K3s if enabled
 if [[ "$INSTALL_K3S" -eq "true" ]]; then
     export INSTANCE_PUBLIC_IP=$(curl http://169.254.169.254/latest/meta-data/local-ipv4)
-    curl -sfL https://get.k3s.io | K3S_KUBECONFIG_MODE='644' INSTALL_K3S_EXEC='--disable traefik --disable servicelb --tls-san ${INSTANCE_PUBLIC_IP}' sh -s -
+    curl -sfL https://get.k3s.io | K3S_KUBECONFIG_MODE='644' INSTALL_K3S_EXEC='--disable traefik --disable servicelb --tls-san $INSTANCE_PUBLIC_IP' sh -s -
     until ls /etc/rancher/k3s/k3s.yaml >/dev/null; do sleep 1; done
     mkdir -p /home/${USERNAME}/.kube
     cp /etc/rancher/k3s/k3s.yaml /home/${USERNAME}/.kube/config
     chmod 644 /home/${USERNAME}/.kube/config
     chown ${USERNAME}:${USERNAME} /home/${USERNAME}/.kube/config
     cp /etc/rancher/k3s/k3s.yaml /home/${USERNAME}/.kube/public_ip_config
-    sed -i "s/127.0.0.1/${INSTANCE_PUBLIC_IP}/" /home/${USERNAME}/.kube/public_ip_config
+    sed -i "s/127.0.0.1/$INSTANCE_PUBLIC_IP/" /home/${USERNAME}/.kube/public_ip_config
     chmod 644 /home/${USERNAME}/.kube/public_ip_config
     chown ${USERNAME}:${USERNAME} /home/${USERNAME}/.kube/public_ip_config
     cd /tmp
