@@ -37,9 +37,16 @@ use_cases:
         default: "((($ .project $)-($ .env $)-git-ssh.ssh_key))"
         required: true
 
-    - name: Database
+    - name: Database Type
       technologies: [pipeline]
       vars:
+      - name: "Connection String Env Var Name"
+        description: "Name of the environment variable where the database connection string will be stored for your application."
+        key: database_env_var_name
+        widget: simple_text
+        required: false
+        type: string
+        default: "DATABASE_URL"
       - name: "Database Engine"
         description: "Select the database engine that Prisma will connect to."
         key: database_engine
@@ -70,7 +77,7 @@ use_cases:
         key: database_aws
         widget: cy_inventory_resource
         widget_config:
-          attribute: id
+          attribute: endpoint
           filters:
             type: aws_db_instance
             project: ($ .project $)
@@ -93,6 +100,25 @@ use_cases:
             environment: ($ .env $)
         required: true
         type: string
+    - name: Environment Variables
+      technologies: [pipeline]
+      vars:
+      - name: "Environment Variables"
+        description: "Other environment variables to provide to your application."
+        key: app_env_vars
+        widget: text_area
+        required: true
+        type: map 
+        default:
+          ENV_VAR_1: VAL1
+          ENV_VAR_2: VAL2
+      - name: "Number of Replicas"
+        description: "The number of replicas to deploy in the Kubernetes Cluster."
+        key: app_replicas
+        widget: number
+        type: "integer"
+        default: 3
+        required: true
 
     - name: Kubernetes Test Cluster
       technologies: [pipeline]

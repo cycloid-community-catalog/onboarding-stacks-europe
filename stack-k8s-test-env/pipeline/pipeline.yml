@@ -160,15 +160,16 @@ jobs:
           echo $MESSAGE
       params:
         KUBECONFIG_CONTENT: ((kubeconfig_content))
-        APP_NAME: ($ .org $)-($ .project $)-($ .env $)
+        APP_NAME: ($ .project $)-($ .env $)
         APP_PORT: 8080
-        APP_REPLICAS: 3
+        APP_REPLICAS: ((app_replicas))
         APP_IMAGE_REPO: ((registry_repository))
         APP_IMAGE_TAG: ($ .env $)
         DATABASE_ENGINE: ((database_engine))
         DATABASE_CLOUD: ((database_cloud))
         DATABASE_AWS: ((database_aws))
         DATABASE_AZURE: ((database_azure))
+        APP_ENV_VARS: ((app_env_vars))
 
 
 - name: delete-app

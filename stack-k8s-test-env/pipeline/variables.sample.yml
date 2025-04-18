@@ -1,12 +1,4 @@
 #
-# Kubernetes
-#
-
-#. kubeconfig_content (required): ''
-#+ Kubeconfig content from Cycloid vault.
-kubeconfig_content: "((custom_($ .project $)-kubeconfig.kubeconfig))"
-
-#
 # Registry
 #
 
@@ -57,6 +49,26 @@ database_aws: ""
 #. database_azure (required): ""
 #+ Select the Azure Managed Database that Prisma will connect to.
 database_azure: ""
+
+#
+# Application
+#
+
+#. app_env_vars (required): ""
+#+ Other environment variables to provide to your application.
+app_env_vars: ""
+
+#. app_replicas (required): ''
+#+ The number of replicas to deploy in the Kubernetes Cluster.
+app_replicas: 3
+
+#
+# Kubernetes
+#
+
+#. kubeconfig_content (required): ''
+#+ Kubeconfig content from Cycloid vault.
+kubeconfig_content: "((custom_($ .project $)-kubeconfig.kubeconfig))"
 
 #
 # Default variables
