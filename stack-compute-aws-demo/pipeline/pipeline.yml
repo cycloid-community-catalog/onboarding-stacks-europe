@@ -143,9 +143,15 @@ jobs:
                   export AWS_SECRET_ACCESS_KEY=$(echo ${CY_AWS_CRED} | jq -r .secret_key)
                   export AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION:-us-east-1}
                   export TERM=xterm
-                  aws ssm start-session --target ${INSTANCE_ID} \
-                  --document-name AmazonEKS-ExecuteNonInteractiveCommand \
-                  --parameters 'command="cat /home/admin/.kube/public_ip_config"' | tail -n +3 | head -n -3  >kubeconfig
+                  touch kubeconfig
+                  until grep apiVersion kubeconfig; do
+                    echo "Waiting for kubeconfig..."
+                    sleep 5
+                    aws ssm start-session --target ${INSTANCE_ID} \
+                    --document-name AmazonEKS-ExecuteNonInteractiveCommand \
+                    --parameters 'command="cat /home/admin/.kube/public_ip_config"' | tail -n +3 | head -n -3  >kubeconfig
+                  done
+
                   if ! cy credential create --name "${PROJECT}-${ENV}-kubeconfig" --canonical "${PROJECT}-${ENV}-kubeconfig" custom --field-file kubeconfig=kubeconfig; then
                     echo "Error: cy returned code $?. Trying to update it."
                     if ! cy credential update --name "${PROJECT}-${ENV}-kubeconfig" --canonical "${PROJECT}-${ENV}-kubeconfig" custom --field-file kubeconfig=kubeconfig; then
