@@ -97,7 +97,7 @@ use_cases:
       condition: '$res_selector == "Select from Asset Inventory"'
       vars:
       - name: "Subnet"
-        description: "Subnets where to deploy the resources. You must select at least 2 subnets."
+        description: "Subnets where to deploy the resources. Make sure you select at least 2 subnets from different AZ but in the same region."
         key: rds_subnet_ids_inventory
         widget: cy_inventory_resource
         widget_config:
@@ -117,7 +117,7 @@ use_cases:
       condition: '$res_selector == "Enter manually"'
       vars:
       - name: "Subnet ID"
-        description: "Subnet IDs where to deploy the resources. Make sure you enter at least 2 subnets and they are in the same region."
+        description: "Subnet IDs where to deploy the resources. Make sure you enter at least 2 subnets from different AZ but in the same region."
         key: rds_subnet_ids_manual
         widget: text_area
         type: string
