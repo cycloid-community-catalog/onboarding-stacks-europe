@@ -123,7 +123,7 @@ jobs:
           passed:
             - deploy
 
-      - task: get-kubeconfig
+      - task: store-kubeconfig
         config:
           platform: linux
           image_resource:
@@ -146,7 +146,7 @@ jobs:
                   touch kubeconfig
                   until grep apiVersion kubeconfig; do
                     echo "Waiting for kubeconfig..."
-                    sleep 5
+                    sleep 1
                     aws ssm start-session --target ${INSTANCE_ID} \
                     --document-name AmazonEKS-ExecuteNonInteractiveCommand \
                     --parameters 'command="cat /home/admin/.kube/public_ip_config"' | tail -n +3 | head -n -3  >kubeconfig
@@ -162,7 +162,6 @@ jobs:
                 else
                   echo "K3s not installed. Skipping..."
                 fi
-
           inputs:
           - name: tfstate
             path: tfstate

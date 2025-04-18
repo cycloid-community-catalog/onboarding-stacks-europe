@@ -56,8 +56,8 @@ resource "aws_instance" "ec2" {
   user_data_base64 = base64encode(templatefile(
     "${path.module}/userdata.sh",
     {
-      INSTALL_K3S     = var.install_k3s
-      USERNAME        = var.vm_os_user
+      INSTALL_K3S = var.install_k3s
+      USERNAME    = var.vm_os_user
     }
   ))
 

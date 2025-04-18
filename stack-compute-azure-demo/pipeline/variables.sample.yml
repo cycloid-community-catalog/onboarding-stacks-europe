@@ -8,6 +8,15 @@ azure_cred: ((azure))
 
 
 #
+# K3s
+#
+
+#. install_k3s (required): true
+#+ Whether to install K3s or not.
+install_k3s: true
+
+
+#
 # Day 2 CLI Operations
 #
 
