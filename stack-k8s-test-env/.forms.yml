@@ -22,7 +22,7 @@ use_cases:
         widget: auto_complete
         type: string
         values: ["develop", "main", "master"]
-        default: "develop"
+        default: "main"
         required: true
 
       - name: "SSH Key"
