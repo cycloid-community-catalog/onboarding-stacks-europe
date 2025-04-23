@@ -74,6 +74,7 @@ use_cases:
         default:
         - 80
         - 443
+        - 6443
 
       - name: "Create or Select VPC"
         description: "Whether to create a new VPC or select an existing one."

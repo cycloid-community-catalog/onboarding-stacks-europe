@@ -66,6 +66,7 @@ use_cases:
         - 22
         - 80
         - 443
+        - 6443
 
       - name: "Create or Select Resource Group and VPC"
         description: "Whether to create a new Resource group and VPC or select existing ones."
