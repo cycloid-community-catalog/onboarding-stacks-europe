@@ -68,8 +68,8 @@ use_cases:
         - 443
         - 6443
 
-      - name: "Create or Select Resource Group and VPC"
-        description: "Whether to create a new Resource group and VPC or select existing ones."
+      - name: "Create or Select Resource Group"
+        description: "Whether to create a new Resource group or select existing ones."
         key: res_selector
         widget: dropdown
         type: map
@@ -80,7 +80,7 @@ use_cases:
         - {"label": "Select from Asset Inventory", "value": "inventory"}
         - {"label": "Enter manually", "value": "manual"}
 
-    - name: Create VNet and Resource Group
+    - name: Create Resource Group
       technologies: [terraform]
       condition: '$res_selector == "Create new"'
       vars:
@@ -106,16 +106,6 @@ use_cases:
             type: azurerm_resource_group
         type: string
         required: true
-      - name: "Virtual Network"
-        description: "Virtual Network where to deploy the resources. Make sure the VNet is in the same location as the previously selected resource group."
-        key: vpc_name_inventory
-        widget: cy_inventory_resource
-        widget_config:
-          attribute: name
-          filters:
-            type: azurerm_virtual_network
-        type: string
-        required: true
 
     - name: Enter manually
       technologies: [terraform]
@@ -124,12 +114,6 @@ use_cases:
       - name: "Resource Group Name"
         description: "The name of the existing resource group where the resources will be deployed."
         key: resource_group_name_manual
-        widget: simple_text
-        type: string
-        required: true
-      - name: "Virtual Network Name"
-        description: "Virtual Network name where the resources will be deployed. Make sure the VNet is in the same location as the previously selected resource group."
-        key: vpc_name_manual
         widget: simple_text
         type: string
         required: true

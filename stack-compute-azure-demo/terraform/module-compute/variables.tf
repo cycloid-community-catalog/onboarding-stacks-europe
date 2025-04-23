@@ -43,14 +43,6 @@ variable "resource_group_name_inventory" {
   description = "The name of the existing resource group where the resources will be deployed"
 }
 
-variable "vpc_name_inventory" {
-  description = "VPC name where to deploy the instance"
-}
-
 variable "resource_group_name_manual" {
   description = "The name of the existing resource group where the resources will be deployed"
-}
-
-variable "vpc_name_manual" {
-  description = "VPC name where to deploy the instance"
 }

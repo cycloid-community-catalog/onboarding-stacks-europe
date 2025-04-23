@@ -1,21 +1,4 @@
-data "azurerm_virtual_network" "selected" {
-  count = var.res_selector == "create" ? 0 : 1
-
-  name                = var.res_selector == "inventory" ? var.vpc_name_inventory : var.vpc_name_manual
-  resource_group_name = var.res_selector == "create" ? azurerm_resource_group.compute[0].name : data.azurerm_resource_group.selected[0].name
-}
-
-data "azurerm_subnet" "selected" {
-  count = var.res_selector == "create" ? 0 : 1
-
-  name                 = data.azurerm_virtual_network.selected[0].subnets[0]
-  virtual_network_name = data.azurerm_virtual_network.selected[0].name
-  resource_group_name  = var.res_selector == "create" ? azurerm_resource_group.compute[0].name : data.azurerm_resource_group.selected[0].name
-}
-
 resource "azurerm_virtual_network" "compute" {
-  count = var.res_selector == "create" ? 1 : 0
-
   name                = "${var.cy_org}-${var.cy_project}-${var.cy_env}-${var.cy_component}"
   resource_group_name = var.res_selector == "create" ? azurerm_resource_group.compute[0].name : data.azurerm_resource_group.selected[0].name
   location            = var.res_selector == "create" ? azurerm_resource_group.compute[0].location : data.azurerm_resource_group.selected[0].location
@@ -23,8 +6,6 @@ resource "azurerm_virtual_network" "compute" {
 }
 
 resource "azurerm_subnet" "compute" {
-  count = var.res_selector == "create" ? 1 : 0
-
   name                 = "${var.cy_org}-${var.cy_project}-${var.cy_env}-${var.cy_component}"
   resource_group_name  = var.res_selector == "create" ? azurerm_resource_group.compute[0].name : data.azurerm_resource_group.selected[0].name
   virtual_network_name = azurerm_virtual_network.compute[0].name
@@ -80,7 +61,7 @@ resource "azurerm_network_interface" "compute" {
 
   ip_configuration {
       name                          = "${var.cy_org}-${var.cy_project}-${var.cy_env}-${var.cy_component}"
-      subnet_id                     = var.res_selector == "create" ? azurerm_subnet.compute[0].id : data.azurerm_subnet.selected[0].id
+      subnet_id                     = azurerm_subnet.compute.id
       private_ip_address_allocation = "Dynamic"
       public_ip_address_id          = azurerm_public_ip.compute.id
   }

@@ -36,15 +36,7 @@ module "compute" {
   #+ The name of the existing resource group where the resources will be deployed
   resource_group_name_inventory = ""
 
-  #. vpc_name_inventory: ''
-  #+ VPC name where to deploy the resources
-  vpc_name_inventory = ""
-
   #. resource_group_name_manual: ''
   #+ The name of the existing resource group where the resources will be deployed
   resource_group_name_manual = ""
-
-  #. vpc_name_manual: ''
-  #+ VPC name where to deploy the resources
-  vpc_name_manual = ""
 }
