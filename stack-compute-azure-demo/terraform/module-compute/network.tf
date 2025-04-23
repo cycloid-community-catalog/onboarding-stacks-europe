@@ -8,7 +8,7 @@ resource "azurerm_virtual_network" "compute" {
 resource "azurerm_subnet" "compute" {
   name                 = "${var.cy_org}-${var.cy_project}-${var.cy_env}-${var.cy_component}"
   resource_group_name  = var.res_selector == "create" ? azurerm_resource_group.compute[0].name : data.azurerm_resource_group.selected[0].name
-  virtual_network_name = azurerm_virtual_network.compute[0].name
+  virtual_network_name = azurerm_virtual_network.compute.name
   address_prefixes     = ["10.77.1.0/24"]
 }
 
