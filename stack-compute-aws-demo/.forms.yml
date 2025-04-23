@@ -56,16 +56,24 @@ use_cases:
             - 250
         required: true
         
+      # - name: "Ingress TCP ports"
+      #   description: "Ingress TCP ports allowed from the internet. Type any ports as needed."
+      #   key: vm_ports_in
+      #   widget: dropdown
+      #   widget_config:
+      #     multiselect: true
+      #   type: array
+      #   values: ["80","443","8080"]
+      #   default: ["80","443"]
+      #   required: false
       - name: "Ingress TCP ports"
         description: "Ingress TCP ports allowed from the internet. Type any ports as needed."
         key: vm_ports_in
-        widget: dropdown
-        widget_config:
-          multiselect: true
+        widget: text_area
         type: array
-        values: ["80","443","8080"]
-        default: ["80","443"]
-        required: false
+        default:
+        - 80
+        - 443
 
       - name: "Create or Select VPC"
         description: "Whether to create a new VPC or select an existing one."
