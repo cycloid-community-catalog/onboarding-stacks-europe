@@ -2,7 +2,7 @@ data "azurerm_virtual_network" "selected" {
   count = var.res_selector == "create" ? 0 : 1
 
   name                = var.res_selector == "inventory" ? var.vpc_name_inventory : var.vpc_name_manual
-  resource_group_name = local.resource_group_name
+  resource_group_name = var.res_selector == "create" ? azurerm_resource_group.compute[0].name : data.azurerm_resource_group.selected[0].name
 }
 
 data "azurerm_subnet" "selected" {
@@ -10,15 +10,15 @@ data "azurerm_subnet" "selected" {
 
   name                 = data.azurerm_virtual_network.selected[0].subnets[0]
   virtual_network_name = data.azurerm_virtual_network.selected[0].name
-  resource_group_name  = local.resource_group_name
+  resource_group_name  = var.res_selector == "create" ? azurerm_resource_group.compute[0].name : data.azurerm_resource_group.selected[0].name
 }
 
 resource "azurerm_virtual_network" "compute" {
   count = var.res_selector == "create" ? 1 : 0
 
   name                = "${var.cy_org}-${var.cy_project}-${var.cy_env}-${var.cy_component}"
-  resource_group_name = local.resource_group_name
-  location            = local.resource_group_location
+  resource_group_name = var.res_selector == "create" ? azurerm_resource_group.compute[0].name : data.azurerm_resource_group.selected[0].name
+  location            = var.res_selector == "create" ? azurerm_resource_group.compute[0].location : data.azurerm_resource_group.selected[0].location
   address_space       = ["10.77.0.0/16"]
 }
 
@@ -26,15 +26,15 @@ resource "azurerm_subnet" "compute" {
   count = var.res_selector == "create" ? 1 : 0
 
   name                 = "${var.cy_org}-${var.cy_project}-${var.cy_env}-${var.cy_component}"
-  resource_group_name  = local.resource_group_name
+  resource_group_name  = var.res_selector == "create" ? azurerm_resource_group.compute[0].name : data.azurerm_resource_group.selected[0].name
   virtual_network_name = azurerm_virtual_network.compute[0].name
   address_prefixes     = ["10.77.1.0/24"]
 }
 
 resource "azurerm_network_security_group" "compute" {
   name                = "${var.cy_org}-${var.cy_project}-${var.cy_env}-${var.cy_component}"
-  resource_group_name = local.resource_group_name
-  location            = local.resource_group_location
+  resource_group_name = var.res_selector == "create" ? azurerm_resource_group.compute[0].name : data.azurerm_resource_group.selected[0].name
+  location            = var.res_selector == "create" ? azurerm_resource_group.compute[0].location : data.azurerm_resource_group.selected[0].location
 
   tags = {
     Name = "${var.cy_org}-${var.cy_project}-${var.cy_env}-${var.cy_component}"
@@ -45,7 +45,7 @@ resource "azurerm_network_security_group" "compute" {
 resource "azurerm_network_security_rule" "inbound" {
   for_each          = toset([for v in var.vm_ports_in : tostring(v)])
 
-  resource_group_name         = local.resource_group_name
+  resource_group_name         = var.res_selector == "create" ? azurerm_resource_group.compute[0].name : data.azurerm_resource_group.selected[0].name
   network_security_group_name = azurerm_network_security_group.compute.name
 
   name                       = "inbound-${each.value}"
@@ -62,8 +62,8 @@ resource "azurerm_network_security_rule" "inbound" {
 # Get a Static Public IP
 resource "azurerm_public_ip" "compute" {
   name                = "${var.cy_org}-${var.cy_project}-${var.cy_env}-${var.cy_component}"
-  resource_group_name = local.resource_group_name
-  location            = local.resource_group_location
+  resource_group_name = var.res_selector == "create" ? azurerm_resource_group.compute[0].name : data.azurerm_resource_group.selected[0].name
+  location            = var.res_selector == "create" ? azurerm_resource_group.compute[0].location : data.azurerm_resource_group.selected[0].location
   allocation_method   = "Dynamic"
 
   tags = {
@@ -75,8 +75,8 @@ resource "azurerm_public_ip" "compute" {
 # Create Network Card for the VM
 resource "azurerm_network_interface" "compute" {
   name                = "${var.cy_org}-${var.cy_project}-${var.cy_env}-${var.cy_component}"
-  resource_group_name = local.resource_group_name
-  location            = local.resource_group_location
+  resource_group_name = var.res_selector == "create" ? azurerm_resource_group.compute[0].name : data.azurerm_resource_group.selected[0].name
+  location            = var.res_selector == "create" ? azurerm_resource_group.compute[0].location : data.azurerm_resource_group.selected[0].location
 
   ip_configuration {
       name                          = "${var.cy_org}-${var.cy_project}-${var.cy_env}-${var.cy_component}"

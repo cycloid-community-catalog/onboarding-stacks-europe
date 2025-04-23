@@ -10,8 +10,3 @@ resource "azurerm_resource_group" "compute" {
   name     = "${var.cy_org}-${var.cy_project}-${var.cy_env}-${var.cy_component}"
   location = var.azure_location
 }
-
-locals {
-  resource_group_name = var.res_selector == "create" ? azurerm_resource_group.compute[0].name : data.azurerm_resource_group.selected[0].name
-  resource_group_location = var.res_selector == "create" ? azurerm_resource_group.compute[0].location : data.azurerm_resource_group.selected[0].location
-}
