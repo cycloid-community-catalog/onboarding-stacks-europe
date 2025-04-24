@@ -32,7 +32,7 @@ resource "azurerm_network_security_rule" "inbound" {
   name                       = "inbound-${element(var.vm_ports_in, count.index)}"
   direction                  = "Inbound"
   access                     = "Allow"
-  priority                   = "(100 * (${count.index} + 1))"
+  priority                   = 100 + count.index
   source_address_prefix      = "*"
   source_port_range          = "*"
   destination_address_prefix = "*"
