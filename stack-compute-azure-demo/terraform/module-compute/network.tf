@@ -29,7 +29,7 @@ resource "azurerm_network_security_rule" "inbound" {
   resource_group_name         = var.res_selector == "create" ? azurerm_resource_group.compute[0].name : data.azurerm_resource_group.selected[0].name
   network_security_group_name = azurerm_network_security_group.compute.name
 
-  name                       = "inbound-${each.value}"
+  name                       = "inbound-${element(var.vm_ports_in, count.index)}"
   direction                  = "Inbound"
   access                     = "Allow"
   priority                   = "(100 * (${count.index} + 1))"
