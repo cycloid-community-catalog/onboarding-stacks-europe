@@ -26,7 +26,7 @@ use_cases:
       - name: "Instance Size"
         description: "Instance size for the VM."
         key: vm_instance_type
-        widget: slider_list
+        widget: dropdown
         type: string
         default: "Standard_DS2_v2"
         values_ref: https://cycloid-demo-stackforms-values.s3.eu-west-1.amazonaws.com/azure-instance-sizes.json
