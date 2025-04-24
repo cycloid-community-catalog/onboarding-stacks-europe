@@ -71,7 +71,6 @@ groups:
 - name: overview
   jobs:
     - deploy
-    - run-operations
 
 - name: destroy
   jobs:
@@ -115,51 +114,6 @@ jobs:
       - put: tfstate
         params:
           terraform_source: merged-stack/
-
-  - name: run-operations
-    serial: true
-    max_in_flight: 1
-    build_logs_to_retain: 10
-    plan:
-      - in_parallel:
-        - get: tfstate
-          trigger: true
-          passed:
-            - deploy
-
-      - task: run-cli-operations
-        config:
-          platform: linux
-          image_resource:
-            type: registry-image
-            source:
-              repository: google/cloud-sdk
-              tag: latest
-          run:
-            path: /bin/bash
-            args:
-              - '-c'
-              - |
-                apt-get install jq -y >/dev/null
-                export vm_name=$(cat tfstate/metadata | jq -r .vm_name)
-                echo ${GOOGLE_CRED} | jq -r .key >/tmp/gcp_credentials_json
-                gcloud auth activate-service-account --key-file=/tmp/gcp_credentials_json --project=${GOOGLE_PROJECT}
-                if [[ "$vm_instance_status" = "Started" ]]; then
-                  echo "Starting instance ${vm_name} in zone ${GOOGLE_ZONE}..."
-                  gcloud compute instances start ${vm_name} --zone=${GOOGLE_ZONE}
-                elif [[ "$vm_instance_status" = "Stopped" ]]; then
-                  echo "Stopping instance ${vm_name} in zone ${GOOGLE_ZONE}..."
-                  gcloud compute instances stop ${vm_name} --zone=${GOOGLE_ZONE}
-                fi
-          inputs:
-          - name: tfstate
-            path: tfstate
-        params:
-          vm_instance_status: '((vm_instance_status))'
-          GOOGLE_PROJECT: ((gcp_project))
-          GOOGLE_REGION: ((gcp_region))
-          GOOGLE_ZONE: ((gcp_zone))
-          GOOGLE_CRED: ((gcp))
 
 
   - name: destroy

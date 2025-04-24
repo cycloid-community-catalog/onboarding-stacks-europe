@@ -187,17 +187,6 @@ use_cases:
     - name: Day-2 Operations
       technologies: [pipeline]
       vars:
-      - name: "Instance status"
-        description: "Status for the deployed instances."
-        key: vm_instance_status
-        widget: radios
-        type: string
-        default: "Started"
-        values:
-            - "Started"
-            - "Stopped"
-        required: true
-
       - name: "Destroy Timer"
         description: "The number of minutes to wait before automatically destroying the infrastructure after creation."
         key: destroy_timer_in_minutes
