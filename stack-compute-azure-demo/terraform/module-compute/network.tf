@@ -24,20 +24,20 @@ resource "azurerm_network_security_group" "compute" {
 }
 
 resource "azurerm_network_security_rule" "inbound" {
-  for_each          = toset(var.vm_ports_in)
+  count = "${length(var.vm_ports_in)}"
 
   resource_group_name         = var.res_selector == "create" ? azurerm_resource_group.compute[0].name : data.azurerm_resource_group.selected[0].name
   network_security_group_name = azurerm_network_security_group.compute.name
 
   name                       = "inbound-${each.value}"
-  priority                   = 100 + index(var.vm_ports_in, each.value)
   direction                  = "Inbound"
   access                     = "Allow"
-  protocol                   = "Tcp"
-  source_port_range          = "*"
-  destination_port_range     = "${each.value}"
+  priority                   = "(100 * (${count.index} + 1))"
   source_address_prefix      = "*"
+  source_port_range          = "*"
   destination_address_prefix = "*"
+  destination_port_range     = "${element(var.vm_ports_in, count.index)}"
+  protocol                   = "TCP"
 }
 
 # Get a Static Public IP
