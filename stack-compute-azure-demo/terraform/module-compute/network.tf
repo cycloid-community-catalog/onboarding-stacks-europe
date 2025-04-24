@@ -37,7 +37,7 @@ resource "azurerm_network_security_rule" "inbound" {
   source_port_range          = "*"
   destination_address_prefix = "*"
   destination_port_range     = "${element(var.vm_ports_in, count.index)}"
-  protocol                   = "TCP"
+  protocol                   = "Tcp"
 }
 
 # Get a Static Public IP
