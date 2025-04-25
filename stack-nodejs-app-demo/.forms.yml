@@ -71,7 +71,6 @@ use_cases:
   sections:
   - name: NodeJS WebApp
     groups:
-    - name: NodeJS Application
     - name: Infrastructure Access Configuration
       technologies: [pipeline]
       vars:
@@ -157,6 +156,8 @@ use_cases:
         type: string
         required: true
 
+    - name: NodeJS Application
+
     - name: Day-2 Operations
 
 
@@ -164,7 +165,6 @@ use_cases:
   sections:
   - name: NodeJS WebApp
     groups:
-    - name: NodeJS Application
     - name: Access Configuration
       technologies: [pipeline]
       vars:
@@ -252,6 +252,8 @@ use_cases:
         type: string
         required: true
 
+    - name: NodeJS Application
+
     - name: Day-2 Operations
 
 
@@ -328,12 +330,15 @@ use_cases:
         default: "debian"
         required: true
 
+    - name: NodeJS Application
+
+    - name: Day-2 Operations
+
 
 - name: outscale
   sections:
   - name: NodeJS WebApp
     groups:
-    - name: NodeJS Application
     - name: Outscale Access
       technologies: [pipeline]
       vars:
@@ -424,13 +429,14 @@ use_cases:
         type: string
         required: true
 
+    - name: NodeJS Application
+
     - name: Day-2 Operations
 
 - name: ionos
   sections:
   - name: NodeJS WebApp
     groups:
-    - name: NodeJS Application
     - name: IONOS Access
       technologies: [pipeline]
       vars:
@@ -505,5 +511,7 @@ use_cases:
             type: ionoscloud_lan
         type: string
         required: true
+
+    - name: NodeJS Application
 
     - name: Day-2 Operations
