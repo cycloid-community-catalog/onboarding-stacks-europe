@@ -83,7 +83,7 @@ resources:
     private_key: ((($ .scs_cred_path $).ssh_key))
     ($- end $)
     paths:
-      - ($ .stack_path $)/terraform/*
+      - ($ .stack_path $)/terraform/($ .use_case $)/*
 
 # The Terraform config (will be merged with the stack)
 - name: git_config-terraform
