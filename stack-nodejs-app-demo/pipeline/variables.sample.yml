@@ -112,9 +112,9 @@ hosts_user: ''
 #+ API key to grant admin acess to Cycloid API.
 cy_api_key: ((admin-api-key.key))
 
-#. terraform_version (required): '1.8.3'
+#. terraform_version (required): '1.11.4'
 #+ terraform version used to execute your code.
-terraform_version: '1.8.3'
+terraform_version: '1.11.4'
 
 #. cycloid-toolkit ansible version (required): 'v8.3'
 #+ cycloid-toolkit docker image tag to use (https://hub.docker.com/r/cycloid/cycloid-toolkit/tags).

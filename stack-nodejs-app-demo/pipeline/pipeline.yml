@@ -290,7 +290,7 @@ jobs:
             path: ansible-playbook
         params:
           #+ Parameters of ansible-runner script. Can be found here: https://github.com/cycloidio/docker-cycloid-toolkit#ansible-runner
-          SSH_PRIVATE_KEY: ((($ .org $)-($ .project $)-($ .env $)-compute-ssh.ssh_key))
+          SSH_PRIVATE_KEY: ((($ .project $)-($ .env $)-compute-ssh.ssh_key))
           ANSIBLE_PLAYBOOK_PATH: ansible-playbook
           ANSIBLE_PLAYBOOK_NAME: site.yml
           ANSIBLE_EXTRA_VARS:
