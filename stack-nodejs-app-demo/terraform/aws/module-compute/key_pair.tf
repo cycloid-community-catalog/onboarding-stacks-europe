@@ -8,11 +8,11 @@ resource "aws_key_pair" "key_pair" {
   public_key = tls_private_key.ssh_key.public_key_openssh
 }
 
-resource "cycloid_credential" "key_pair" {
-  name                   = "${var.cy_org}-${var.cy_project}-${var.cy_env}"
+resource "cycloid_credential" "ssh_key" {
+  name                   = "${var.cy_project}-${var.cy_env}-compute-ssh"
   description            = "SSH Key Pair used in newly provisionned workloads."
-  path                   = "${var.cy_org}-${var.cy_project}-${var.cy_env}"
-  canonical              = "${var.cy_org}-${var.cy_project}-${var.cy_env}"
+  path                   = "${var.cy_project}-${var.cy_env}-compute-ssh"
+  canonical              = "${var.cy_project}-${var.cy_env}-compute-ssh"
 
   type = "ssh"
   body = {

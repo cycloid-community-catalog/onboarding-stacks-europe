@@ -1,16 +1,16 @@
-module "node" {
+module "vmware" {
   #####################################
   # Do not modify the following lines #
-  source   = "./module-node"
+  source   = "./module-vmware"
   cy_org       = var.cy_org
   cy_project   = var.cy_project
   cy_env       = var.cy_env
   cy_component = var.cy_component
   #####################################
 
-  #. git_app_url: ''
-  #+ Public git URL of the web application to build and deploy
-  git_app_url = ""
+  #. vm_ip (required,string): "212.129.18.92"
+  #+ IP address of the virtual machine
+  vm_ip = ""
 
   #. vm_cpu (required,integer): 2
   #+ Number of CPU allocated to the virtual machine
@@ -23,8 +23,4 @@ module "node" {
   #. vm_disk_size (required,integer): 20
   #+ Disk size allocated to the virtual machine (Go)
   vm_disk_size = ""
-
-  #. vsphere_template (required,string): debian
-  #+ Virtual machine template
-  vsphere_template = ""
 }

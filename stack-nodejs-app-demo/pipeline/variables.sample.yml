@@ -105,14 +105,6 @@ hosts_user: ''
 
 
 #
-# Day 2 CLI Operations
-#
-
-#. vm_instance_status (required): "Started"
-#+ Status for the deployed instances.
-vm_instance_status: "Started"
-
-#
 # Default variables
 #
 

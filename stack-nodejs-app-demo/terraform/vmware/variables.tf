@@ -1,21 +1,21 @@
 # Cycloid variables
-variable "cy_env" {}
-variable "cy_project" {}
 variable "cy_org" {}
+variable "cy_project" {}
+variable "cy_env" {}
+variable "cy_component" {}
 
-# vSphere variables
-variable "vsphere_server" {
-  description = "vSphere server"
-}
+# VMware variables
+variable "vmware_cred" {}
 
-variable "vsphere_cred" {
-  description = "vSphere credentials"
+variable "vmware_server"{
+    default = "1.1.1.1"
 }
 
 variable "vsphere_allow_unverified_ssl"{
     default = true
 }
 
+# Cycloid
 variable "cy_api_url" {
   type        = string
   description = "Cycloid API endpoint"

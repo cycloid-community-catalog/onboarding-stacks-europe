@@ -24,18 +24,6 @@ resource "aws_security_group_rule" "ingress" {
     to_port           = each.value
 }
 
-resource "aws_security_group_rule" "ingress-k3s" {
-    count             = var.install_k3s ? 1 : 0
-
-    type              = "ingress"
-    description       = "Allow 6443/TCP from internet"
-    security_group_id = aws_security_group.ec2.id
-    cidr_blocks       = ["0.0.0.0/0"]
-    protocol          = "tcp"
-    from_port         = 6443
-    to_port           = 6443
-}
-
 resource "aws_instance" "ec2" {
   ami           = data.aws_ami.debian.id
   instance_type = var.vm_instance_type
@@ -52,14 +40,6 @@ resource "aws_instance" "ec2" {
     volume_size           = var.vm_disk_size
     delete_on_termination = true
   }
-
-  user_data_base64 = base64encode(templatefile(
-    "${path.module}/userdata.sh",
-    {
-      INSTALL_K3S = var.install_k3s
-      USERNAME    = var.vm_os_user
-    }
-  ))
 
   lifecycle {
     ignore_changes = [ami]
