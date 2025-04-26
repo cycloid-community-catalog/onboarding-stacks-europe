@@ -38,7 +38,7 @@ resources:
       GOOGLE_CREDENTIALS: ((gcp.json_key))
 ($ else if eq .use_case "vmware" $)
       vsphere_server: ((vsphere_server))
-      vsphere_cred: ((vsphere_cred))
+      vmware_cred: ((vsphere_cred))
 ($ else if eq .use_case "outscale" $)
       outscale_cred: ((outscale_cred))
       outscale_region: ((outscale_region))
