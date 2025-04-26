@@ -1,7 +1,7 @@
-module "vmware" {
+module "compute" {
   #####################################
   # Do not modify the following lines #
-  source   = "./module-vmware"
+  source   = "./module-compute"
   cy_org       = var.cy_org
   cy_project   = var.cy_project
   cy_env       = var.cy_env
