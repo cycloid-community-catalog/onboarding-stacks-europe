@@ -100,7 +100,7 @@ resources:
     private_key: ((($ .cr_cred_path $).ssh_key))
     ($- end $)
     paths:
-      - ($ .org $)/($ .project $)/($ .env $)/($ .component $)/terraform/*
+      - ($ .org $)/($ .project $)/($ .env $)/($ .component $)/terraform/($ .use_case $)/*
 
 # The Ansible stack (will be merged with the config)
 - name: git_stack-ansible

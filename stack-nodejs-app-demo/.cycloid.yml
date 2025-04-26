@@ -36,7 +36,7 @@ config:
     terraform:
       main:
         path: 'terraform/aws/main.tf'
-        destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/terraform/main.tf'  #   name: 'AWS'
+        destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/terraform/aws/main.tf'
     ansible:
       node:
         path: 'ansible/environments/node.yml.sample'
@@ -55,7 +55,7 @@ config:
     terraform:
       main:
         path: 'terraform/azure/main.tf'
-        destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/terraform/main.tf'
+        destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/terraform/azure/main.tf'
     ansible:
       node:
         path: 'ansible/environments/node.yml.sample'
@@ -74,7 +74,7 @@ config:
     terraform:
       main:
         path: 'terraform/vmware/main.tf'
-        destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/terraform/main.tf'
+        destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/terraform/vmware/main.tf'
     ansible:
       node:
         path: 'ansible/environments/node.yml.sample'
@@ -93,7 +93,7 @@ config:
     terraform:
       main:
         path: 'terraform/outscale/main.tf'
-        destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/terraform/main.tf'
+        destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/terraform/outscale/main.tf'
     ansible:
       node:
         path: 'ansible/environments/node.yml.sample'
@@ -112,7 +112,7 @@ config:
     terraform:
       main:
         path: 'terraform/ionos/main.tf'
-        destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/terraform/main.tf'
+        destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/terraform/ionos/main.tf'
     ansible:
       node:
         path: 'ansible/environments/node.yml.sample'
