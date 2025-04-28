@@ -358,7 +358,7 @@ jobs:
             path: "merged-stack"
         params:
           CONFIG_PATH: ($ .org $)/($ .project $)/($ .env $)/($ .component $)/terraform/($ .use_case $)
-          STACK_PATH: ($ .stack_path $)/terraform
+          STACK_PATH: ($ .stack_path $)/terraform/($ .use_case $)
 
       - put: tfstate
         params:
