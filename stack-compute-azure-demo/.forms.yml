@@ -71,6 +71,7 @@ use_cases:
         widget: dropdown
         values_ref: https://cycloid-demo-stackforms-values.s3.eu-west-1.amazonaws.com/azure-locations.json
         type: string
+        default: "West Europe"
         required: true
 
       - name: "Create or Select Resource Group"
