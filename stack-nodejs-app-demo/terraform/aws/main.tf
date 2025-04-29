@@ -20,9 +20,9 @@ module "compute" {
   #+ Disk size for the VM (Go)
   vm_disk_size = 20
 
-  #. vm_ports_in: [80, 443]
+  #. vm_ports_in: [22, 80, 443, 3000, 8080]
   #+ Ingress TCP ports allowed from the internet
-  vm_ports_in = [80, 443]
+  vm_ports_in = [22, 80, 443, 3000, 8080]
 
   #. res_selector: ''
   #+ Whether to create a new VPC or select an existing one

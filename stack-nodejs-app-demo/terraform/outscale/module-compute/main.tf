@@ -33,6 +33,47 @@ resource "outscale_security_group_rule" "http" {
     to_port_range     = "80"
     ip_protocol       = "tcp"
     ip_range          = "0.0.0.0/0"
+    # ip_range          = "${chomp(data.http.worker_ip.response_body)}/32"
+}
+
+resource "outscale_security_group_rule" "https" {
+    flow              = "Inbound"
+    security_group_id = outscale_security_group.security_group01.security_group_id
+    from_port_range   = "443"
+    to_port_range     = "443"
+    ip_protocol       = "tcp"
+    ip_range          = "0.0.0.0/0"
+    # ip_range          = "${chomp(data.http.worker_ip.response_body)}/32"
+}
+
+resource "outscale_security_group_rule" "3000" {
+    flow              = "Inbound"
+    security_group_id = outscale_security_group.security_group01.security_group_id
+    from_port_range   = "3000"
+    to_port_range     = "3000"
+    ip_protocol       = "tcp"
+    ip_range          = "0.0.0.0/0"
+    # ip_range          = "${chomp(data.http.worker_ip.response_body)}/32"
+}
+
+resource "outscale_security_group_rule" "8080" {
+    flow              = "Inbound"
+    security_group_id = outscale_security_group.security_group01.security_group_id
+    from_port_range   = "8080"
+    to_port_range     = "8080"
+    ip_protocol       = "tcp"
+    ip_range          = "0.0.0.0/0"
+    # ip_range          = "${chomp(data.http.worker_ip.response_body)}/32"
+}
+
+
+resource "outscale_security_group_rule" "http" {
+    flow              = "Inbound"
+    security_group_id = outscale_security_group.security_group01.security_group_id
+    from_port_range   = "80"
+    to_port_range     = "80"
+    ip_protocol       = "tcp"
+    ip_range          = "0.0.0.0/0"
 }
 
 resource "outscale_security_group_rule" "https" {
