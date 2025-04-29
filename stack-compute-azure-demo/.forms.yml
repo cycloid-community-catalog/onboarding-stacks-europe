@@ -44,16 +44,6 @@ use_cases:
             - 250
         required: true
 
-      # - name: "Ingress TCP ports"
-      #   description: "Ingress TCP ports allowed from the internet. Type any ports as needed."
-      #   key: vm_ports_in
-      #   widget: dropdown
-      #   widget_config:
-      #     multiselect: true
-      #   type: array
-      #   values: ["22","80","443","6443","8080"]
-      #   default: ["22","80","443","6443"]
-      #   required: false
       - name: "Ingress TCP ports"
         description: "Ingress TCP ports allowed from the internet. Type any ports as needed."
         key: vm_ports_in
@@ -63,7 +53,6 @@ use_cases:
         - 22
         - 80
         - 443
-        - 6443
 
       - name: "Azure location"
         description: "Azure location where to create resources."
