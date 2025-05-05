@@ -200,19 +200,19 @@ use_cases:
         type: integer
         default: 7
         required: true
+      - name: "Enable Geo-Redundant Backups"
+        description: "Enable geo-redundant backups."
+        key: geo_redundant_backup_enabled
+        widget: switch
+        type: boolean
+        default: false
+        required: true
       - name: "Administrator Login"
         description: "Administrator login for PostgreSQL server."
         key: administrator_login
         widget: simple_text
         type: string
         default: "psqladmin"
-        required: true
-      - name: "Enable Geo-Redundant Backups"
-        description: "Enable geo-redundant backups."
-        key: geo_redundant_backup_enabled
-        widget: checkbox
-        type: boolean
-        default: false
         required: true
       - name: "Database Name"
         description: "Name of the database to create."
@@ -227,6 +227,7 @@ use_cases:
         widget: auto_complete
         type: string
         values_ref: https://cycloid-demo-stackforms-values.s3.eu-west-1.amazonaws.com/azure-locations.json
+        default:"West Europe"
         required: true
       - name: "Create or Select Resource Group"
         description: "Whether to create a new Resource group or select existing ones."

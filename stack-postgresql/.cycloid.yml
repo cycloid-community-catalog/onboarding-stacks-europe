@@ -34,7 +34,7 @@ config:
 
   azure:
     name: 'Azure Database for PostgreSQL'
-    description: 'Azure Database for PostgreSQL with Flexible Server.'
+    description: 'Azure Database with Flexible Server for PostgreSQL.'
     cloud_provider: azure
     pipeline:
       pipeline:
