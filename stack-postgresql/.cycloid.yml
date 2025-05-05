@@ -31,3 +31,18 @@ config:
       main:
         path: 'terraform/aws/main.tf'
         destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/terraform/aws/main.tf'
+
+  azure:
+    name: 'Azure Database for PostgreSQL'
+    description: 'Azure Database for PostgreSQL with Flexible Server provides maximum control for your database with a simplified developer experience'
+    cloud_provider: azure
+    pipeline:
+      pipeline:
+        path: 'pipeline/pipeline.yml'
+      variables:
+        path: 'pipeline/variables.sample.yml'
+        destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/pipeline/variables.yml'
+    terraform:
+      main:
+        path: 'terraform/azure/main.tf'
+        destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/terraform/azure/main.tf'

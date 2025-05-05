@@ -133,3 +133,133 @@ use_cases:
         type: integer
         default: 60
         required: true
+
+
+- name: azure
+  sections:
+  - name: Database
+    groups:
+    - name: Access Configuration
+      technologies: [pipeline]
+      vars:
+      - name: "Azure credentials"
+        description: "The azure credential used to deploy the infrastructure. It contains subscription_id, tenant_id, client_id, and client_secret."
+        key: azure_cred
+        widget: cy_cred
+        widget_config:
+          display_keys: false
+          cred_types:
+            - azure
+        type: string
+        default: "((azure))"
+        required: true
+
+    - name: Database Configuration
+      technologies: [terraform]
+      vars:
+      - name: "Server Name"
+        description: "Name of the PostgreSQL Flexible Server."
+        key: server_name
+        widget: simple_text
+        type: string
+        default: "($ .project $)-($ .env $)-($ .component $)"
+        required: true
+      - name: "PostgreSQL Version"
+        description: "Version of PostgreSQL to use."
+        key: postgresql_version
+        widget: dropdown
+        type: string
+        default: "14"
+        values: ["14","13","12","11"]
+        required: true
+      - name: "SKU Name"
+        description: "SKU name for the PostgreSQL Flexible Server."
+        key: sku_name
+        widget: auto_complete
+        type: string
+        values:
+        - "B_Standard_B1ms"
+        - "B_Standard_B2s"
+        - "B_Standard_B2ms"
+        default: "B_Standard_B1ms"
+        required: true
+      - name: "Storage Size"
+        description: "Storage size in GB."
+        key: storage_gb
+        widget: slider_range
+        type: integer
+        default: 10
+        values:
+         - 10
+         - 100
+        required: true
+      - name: "Backup Retention Days"
+        description: "Backup retention days."
+        key: backup_retention_days
+        widget: number
+        type: integer
+        default: 7
+        required: true
+      - name: "Administrator Login"
+        description: "Administrator login for PostgreSQL server."
+        key: administrator_login
+        widget: simple_text
+        type: string
+        default: "psqladmin"
+        required: true
+      - name: "Enable Geo-Redundant Backups"
+        description: "Enable geo-redundant backups."
+        key: geo_redundant_backup_enabled
+        widget: checkbox
+        type: boolean
+        default: false
+        required: true
+      - name: "Database Name"
+        description: "Name of the database to create."
+        key: database_name
+        widget: simple_text
+        type: string
+        default: "($ .project $)-($ .env $)-($ .component $)"
+        required: true
+      - name: "Azure Location"
+        description: "Azure location."
+        key: azure_location
+        widget: auto_complete
+        type: string
+        values_ref: https://cycloid-demo-stackforms-values.s3.eu-west-1.amazonaws.com/azure-locations.json
+        required: true
+      - name: "Create or Select Resource Group"
+        description: "Whether to create a new Resource group or select existing ones."
+        key: res_selector
+        widget: dropdown
+        type: map
+        required: true
+        default: "Create new"
+        values:
+        - {"label": "Create new", "value": "create"}
+        - {"label": "Select from Asset Inventory", "value": "inventory"}
+        - {"label": "Enter manually", "value": "manual"}
+      - name: Select from Asset Inventory
+        technologies: [terraform]
+        condition: '$res_selector == "Select from Asset Inventory"'
+        vars:
+        - name: "Existing Resource Group Name"
+          description: "The name of the existing resource group where the resources will be deployed."
+          key: resource_group_name_inventory
+          widget: cy_inventory_resource
+          widget_config:
+            attribute: name
+            filters:
+              type: azurerm_resource_group
+          type: string
+          required: true
+      - name: Enter manually
+        technologies: [terraform]
+        condition: '$res_selector == "Enter manually"'
+        vars:
+        - name: "Resource Group Name"
+          description: "The name of the existing resource group where the resources will be deployed."
+          key: resource_group_name_manual
+          widget: simple_text
+          type: string
+          required: true
