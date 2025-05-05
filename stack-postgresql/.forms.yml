@@ -184,14 +184,18 @@ use_cases:
         default: "B_Standard_B1ms"
         required: true
       - name: "Storage Size"
-        description: "Storage size in GB."
-        key: storage_gb
-        widget: slider_range
-        type: integer
-        default: 10
+        description: "Storage size in MB."
+        key: storage_mb
+        widget: dropdown
+        type: map
+        default: "32 GB"
         values:
-         - 10
-         - 100
+        - {"label": "32 GB", "value": 32768}
+        - {"label": "64 GB", "value": 65536}
+        - {"label": "128 GB", "value": 131072}
+        - {"label": "256 GB", "value": 262144}
+        - {"label": "512 GB", "value": 524288}
+        - {"label": "1 TB", "value": 1048576}
         required: true
       - name: "Backup Retention Days"
         description: "Backup retention days."

@@ -21,8 +21,8 @@ variable "administrator_login" {
   default     = "cycloid"
 }
 
-variable "storage_gb" {
-  description = "Storage size in GB"
+variable "storage_mb" {
+  description = "Storage size in MB"
   type        = number
   default     = 10
 }

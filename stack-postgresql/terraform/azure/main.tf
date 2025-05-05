@@ -20,9 +20,9 @@ module "database" {
   #+ Administrator login for PostgreSQL server
   administrator_login = "psqladmin"
 
-  #. storage_gb: 10
-  #+ Storage size in GB
-  storage_gb = 10
+  #. storage_mb: 32768
+  #+ Storage size in MB
+  storage_mb = 32768
 
   #. sku_name: 'B_Standard_B1ms'
   #+ SKU name for the PostgreSQL Flexible Server
