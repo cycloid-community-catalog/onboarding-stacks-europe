@@ -162,7 +162,7 @@ use_cases:
         key: server_name
         widget: simple_text
         type: string
-        default: "($ .project $)-($ .env $)-($ .component $)"
+        default: "($ .project $)-($ .env $)"
         required: true
       - name: "PostgreSQL Version"
         description: "Version of PostgreSQL to use."
@@ -219,7 +219,7 @@ use_cases:
         key: database_name
         widget: simple_text
         type: string
-        default: "($ .project $)-($ .env $)-($ .component $)"
+        default: "($ .project $)-($ .env $)"
         required: true
       - name: "Azure Location"
         description: "Azure location."

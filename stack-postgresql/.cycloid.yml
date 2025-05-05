@@ -19,7 +19,7 @@ technologies:
 config:
   aws:
     name: 'Amazon RDS for PostgreSQL'
-    description: 'Amazon Relational Database Service (Amazon RDS) is an easy-to-manage relational database service optimized for total cost of ownership. It is simple to set up, operate, and scale with demand.'
+    description: 'Amazon Relational Database Service (Amazon RDS) for PostgreSQL.'
     cloud_provider: aws
     pipeline:
       pipeline:
@@ -34,7 +34,7 @@ config:
 
   azure:
     name: 'Azure Database for PostgreSQL'
-    description: 'Azure Database for PostgreSQL with Flexible Server provides maximum control for your database with a simplified developer experience'
+    description: 'Azure Database for PostgreSQL with Flexible Server.'
     cloud_provider: azure
     pipeline:
       pipeline:
