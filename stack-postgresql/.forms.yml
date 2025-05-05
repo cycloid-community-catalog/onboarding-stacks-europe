@@ -239,27 +239,27 @@ use_cases:
         - {"label": "Create new", "value": "create"}
         - {"label": "Select from Asset Inventory", "value": "inventory"}
         - {"label": "Enter manually", "value": "manual"}
-      - name: Select from Asset Inventory
-        technologies: [terraform]
-        condition: '$res_selector == "Select from Asset Inventory"'
-        vars:
-        - name: "Existing Resource Group Name"
-          description: "The name of the existing resource group where the resources will be deployed."
-          key: resource_group_name_inventory
-          widget: cy_inventory_resource
-          widget_config:
-            attribute: name
-            filters:
-              type: azurerm_resource_group
-          type: string
-          required: true
-      - name: Enter manually
-        technologies: [terraform]
-        condition: '$res_selector == "Enter manually"'
-        vars:
-        - name: "Resource Group Name"
-          description: "The name of the existing resource group where the resources will be deployed."
-          key: resource_group_name_manual
-          widget: simple_text
-          type: string
-          required: true
+    - name: Select from Asset Inventory
+      technologies: [terraform]
+      condition: '$res_selector == "Select from Asset Inventory"'
+      vars:
+      - name: "Existing Resource Group Name"
+        description: "The name of the existing resource group where the resources will be deployed."
+        key: resource_group_name_inventory
+        widget: cy_inventory_resource
+        widget_config:
+          attribute: name
+          filters:
+            type: azurerm_resource_group
+        type: string
+        required: true
+    - name: Enter manually
+      technologies: [terraform]
+      condition: '$res_selector == "Enter manually"'
+      vars:
+      - name: "Resource Group Name"
+        description: "The name of the existing resource group where the resources will be deployed."
+        key: resource_group_name_manual
+        widget: simple_text
+        type: string
+        required: true
