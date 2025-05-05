@@ -5,7 +5,7 @@ resource "azurerm_postgresql_flexible_server" "postgresql" {
   version                = var.postgresql_version
   administrator_login    = var.administrator_login
   administrator_password = random_password.postgresql.result
-  storage_gb             = var.storage_mb * 1024
+  storage_mb             = var.storage_gb * 1024
   sku_name               = var.sku_name
 
   backup_retention_days = var.backup_retention_days
