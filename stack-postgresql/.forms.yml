@@ -227,7 +227,7 @@ use_cases:
         widget: auto_complete
         type: string
         values_ref: https://cycloid-demo-stackforms-values.s3.eu-west-1.amazonaws.com/azure-locations.json
-        default:"West Europe"
+        default: "West Europe"
         required: true
       - name: "Create or Select Resource Group"
         description: "Whether to create a new Resource group or select existing ones."
