@@ -9,16 +9,16 @@ module "storage" {
   #####################################
 
   # Storage configuration
-  storage_account_name      = var.storage_account_name
-  azure_location            = var.azure_location
-  account_tier              = var.account_tier
-  replication_type          = var.replication_type
-  enable_https_traffic_only = var.enable_https_traffic_only
-  create_containers         = var.create_containers
-  containers                = var.containers
+  storage_account_name      = "cy-${var.cy_org}-${var.cy_project}-${var.cy_env}-${var.cy_component}"
+  azure_location            = "West Europe"
+  account_tier              = "Standard"
+  replication_type          = "LRS"
+  enable_https_traffic_only = true
+  create_containers         = false
+  containers                = ""
 
   # Resource group configuration
-  res_selector                  = var.res_selector
-  resource_group_name_inventory = var.resource_group_name_inventory
-  resource_group_name_manual    = var.resource_group_name_manual
+  res_selector                  = "create"
+  resource_group_name_inventory = ""
+  resource_group_name_manual    = ""
 } 
