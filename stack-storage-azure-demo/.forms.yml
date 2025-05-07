@@ -1,0 +1,99 @@
+---
+version: "2"
+use_cases:
+- name: default
+  sections:
+  - name: Storage
+    groups:
+    - name: Storage Configuration
+      technologies: [terraform]
+      vars:
+      - name: "Storage Account Name"
+        description: "Name of the Azure storage account to create"
+        key: storage_account_name
+        widget: simple_text
+        type: string
+        required: true
+        validations:
+        - regexp: "^[a-z0-9]{3,24}$"
+          error_message: "Must be 3 to 24 alphanumeric characters."
+
+      - name: "Azure Location"
+        description: "Azure region to deploy the storage account"
+        key: azure_location
+        widget: auto_complete
+        type: string
+        default: "westeurope"
+        values_ref: https://cycloid-demo-stackforms-values.s3.eu-west-1.amazonaws.com/azure-locations.json
+        required: true 
+        
+      - name: "Account Tier"
+        description: "The tier of the storage account"
+        key: account_tier
+        widget: dropdown
+        type: string
+        default: "Standard"
+        values:
+          - "Standard"
+          - "Premium"
+        required: true
+
+      - name: "Replication Type"
+        description: "The replication type for the storage account"
+        key: replication_type
+        widget: select
+        type: string
+        default: "LRS"
+        values:
+          - "LRS"
+          - "GRS"
+          - "RAGRS"
+          - "ZRS"
+        required: true
+
+      - name: "Enable HTTPS Only"
+        description: "Forces HTTPS traffic only"
+        key: enable_https_traffic_only
+        widget: switch
+        type: boolean
+        default: true
+
+      - name: "Create Containers"
+        description: "Create containers in the storage account"
+        key: create_containers
+        widget: switch
+        type: boolean
+        default: false
+
+    - name: Containers
+      technologies: [terraform]
+      condition: "create_containers == true"
+      vars:
+      - name: "Containers"
+        description: "List of containers to create in the storage account"
+        key: containers
+        widget: text_area
+        type: string
+        default: |
+          [
+            {
+              "name": "data",
+              "access_type": "private"
+            }
+          ]
+        required: true
+
+    - name: Azure
+      technologies: [pipeline]
+      vars:
+      - name: "Azure Credentials"
+        description: "The Azure credentials to use for deployment"
+        key: azure_cred
+        widget: cy_cred
+        widget_config:
+          display_keys: false
+          cred_types:
+            - azure
+        type: string
+        default: "((azure))"
+        required: true
