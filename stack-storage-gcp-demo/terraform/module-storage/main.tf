@@ -25,7 +25,7 @@ resource "google_storage_bucket" "this" {
       }
       condition {
         age                   = lookup(lifecycle_rule.value.condition, "age", null)
-        storage_class         = lookup(lifecycle_rule.value.condition, "storageClass", null)
+        with_state           = lookup(lifecycle_rule.value.condition, "withState", null)
         matches_storage_class = lookup(lifecycle_rule.value.condition, "matchesStorageClass", null)
       }
     }
