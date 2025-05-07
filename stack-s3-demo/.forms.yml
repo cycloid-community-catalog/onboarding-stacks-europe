@@ -46,7 +46,7 @@ use_cases:
             {
               "id": "transition-to-ia",
               "enabled": true,
-              "prefix": "",
+              "prefix": "logs/",
               "tags": {},
               "transition": [
                 {

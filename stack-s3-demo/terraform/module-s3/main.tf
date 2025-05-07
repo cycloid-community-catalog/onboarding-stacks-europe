@@ -27,6 +27,10 @@ resource "aws_s3_bucket_lifecycle_configuration" "this" {
       id     = rule.value.id
       status = rule.value.enabled ? "Enabled" : "Disabled"
 
+      filter {
+        prefix = rule.value.prefix
+      }
+
       dynamic "transition" {
         for_each = rule.value.transition
         content {
