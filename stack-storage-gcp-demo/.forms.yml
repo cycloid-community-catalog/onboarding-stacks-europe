@@ -21,7 +21,7 @@ use_cases:
       - name: "Storage Class"
         description: "Storage class for the bucket"
         key: storage_class
-        widget: select
+        widget: dropdown
         type: string
         default: "STANDARD"
         values:
