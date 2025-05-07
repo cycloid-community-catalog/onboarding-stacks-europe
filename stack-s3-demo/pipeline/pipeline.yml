@@ -103,7 +103,7 @@ jobs:
           terraform_source: merged-stack/
 
 
-  - name: destroy
+  - name: destroy-s3
     max_in_flight: 1
     build_logs_to_retain: 10
     plan:
