@@ -16,7 +16,7 @@ use_cases:
         required: true
         validations:
         - regexp: "^[a-z0-9][a-z0-9.-]*[a-z0-9]$"
-          error_message: "Bucket name must be between 3 and 63 characters long, and can only contain lowercase letters, numbers, dots, and hyphens"
+          error_message: "Must be 3 to 63 chars long and only contain lowercase letters, numbers, dots, and hyphens"
 
       - name: "Versioning"
         description: "Enable versioning for the bucket"
