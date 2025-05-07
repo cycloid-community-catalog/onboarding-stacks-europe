@@ -1,61 +1,83 @@
-# stack-compute-aws
+# AWS Compute Stack Demo
 
-Deploy an AWS EC2 instance.
+This repository contains the automation code for deploying and managing compute resources on AWS using Terraform. The stack is designed to be deployed through Cycloid's platform.
 
-# Details
+## Overview
 
-**Jobs description**
+This automation creates and manages AWS compute resources with the following features:
+- Deploys EC2 instances with configurable specifications
+- Optional K3s installation for Kubernetes workloads
+- Network configuration with customizable VPC settings
+- Security group configuration with configurable ingress ports
+- Integration with Cycloid's platform for deployment and management
 
-  * `terraform-plan`: Terraform job that will simply make a plan of the infrastructure's stack. It is automatically triggered upon resources changes.
-  * `terraform-apply`: Terraform job similar to the plan one, but will actually create/update everything that needs to. Please see the plan diff for a better understanding. It is automatically triggered upon tfstate file changes after terraform-plan job completes.
-  * `terraform-destroy`: :warning: Terraform job meant to destroy the whole stack - **NO CONFIRMATION ASKED**. If triggered, the full project **WILL** be destroyed. Use with caution.
+## Prerequisites
 
-**Params**
+- AWS account with appropriate credentials
+- Cycloid platform access
 
-|Name|Description|Type|Default|Required|
-|---|---|:---:|:---:|:---:|
-|`aws_access_key`|AWS access key for Terraform. see value format [Here](https://docs.cycloid.io/advanced-guide/integrate-and-use-cycloid-credentials-manager.html#vault-in-the-pipeline)|`-`|`((aws_aws.access_key))`|`True`|
-|`aws_secret_key`|AWS secret key for Terraform. see value format [Here](https://docs.cycloid.io/advanced-guide/integrate-and-use-cycloid-credentials-manager.html#vault-in-the-pipeline)|`-`|`((aws_aws.secret_key))`|`True`|
-|`aws_region`|AWS region to use for Terraform.|`-`|`eu-west-1`|`True`|
-|`key_pair_private`|The private SSH key allowing ansible to run playbooks in the Nexus Repository instance via bastion.|`-`|`((key_pair.private_key))`|`True`|
-|`key_pair_public`|SSH public key to provision on Bastion to connect to it.|`-`|`((key_pair.public_key))`|`True`|
-|`git_repository`|Git repository url containing the config of the stack.|`-`|`git@github.com:cycloidio/cycloid-stacks-test.git`|`True`|
-|`git_branch`|Branch of the config git repository.|`-`|`config`|`True`|
-|`git_private_key`|SSH key pair to fetch the config git repository.|`-`|`((git_github.ssh_key))`|`True`|
-|`terraform_storage_bucket_name`|AWS S3 bucket name to store terraform remote state file.|`-`|`($ .org $)-terraform-remote-state`|`True`|
+## Configuration
 
+The stack can be configured through the following parameters:
 
-## Terraform
+### AWS Configuration
+- `aws_region`: AWS region for resource deployment (default: eu-west-1)
+- `aws_cred`: AWS credentials (access_key and secret_key)
 
-**Inputs**
+### Compute Configuration
+- `vm_instance_type`: EC2 instance type
+- `vm_disk_size`: Disk size in GB
+- `vm_ports_in`: List of ingress TCP ports (default: [80, 443])
 
-|Name|Description|Type|Default|Required|
-|---|---|:---:|:---:|:---:|
-|`cidr`|The CIDR of the VPC|`-`|`10.0.0.0/16`|`False`|
-|`private_subnets`|The private subnets for the VPC|`list`|`["10.0.1.0/24"]`|`False`|
-|`public_subnets`|The public subnets for the VPC|`list`|`["10.0.0.0/24"]`|`False`|
-|`bastion_instance_type`|Instance type for the bastion|`-`|`t3a.micro`|`True`|
-|`bastion_allowed_networks`|Networks allowed to connect to the bastion using SSH|`list`|`["0.0.0.0/0"]`|`False`|
-|`nexus_instance_type`|Instance type for the Nexus Repository|`-`|`t3a.medium`|`True`|
-|`nexus_port`|Disk size for the Nexus Repository|`-`|`20`|`False`|
-|`nexus_disk_size`|Port where Nexus Repository service is exposed|`-`|`8081`|`True`|
-|`nexus_admin_password`|Initial admin password for Nexus Repository|`-`|`changeme`|`True`|
+### K3s Configuration
+- `install_k3s`: Boolean flag to control K3s installation (default: true)
 
-**Outputs**
+### VPC Configuration
+- `res_selector`: Selection method for VPC (new or existing)
+- `vpc_id_inventory`: VPC ID from inventory
+- `vpc_id_aws`: VPC ID from AWS
+- `vpc_id_manual`: Manually specified VPC ID
 
-| Name | Description |
-|------|-------------|
-| vpc_id | The VPC ID for the VPC |
-| vpc_cidr | The CIDR of the VPC |
-| private_subnets | The private subnets for the VPC |
-| public_subnets | The public subnets for the VPC |
-| bastion_ip | The EIP attached to the bastion EC2 server |
-| bastion_user | The username to use to connect to the bastion EC2 server |
-| bastion_allowed_networks | Networks allowed to connect to the bastion using SSH |
-| bastion_sg | The bastion security group ID. |
-| bastion_sg_allow | The security group ID to allow SSH traffic from the bastion to the instances in the VPC |
-| nexus_ip | The IP address the Nexus Repository server. |
-| nexus_port | Port where Nexus Repository service is exposed. |
-| nexus_os_user | The username to use to connect to the Nexus Repository EC2 server. Set to 'admin' because we use debian OS. |
-| nexus_admin_password | Initial admin password in case of first installation. |
-| nexus_sg | The Nexus Repository security group ID. |
+## Deployment
+
+The stack is designed to be deployed through Cycloid's platform. The deployment process is automated through the pipeline configuration in the `pipeline/` directory.
+
+## Directory Structure
+
+- `terraform/`: Contains all Terraform configuration files
+  - `module-compute/`: Compute module implementation
+  - `main.tf`: Main Terraform configuration
+  - `variables.tf`: Variable definitions
+  - `outputs.tf`: Output definitions
+  - `provider.tf`: Provider configuration
+  - `versions.tf`: Terraform version constraints
+- `pipeline/`: Contains pipeline configuration for Cycloid
+- `.cycloid.yml`: Cycloid project configuration
+- `.forms.yml`: Forms configuration for Cycloid
+
+## Security
+
+- AWS credentials are managed securely through Cycloid's platform
+- Network access is restricted to specified ports
+- VPC configuration allows for network isolation
+
+## Maintenance
+
+The stack maintenance can be performed in two ways:
+
+1. **Code Management**: The stack is version controlled in a Git repository. You can:
+   - Clone the repository
+   - Make necessary modifications to the Terraform configurations
+   - Submit changes through pull requests
+   - Review and merge changes following your organization's Git workflow
+
+2. **Form Customization**: The StackForms interface can be customized by:
+   - Modifying the `.forms.yml` file to adjust form fields, validation rules, and UI elements
+   - Adding or removing configuration options
+   - Customizing the form layout and organization
+   - Implementing conditional form fields based on user selections
+
+## Support
+
+For support, please contact your Cycloid administrator or refer to the Cycloid documentation.
+
