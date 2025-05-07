@@ -27,7 +27,7 @@ variable "replication_type" {
   default     = "LRS"
 }
 
-variable "enable_https_traffic_only" {
+variable "https_traffic_only_enabled" {
   type        = bool
   description = "Forces HTTPS traffic only"
   default     = true

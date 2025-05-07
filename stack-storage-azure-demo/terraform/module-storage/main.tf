@@ -4,8 +4,8 @@ resource "azurerm_storage_account" "this" {
   location                 = var.azure_location
   account_tier             = var.account_tier
   account_replication_type = var.replication_type
-  min_tls_version         = "TLS1_2"
-  enable_https_traffic_only = var.enable_https_traffic_only
+  min_tls_version          = "TLS1_2"
+  https_traffic_only_enabled = var.https_traffic_only_enabled
 
   tags = {
     Environment = var.cy_env

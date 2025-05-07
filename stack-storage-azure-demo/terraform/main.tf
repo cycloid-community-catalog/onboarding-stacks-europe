@@ -13,7 +13,7 @@ module "storage" {
   azure_location            = "West Europe"
   account_tier              = "Standard"
   replication_type          = "LRS"
-  enable_https_traffic_only = true
+  https_traffic_only_enabled = true
   create_containers         = false
   containers                = ""
 

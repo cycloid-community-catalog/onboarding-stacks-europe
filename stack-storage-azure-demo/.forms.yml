@@ -53,7 +53,7 @@ use_cases:
 
       - name: "Enable HTTPS Only"
         description: "Forces HTTPS traffic only"
-        key: enable_https_traffic_only
+        key: https_traffic_only_enabled
         widget: switch
         type: boolean
         default: true
