@@ -15,8 +15,9 @@ module "s3" {
   cy_component = var.cy_component
 
   # S3 configuration
-  bucket_name       = var.bucket_name
-  aws_region        = var.aws_region
-  versioning_enabled = var.versioning_enabled
-  lifecycle_rules   = var.lifecycle_rules
+  bucket_name            = var.bucket_name
+  aws_region             = var.aws_region
+  versioning_enabled     = var.versioning_enabled
+  custom_lifecycle_rules = var.custom_lifecycle_rules
+  lifecycle_rules        = var.lifecycle_rules
 } 
