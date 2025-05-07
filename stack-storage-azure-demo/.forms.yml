@@ -83,6 +83,9 @@ use_cases:
           ]
         required: true
 
+    - name: Resource Group
+      technologies: [terraform]
+      vars:
       - name: "Create or Select Resource Group"
         description: "Whether to create a new Resource group or select existing ones."
         key: res_selector
