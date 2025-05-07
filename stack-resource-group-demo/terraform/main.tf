@@ -9,8 +9,8 @@ module "resource_group" {
   #####################################
 
   # Resource group configuration
-  resource_group_name = var.resource_group_name
-  azure_location     = var.azure_location
-  enable_custom_tags = var.enable_custom_tags
-  custom_tags        = var.custom_tags
+  resource_group_name = "cy-${var.cy_org}-${var.cy_project}-${var.cy_env}-${var.cy_component}"
+  azure_location     = "West Europe"
+  enable_custom_tags = false
+  custom_tags        = {}
 } 
