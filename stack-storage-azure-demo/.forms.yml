@@ -23,7 +23,7 @@ use_cases:
         key: azure_location
         widget: auto_complete
         type: string
-        default: "westeurope"
+        default: "West Europe"
         values_ref: https://cycloid-demo-stackforms-values.s3.eu-west-1.amazonaws.com/azure-locations.json
         required: true 
         
