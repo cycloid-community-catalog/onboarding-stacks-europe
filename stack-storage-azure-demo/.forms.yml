@@ -41,7 +41,7 @@ use_cases:
       - name: "Replication Type"
         description: "The replication type for the storage account"
         key: replication_type
-        widget: select
+        widget: dropdown
         type: string
         default: "LRS"
         values:
