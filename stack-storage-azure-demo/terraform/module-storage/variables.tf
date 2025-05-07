@@ -9,11 +9,6 @@ variable "storage_account_name" {
   description = "Name of the storage account to create"
 }
 
-variable "resource_group_name" {
-  type        = string
-  description = "Name of the resource group where the storage account will be created"
-}
-
 variable "azure_location" {
   type        = string
   description = "Azure region where the storage account will be created"
@@ -49,3 +44,21 @@ variable "containers" {
   description = "JSON string containing container configurations"
   default     = "[]"
 } 
+
+variable "res_selector" {
+  type        = string
+  description = "Whether to create a new resource group or select an existing one"
+  default     = "create"
+}
+
+variable "resource_group_name_inventory" {
+  type        = string
+  description = "Name of the existing resource group to use"
+  default     = ""
+}
+
+variable "resource_group_name_manual" {
+  type        = string
+  description = "Name of the manually created resource group"
+  default     = ""
+}
