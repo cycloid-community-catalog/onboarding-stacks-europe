@@ -8,12 +8,6 @@ module "s3" {
   cy_component = var.cy_component
   #####################################
 
-  # Cycloid variables
-  cy_org       = var.cy_org
-  cy_project   = var.cy_project
-  cy_env       = var.cy_env
-  cy_component = var.cy_component
-
   # S3 configuration
   bucket_name            = var.bucket_name
   aws_region             = var.aws_region
