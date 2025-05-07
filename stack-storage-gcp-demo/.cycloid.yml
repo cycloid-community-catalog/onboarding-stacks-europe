@@ -7,7 +7,7 @@ author: Cycloid
 description: |
   Deploy and manage GCP Cloud Storage buckets with configurable settings, lifecycle rules, and IAM policies.
 image: |
-  https://cycloid-demo-stacks-logo.s3.eu-west-1.amazonaws.com/gcp-storage.png
+  https://cycloid-demo-stacks-logo.s3.eu-west-1.amazonaws.com/gcp-storage.svg
 keywords:
   - storage
   - gcp

@@ -16,6 +16,8 @@ resources:
       address: '($ .api_url $)/inventory?jwt=($ .inventory_jwt $)'
     vars:
       gcp_cred: ((gcp_cred))
+      gcp_region: ($ .gcp_region $)
+      gcp_project: ($ .gcp_project $)
       cy_org: ($ .org $)
       cy_project: ($ .project $)
       cy_env: ($ .env $)

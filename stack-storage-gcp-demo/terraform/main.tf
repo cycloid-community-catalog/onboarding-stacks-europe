@@ -10,7 +10,6 @@ module "storage" {
 
   # Storage configuration
   bucket_name         = "cy-${var.cy_org}-${var.cy_project}-${var.cy_env}-${var.cy_component}"
-  location           = "EUROPE-WEST1"
   storage_class      = "STANDARD"
   versioning_enabled = true
   enable_lifecycle_rules = false

@@ -18,15 +18,6 @@ use_cases:
         - regexp: "^[a-z0-9][a-z0-9._-]{1,61}[a-z0-9]$"
           error_message: "Must be 3-63 characters long and contain only lowercase letters, numbers, dots, hyphens, and underscores. Must start and end with a letter or number."
 
-      - name: "Location"
-        description: "GCP region to deploy the storage bucket"
-        key: location
-        widget: auto_complete
-        type: string
-        default: "EUROPE-WEST1"
-        values_ref: https://cycloid-demo-stackforms-values.s3.eu-west-1.amazonaws.com/gcp-locations.json
-        required: true
-
       - name: "Storage Class"
         description: "Storage class for the bucket"
         key: storage_class
@@ -95,8 +86,8 @@ use_cases:
         key: gcp_region
         widget: auto_complete
         type: string
-        default: "EUROPE-WEST1"
-        values_ref: https://cycloid-demo-stackforms-values.s3.eu-west-1.amazonaws.com/gcp-locations.json
+        default: "europe-west1"
+        values_ref: https://cycloid-demo-stackforms-values.s3.eu-west-1.amazonaws.com/gcp-regions.json
         required: true
 
       - name: "GCP Credentials"
