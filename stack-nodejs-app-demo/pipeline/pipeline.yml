@@ -5,6 +5,11 @@ resource_types:
     repository: cycloid/terraform-resource
     tag: ((terraform_version))
 
+- name: http-api
+  type: docker-image
+  source:
+    repository: jgriff/http-resource
+
 
 resources:
 - name: tfstate
@@ -135,6 +140,16 @@ resources:
     ($- end $)
     paths:
       - ($ .org $)/($ .project $)/($ .env $)/($ .component $)/ansible/environments/*
+
+- name: mailjet-api
+  type: http-api
+  source:
+    username: ((mailjet_api_key))
+    password: ((mailjet_secret_key))
+    out_only: true
+    headers:
+      Accept: '*/*'
+      Content-Type: 'application/json'
 
 # 60 minutes timer to trigger destroy periodically
 - name: every-1h
@@ -279,6 +294,28 @@ jobs:
               - |
                 # Get vm_os_user and vm_public_ip env vars from Terraform outputs
                 source ansible-playbook/env
+                cat <<-EOF >mailjet-message.json
+                {
+                  "Messages":[
+                    {
+                      "From": {
+                        "Email": "olivier.deturckheim@cycloid.io",
+                        "Name": "Cycloid Platform"
+                      },
+                      "To": [
+                        {
+                          "Email": "($ .project_owner_email $)",
+                          "Name": "($ .project_owner_surname $) ($ .project_owner_name $)"
+                        }
+                      ],
+                      "Subject": "Your application is available!",
+                      "TextPart": "Dear ($ .project_owner_surname $), Your application is available. You can access it at the following URL: https://${vm_public_ip}",
+                      "HTMLPart": "<h3>Dear ($ .project_owner_surname $),<br/>Your application is available. You can access it at the following URL: https://${vm_public_ip}</h3>"
+                    }
+                  ]
+                }
+                EOF
+                envsubst <mailjet-message.json >mailjet-message.json.tmp && mv mailjet-message.json.tmp mailjet-message.json
                 export ANSIBLE_REMOTE_USER=${vm_os_user:-admin}
                 export ANSIBLE_EXTRA_ARGS="-i ${vm_public_ip},"
                 echo "Targeting VM with IP ${vm_public_ip}"
@@ -305,6 +342,11 @@ jobs:
             hosts_package: ((hosts_package))
             hosts_user: ((hosts_user))
 
+      - put: send-email
+        params:
+          url: https://api.mailjet.com/v3.1/send
+          method: POST
+          file: run-ansible/mailjet-message.json
 
   # Destroy the demo infrastructure after its creation (after a timer and every hour)
   - name: destroy-infra

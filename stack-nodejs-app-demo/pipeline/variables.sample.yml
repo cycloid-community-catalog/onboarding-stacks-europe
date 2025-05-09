@@ -104,6 +104,20 @@ hosts_package: ''
 hosts_user: ''
 
 
+
+#
+# Mailjet Operations
+#
+
+#. mailjet_api_key (required): ''
+#+ Mailjet API key.
+mailjet_api_key: ((mailjet.api_key))
+
+#. mailjet_secret_key (required): ''
+#+ Mailjet secret key.
+mailjet_secret_key: ((mailjet.secret_key))
+
+
 #
 # Default variables
 #
