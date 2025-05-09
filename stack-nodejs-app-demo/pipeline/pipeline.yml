@@ -297,7 +297,7 @@ jobs:
               - |
                 # Get vm_os_user and vm_public_ip env vars from Terraform outputs
                 source ansible-playbook/env
-                cat <<-EOF >mailjet-message.json
+                cat <<-EOF >ansible-playbook/mailjet-message-tmp.json
                 {
                   "Messages":[
                     {
@@ -308,17 +308,17 @@ jobs:
                       "To": [
                         {
                           "Email": "($ .project_owner_email $)",
-                          "Name": "($ .project_owner_surname $) ($ .project_owner_name $)"
+                          "Name": "($ .project_owner_name $) ($ .project_owner_surname $)"
                         }
                       ],
                       "Subject": "Your application is available!",
-                      "TextPart": "Dear ($ .project_owner_surname $), Your application is available. You can access it at the following URL: https://${vm_public_ip}",
-                      "HTMLPart": "<h3>Dear ($ .project_owner_surname $),<br/>Your application is available. You can access it at the following URL: https://${vm_public_ip}</h3>"
+                      "TextPart": "Dear ($ .project_owner_name $), Your application is available. You can access it at the following URL: http://${vm_public_ip} Best regards, Cycloid Platform",
+                      "HTMLPart": "<h3>Dear ($ .project_owner_name $),<br/><br/>Your application is available.<br/><br/>You can access it at the following URL: http://${vm_public_ip}</h3><br/><br/>Best regards,<br/>Cycloid Platform"
                     }
                   ]
                 }
                 EOF
-                envsubst <mailjet-message.json >mailjet-message.json.tmp && mv mailjet-message.json.tmp mailjet-message.json
+                envsubst <ansible-playbook/mailjet-message-tmp.json >ansible-playbook/mailjet-message.json
                 export ANSIBLE_REMOTE_USER=${vm_os_user:-admin}
                 export ANSIBLE_EXTRA_ARGS="-i ${vm_public_ip},"
                 echo "Targeting VM with IP ${vm_public_ip}"
@@ -326,6 +326,9 @@ jobs:
           caches:
             - path: ansible-playbook/roles
           inputs:
+          - name: merged-stack
+            path: ansible-playbook
+          outputs:
           - name: merged-stack
             path: ansible-playbook
         params:
@@ -347,7 +350,7 @@ jobs:
 
       - put: mailjet-send
         params:
-          file: run-ansible/mailjet-message.json
+          file: merged-stack/mailjet-message.json
 
   # Destroy the demo infrastructure after its creation (after a timer and every hour)
   - name: destroy-infra
