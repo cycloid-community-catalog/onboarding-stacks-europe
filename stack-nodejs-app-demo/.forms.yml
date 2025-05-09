@@ -13,6 +13,7 @@ use_cases:
         key: git_url
         widget: simple_text
         type: string
+        default: "git@github.com:cycloid-community-catalog/onboarding-scaffold.git"
         validations: 
         - regexp: "^git@.+$" 
           error_message: "Please enter a valid git SSH URL starting with 'git@'"
@@ -23,6 +24,7 @@ use_cases:
         key: git_branch
         widget: simple_text
         type: string
+        default: "1.0.1"
         required: true
 
       - name: "Application Path"
@@ -30,7 +32,7 @@ use_cases:
         key: git_path
         widget: simple_text
         type: string
-        default: "."
+        default: "simple-counter"
         required: true
 
       - name: "SSH Key"
@@ -42,7 +44,7 @@ use_cases:
           cred_types:
             - ssh
         type: string
-        default: "((($ .org $)-($ .project $)-($ .env $)-git-ssh.ssh_key))"
+        default: "((github-cycloid.ssh_key))"
         required: true
 
     - name: Day-2 Operations
