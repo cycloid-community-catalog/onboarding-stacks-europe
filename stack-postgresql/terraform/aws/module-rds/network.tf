@@ -1,13 +1,13 @@
-# data "aws_subnet" "selected" {
-#   count = var.res_selector == "create" ? 0 : 1
+data "aws_subnet" "selected" {
+  count = var.res_selector == "create" ? 0 : 1
 
-#   id = var.res_selector == "inventory" ? var.rds_subnet_ids_inventory : var.rds_subnet_ids_manual
-# }
+  id = var.res_selector == "inventory" ? var.rds_subnet_ids_inventory : var.rds_subnet_ids_manual
+}
 
 data "aws_vpc" "selected" {
   count = var.res_selector == "create" ? 0 : 1
 
-  id = var.rds_subnet_ids_inventory[0]
+  id = data.aws_subnet.selected[0].vpc_id
 }
 
 module "vpc" {
