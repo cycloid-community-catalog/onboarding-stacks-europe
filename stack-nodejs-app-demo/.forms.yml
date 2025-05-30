@@ -158,6 +158,29 @@ use_cases:
         type: string
         required: true
 
+    - name: Database Integration
+      technologies: [terraform]
+      vars:
+      - name: "Database Connection String Environment Var Name"
+        description: "Name of the environment variable where the database connection string will be stored for your application. If there is no database to integrate, leave this field blank."
+        key: database_env_var_name
+        widget: simple_text
+        required: false
+        type: string
+        default: "DATABASE_URL"
+      - name: "AWS RDS"
+        description: "Select the AWS RDS instance that your application will connect to. If there is no database to integrate, leave this field blank."
+        key: database_url
+        widget: cy_inventory_resource
+        widget_config:
+          attribute: endpoint
+          filters:
+            type: aws_db_instance
+            project: ($ .project $)
+            environment: ($ .env $)
+        required: false
+        type: string
+
     - name: NodeJS Application
 
     - name: Day-2 Operations
@@ -249,6 +272,29 @@ use_cases:
         widget: simple_text
         type: string
         required: true
+
+    - name: Database Integration
+      technologies: [terraform]
+      vars:
+      - name: "Database Connection String Environment Var Name"
+        description: "Name of the environment variable where the database connection string will be stored for your application. If there is no database to integrate, leave this field blank."
+        key: database_env_var_name
+        widget: simple_text
+        required: false
+        type: string
+        default: "DATABASE_URL"
+      - name: "Azure Managed Database"
+        description: "Select the Azure Managed Database that your application will connect to. If there is no database to integrate, leave this field blank."
+        key: database_url
+        widget: cy_inventory_resource
+        widget_config:
+          attribute: id
+          filters:
+            type: azurerm_postgresql_server
+            project: ($ .project $)
+            environment: ($ .env $)
+        required: true
+        type: string
 
     - name: NodeJS Application
 
