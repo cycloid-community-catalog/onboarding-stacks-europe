@@ -104,7 +104,7 @@ use_cases:
           attribute: id
           filters:
             type: aws_subnet
-            attributes: 'availability_zone[rlike]=${aws_region}'
+            attributes: 'availability_zone[rlike]=${aws_region}*'
         validations:
           - array:
               min_elems: 2
