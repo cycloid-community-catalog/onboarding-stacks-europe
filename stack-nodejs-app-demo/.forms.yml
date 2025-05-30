@@ -161,6 +161,18 @@ use_cases:
     - name: Database Integration
       technologies: [terraform]
       vars:
+      - name: "Does you application needs a database?"
+        description: "Check this if your application requires a database connection."
+        key: database_enabled
+        widget: switch
+        required: true
+        type: boolean
+        default: false
+
+    - name: Database Specs
+      technologies: [terraform]
+      condition: '$database_enabled == true'
+      vars:
       - name: "Database Connection String Environment Var Name"
         description: "Name of the environment variable where the database connection string will be stored for your application. If there is no database to integrate, leave this field blank."
         key: database_env_var_name
@@ -170,7 +182,7 @@ use_cases:
         default: "DATABASE_URL"
       - name: "AWS RDS"
         description: "Select the AWS RDS instance that your application will connect to. If there is no database to integrate, leave this field blank."
-        key: database_url
+        key: database_resource
         widget: cy_inventory_resource
         widget_config:
           attribute: endpoint
@@ -276,6 +288,18 @@ use_cases:
     - name: Database Integration
       technologies: [terraform]
       vars:
+      - name: "Does you application needs a database?"
+        description: "Check this if your application requires a database connection."
+        key: database_enabled
+        widget: switch
+        required: true
+        type: boolean
+        default: false
+
+    - name: Database Specs
+      technologies: [terraform]
+      condition: '$database_enabled == true'
+      vars:
       - name: "Database Connection String Environment Var Name"
         description: "Name of the environment variable where the database connection string will be stored for your application. If there is no database to integrate, leave this field blank."
         key: database_env_var_name
@@ -285,7 +309,7 @@ use_cases:
         default: "DATABASE_URL"
       - name: "Azure Managed Database"
         description: "Select the Azure Managed Database that your application will connect to. If there is no database to integrate, leave this field blank."
-        key: database_url
+        key: database_resource
         widget: cy_inventory_resource
         widget_config:
           attribute: id

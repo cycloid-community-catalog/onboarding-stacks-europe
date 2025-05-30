@@ -35,4 +35,16 @@ module "compute" {
   #. resource_group_name_manual: ''
   #+ The name of the existing resource group where the resources will be deployed
   resource_group_name_manual = ""
+
+  #. database_enabled: ''
+  #+ Does you application needs a database?
+  database_enabled = ""
+
+  #. database_env_var_name: ''
+  #+ Database Connection String Environment Var Name
+  database_env_var_name = ""
+
+  #. database_resource: ''
+  #+ The AWS RDS instance that your application will connect to. Blank if there is no database to integrate.
+  database_resource = ""
 }

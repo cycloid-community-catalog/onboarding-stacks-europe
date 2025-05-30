@@ -40,3 +40,15 @@ variable "resource_group_name_inventory" {
 variable "resource_group_name_manual" {
   description = "The name of the existing resource group where the resources will be deployed"
 }
+
+variable "database_enabled" {
+  description = "Does you application needs a database?"
+}
+
+variable "database_env_var_name" {
+  description = "Database Connection String Environment Var Name"
+}
+
+variable "database_resource" {
+  description = "The Azure managed database that your application will connect to. Blank if there is no database to integrate."
+}

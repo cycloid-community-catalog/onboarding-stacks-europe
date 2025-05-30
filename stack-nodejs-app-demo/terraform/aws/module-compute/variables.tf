@@ -41,3 +41,15 @@ variable "vpc_id_inventory" {
 variable "vpc_id_manual" {
   description = "VPC where to deploy the resources"
 }
+
+variable "database_enabled" {
+  description = "Does you application needs a database?"
+}
+
+variable "database_env_var_name" {
+  description = "Database Connection String Environment Var Name"
+}
+
+variable "database_resource" {
+  description = "The AWS RDS instance that your application will connect to. Blank if there is no database to integrate."
+}

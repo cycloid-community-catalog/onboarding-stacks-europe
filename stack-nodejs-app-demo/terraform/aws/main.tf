@@ -35,4 +35,16 @@ module "compute" {
   #. vpc_id_manual: ''
   #+ VPC where to deploy the resources
   vpc_id_manual = ""
+
+  #. database_enabled: ''
+  #+ Does you application needs a database?
+  database_enabled = ""
+
+  #. database_env_var_name: ''
+  #+ Database Connection String Environment Var Name
+  database_env_var_name = ""
+
+  #. database_resource: ''
+  #+ The AWS RDS instance that your application will connect to. Blank if there is no database to integrate.
+  database_resource = ""
 }
