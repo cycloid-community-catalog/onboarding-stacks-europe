@@ -39,8 +39,4 @@ module "rds" {
   #. rds_subnet_ids_inventory: []
   #+ Subnets where to deploy the resources
   rds_subnet_ids_inventory = []
-
-  #. rds_subnet_ids_manual: []
-  #+ Subnets where to deploy the resources
-  rds_subnet_ids_manual = []
 }

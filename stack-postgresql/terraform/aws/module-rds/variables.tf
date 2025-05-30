@@ -38,7 +38,3 @@ variable "res_selector" {
 variable "rds_subnet_ids_inventory" {
   description = "Subnets where to deploy the RDS instance."
 }
-
-variable "rds_subnet_ids_manual" {
-  description = "Subnets where to deploy the RDS instance."
-}
