@@ -99,21 +99,21 @@ config:
   #       path: 'ansible/environments/node.yml.sample'
   #       destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/ansible/environments/node.yml'
 
-  # ionos:
-  #   name: 'Ionos'
-  #   description: 'Deploy a Node.js web application on Ionos instances'
-  #   # cloud_provider: ionos
-  #   pipeline:
-  #     pipeline:
-  #       path: pipeline/pipeline.yml
-  #     variables:
-  #       path: pipeline/variables.sample.yml
-  #       destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/pipeline/variables.yml'
-  #   terraform:
-  #     main:
-  #       path: 'terraform/ionos/main.tf'
-  #       destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/terraform/ionos/main.tf'
-  #   ansible:
-  #     node:
-  #       path: 'ansible/environments/node.yml.sample'
-  #       destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/ansible/environments/node.yml'
+  ionos:
+    name: 'Ionos'
+    description: 'Deploy a Node.js web application on Ionos instances'
+    # cloud_provider: ionos
+    pipeline:
+      pipeline:
+        path: pipeline/pipeline.yml
+      variables:
+        path: pipeline/variables.sample.yml
+        destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/pipeline/variables.yml'
+    terraform:
+      main:
+        path: 'terraform/ionos/main.tf'
+        destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/terraform/ionos/main.tf'
+    ansible:
+      node:
+        path: 'ansible/environments/node.yml.sample'
+        destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/ansible/environments/node.yml'
