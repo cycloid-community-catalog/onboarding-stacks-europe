@@ -10,7 +10,7 @@ use_cases:
       vars:
       - name: "Development Stack"
         description: "Select a scaffolding template according to your desired development stack."
-        key: scaffolding_template
+        key: git_source_path
         widget: dropdown
         required: true
         type: map
