@@ -168,5 +168,5 @@ use_cases:
           cred_types:
             - custom
         type: string
-        default: ((custom_($ .project $)-($ .env $)-kubeconfig.kubeconfig))
+        default: ((($ .project $)-($ .env $)-kubeconfig.kubeconfig))
         required: true
