@@ -119,7 +119,7 @@ use_cases:
         widget_config:
           attribute: id
           filters:
-            type: azurerm_postgresql_server
+            type: azurerm_postgresql_flexible_server
             project: ($ .project $)
             environment: ($ .env $)
         required: true
