@@ -84,25 +84,25 @@ jobs:
           export KUBECONFIG="$(pwd)/kubeconfig"
           export K8S_EXTERNAL_IP=$(kubectl config view -o json | jq .clusters[0].cluster.server | gawk -F[/:] '{print $4}')
           export APP_NAME=$(echo ${APP_NAME} | sed 's/_//')
-          if [ "$DATABASE_INTEGRATION" == "true" ]; then
-            if [ "$DATABASE_ENGINE" == "postgresql" ]; then
-              if [ "$DATABASE_CLOUD" == "aws" ]; then
-                export $DATABASE_ENV_VAR_VALUE="postgresql://${DATABASE_USERNAME}:${DATABASE_PASSWORD}@${DATABASE_AWS}/${DATABASE_NAME}?schema=public"
-              elif [ "$DATABASE_CLOUD" == "azure" ]; then
-                export $DATABASE_ENV_VAR_VALUE="postgresql://${DATABASE_USERNAME}:${DATABASE_PASSWORD}@${DATABASE_AZURE}/${DATABASE_NAME}?schema=public"
-              fi
-            elif [ "$DATABASE_ENGINE" == "mysql" ]; then
-              if [ "$DATABASE_CLOUD" == "aws" ]; then
-                export $DATABASE_ENV_VAR_VALUE="mysql://${DATABASE_USERNAME}:${DATABASE_PASSWORD}@${DATABASE_AWS}/${DATABASE_NAME}"
-              elif [ "$DATABASE_CLOUD" == "azure" ]; then
-                export $DATABASE_ENV_VAR_VALUE="mysql://${DATABASE_USERNAME}:${DATABASE_PASSWORD}@${DATABASE_AZURE}/${DATABASE_NAME}"
-              fi
-            fi
-          fi
+          # if [ "$DATABASE_INTEGRATION" == "true" ]; then
+          #   if [ "$DATABASE_ENGINE" == "postgresql" ]; then
+          #     if [ "$DATABASE_CLOUD" == "aws" ]; then
+          #       export $DATABASE_ENV_VAR_VALUE="postgresql://${DATABASE_USERNAME}:${DATABASE_PASSWORD}@${DATABASE_AWS}/${DATABASE_NAME}?schema=public"
+          #     elif [ "$DATABASE_CLOUD" == "azure" ]; then
+          #       export $DATABASE_ENV_VAR_VALUE="postgresql://${DATABASE_USERNAME}:${DATABASE_PASSWORD}@${DATABASE_AZURE}/${DATABASE_NAME}?schema=public"
+          #     fi
+          #   elif [ "$DATABASE_ENGINE" == "mysql" ]; then
+          #     if [ "$DATABASE_CLOUD" == "aws" ]; then
+          #       export $DATABASE_ENV_VAR_VALUE="mysql://${DATABASE_USERNAME}:${DATABASE_PASSWORD}@${DATABASE_AWS}/${DATABASE_NAME}"
+          #     elif [ "$DATABASE_CLOUD" == "azure" ]; then
+          #       export $DATABASE_ENV_VAR_VALUE="mysql://${DATABASE_USERNAME}:${DATABASE_PASSWORD}@${DATABASE_AZURE}/${DATABASE_NAME}"
+          #     fi
+          #   fi
+          # fi
           echo ${APP_ENV_VARS} >app-env-vars.properties
-          echo "${DATABASE_ENV_VAR_NAME}=${DATABASE_ENV_VAR_VALUE}" >>app-env-vars.properties
-          echo "DATABASE_ENGINE=${DATABASE_ENGINE}" >>app-env-vars.properties
-          cat app-env-vars.properties
+          # echo "${DATABASE_ENV_VAR_NAME}=${DATABASE_ENV_VAR_VALUE}" >>app-env-vars.properties
+          # echo "DATABASE_ENGINE=${DATABASE_ENGINE}" >>app-env-vars.properties
+          # cat app-env-vars.properties
           kubectl create configmap app-env-vars --from-env-file=app-env-vars.properties
           cat <<-EOF >deploy.yaml
           ---
@@ -188,15 +188,15 @@ jobs:
         APP_IMAGE_REPO: ((registry_repository))
         APP_IMAGE_TAG: ($ .env $)
         APP_ENV_VARS: ((app_env_vars))
-        DATABASE_INTEGRATION: ((database_integration))
-        DATABASE_ENV_VAR_NAME: ((database_env_var_name))
-        DATABASE_ENGINE: ((database_engine))
-        DATABASE_CLOUD: ((database_cloud))
-        DATABASE_AWS: ((database_aws))
-        DATABASE_AZURE: ((database_azure))
-        DATABASE_NAME: ((database_name))
-        DATABASE_USERNAME: ((($ .project $)-($ .env $)-database.username))
-        DATABASE_PASSWORD: ((($ .project $)-($ .env $)-database.password))
+        # DATABASE_INTEGRATION: ((database_integration))
+        # DATABASE_ENV_VAR_NAME: ((database_env_var_name))
+        # DATABASE_ENGINE: ((database_engine))
+        # DATABASE_CLOUD: ((database_cloud))
+        # DATABASE_AWS: ((database_aws))
+        # DATABASE_AZURE: ((database_azure))
+        # DATABASE_NAME: ((database_name))
+        # DATABASE_USERNAME: ((($ .project $)-($ .env $)-database.username))
+        # DATABASE_PASSWORD: ((($ .project $)-($ .env $)-database.password))
 
 
 - name: delete-app
