@@ -257,6 +257,17 @@ use_cases:
         type: string
         required: true
 
+    - name: Day-2 Operations
+      technologies: [pipeline]
+      vars:
+      - name: "Destroy Timer"
+        description: "The number of minutes to wait before automatically destroying the infrastructure after creation."
+        key: destroy_timer_in_minutes
+        widget: number
+        type: integer
+        default: 60
+        required: true
+
 
 - name: gcp
   sections:
@@ -304,8 +315,7 @@ use_cases:
       vars:
       - name: "PostgreSQL Version"
         description: "PostgreSQL version."
-        key: postgre
-        sql_version 
+        key: postgresql_version 
         widget: dropdown
         type: string
         values: ["POSTGRES_14", "POSTGRES_13", "POSTGRES_12"]
@@ -345,23 +355,11 @@ use_cases:
         widget: simple_text
         type: string
         required: true
-      - name: "Database Password"
-        description: "Database user password."
-        key: database_password
-        widget: password
-        type: string
-        required: true
       - name: "VPC Network"
         description: "VPC network to connect to."
         key: vpc_network
         widget: simple_text
         type: string
-        required: false
-      - name: "Authorized Networks"
-        description: "List of authorized networks for access."
-        key: authorized_networks
-        widget: simple_text
-        type: array
         required: false
       - name: "Backup Retention Days"
         description: "Backup retention period."
