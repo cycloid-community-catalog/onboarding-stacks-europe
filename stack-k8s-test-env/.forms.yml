@@ -142,8 +142,8 @@ use_cases:
         key: app_env_vars
         widget: text_area
         required: true
-        type: map 
-        default:
+        type: string
+        default: |-
           DATABASE_URL="postgresql://((($ .project $)-($ .env $)-database.username)):((($ .project $)-($ .env $)-database.password))@myendpoint:5432/mydb?schema=public"
           ENV_VAR_1=VAL1
           ENV_VAR_2=VAL2
