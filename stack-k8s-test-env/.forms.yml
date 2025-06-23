@@ -145,7 +145,7 @@ use_cases:
         type: map 
         default:
           vars:
-            DATABASE_URL: "postgresql://((($ .project $)-($ .env $)-database.username)):((($ .project $)-($ .env $)-postgresql.password))@myendpoint:5432/mydb?schema=public"
+            DATABASE_URL: "postgresql://((($ .project $)-($ .env $)-database.username)):((($ .project $)-($ .env $)-database.password))@myendpoint:5432/mydb?schema=public"
             ENV_VAR_1: VAL1
             ENV_VAR_2: VAL2
       - name: "Number of Replicas"
