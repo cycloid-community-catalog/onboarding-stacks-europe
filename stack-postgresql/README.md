@@ -5,7 +5,7 @@ This repository contains the automation code for deploying and managing PostgreS
 ## Overview
 
 This automation creates and manages PostgreSQL database deployments with the following features:
-- Multi-cloud support (AWS RDS for PostgreSQL, Azure Database for PostgreSQL)
+- Multi-cloud support (AWS RDS for PostgreSQL, Azure Database for PostgreSQL, GCP Cloud SQL for PostgreSQL)
 - Automated database provisioning and configuration
 - Secure credential management
 - Backup and retention policies
@@ -14,7 +14,7 @@ This automation creates and manages PostgreSQL database deployments with the fol
 
 ## Prerequisites
 
-- Access to a cloud provider (AWS or Azure)
+- Access to a cloud provider (AWS, Azure, or GCP)
 - Cycloid platform access
 
 ## Configuration
@@ -38,6 +38,23 @@ The stack can be configured through the following parameters:
 - `geo_redundant_backup_enabled`: Enable geo-redundant backups
 - `database_name`: Name of the database to create
 
+### GCP Configuration
+- `project_id`: GCP project ID
+- `region`: GCP region for deployment (default: europe-west1)
+- `instance_name`: Name of the Cloud SQL instance
+- `postgresql_version`: PostgreSQL version (default: POSTGRES_14)
+- `machine_type`: Cloud SQL instance type (default: db-f1-micro)
+- `disk_size`: Storage size in GB (default: 10)
+- `disk_type`: Storage type (PD_SSD or PD_HDD, default: PD_SSD)
+- `database_name`: Name of the database to create
+- `database_user`: Database user name
+- `database_password`: Database user password
+- `vpc_network`: VPC network to connect to
+- `authorized_networks`: List of authorized networks for access
+- `backup_retention_days`: Backup retention period (default: 7)
+- `max_connections`: Maximum number of connections (default: 100)
+- `deletion_protection`: Enable deletion protection (default: true)
+
 ### Network Configuration
 - `res_selector`: Selection method for VPC/Resource Group (new or existing)
 - `app_security_group_id`: Application security group for database access
@@ -58,6 +75,8 @@ The stack is designed to be deployed through Cycloid's platform. The deployment 
 - Network security configuration
 - Backup and retention policies
 - Secure credential management
+- High availability options (GCP)
+- Automatic failover (GCP)
 
 ### Security Features
 - Encrypted storage
@@ -70,6 +89,7 @@ The stack is designed to be deployed through Cycloid's platform. The deployment 
 - `terraform/`: Contains Terraform configuration files for each cloud provider
   - `aws/`: AWS RDS-specific configurations
   - `azure/`: Azure Database-specific configurations
+  - `gcp/`: GCP Cloud SQL-specific configurations
 - `pipeline/`: Contains pipeline configuration for Cycloid
 - `.cycloid.yml`: Cycloid project configuration
 - `.forms.yml`: Forms configuration for Cycloid

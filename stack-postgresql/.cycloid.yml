@@ -46,3 +46,18 @@ config:
       main:
         path: 'terraform/azure/main.tf'
         destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/terraform/azure/main.tf'
+
+  gcp:
+    name: 'Google Cloud SQL for PostgreSQL'
+    description: 'Google Cloud SQL managed PostgreSQL database.'
+    cloud_provider: gcp
+    pipeline:
+      pipeline:
+        path: 'pipeline/pipeline.yml'
+      variables:
+        path: 'pipeline/variables.sample.yml'
+        destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/pipeline/variables.yml'
+    terraform:
+      main:
+        path: 'terraform/gcp/main.tf'
+        destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/terraform/gcp/main.tf'

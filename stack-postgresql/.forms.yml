@@ -256,3 +256,142 @@ use_cases:
         widget: simple_text
         type: string
         required: true
+
+
+- name: gcp
+  sections:
+  - name: Google Cloud SQL for PostgreSQL
+    groups:
+    - name: Access Configuration
+      technologies: [pipeline]
+      vars:
+      - name: "GCP Credentials"
+        description: "The GCP credentials to deploy the infrastructure."
+        key: gcp_cred
+        widget: cy_cred
+        widget_config:
+          display_keys: false
+          cred_types:
+            - gcp
+        type: string
+        default: "((gcp))"
+        required: true
+      - name: "GCP Project"
+        description: "The GCP project ID."
+        key: gcp_project
+        widget: simple_text
+        type: string
+        required: true
+      - name: "GCP Region"
+        description: "GCP region for Cloud SQL."
+        key: gcp_region
+        widget: dropdown
+        type: string
+        values_ref: https://cycloid-demo-stackforms-values.s3.eu-west-1.amazonaws.com/gcp-regions.json
+        default: "europe-west1"
+        required: true
+      - name: "GCP Zone"
+        description: "GCP zone for Cloud SQL."
+        key: gcp_zone
+        widget: dropdown
+        type: string
+        values_ref: https://cycloid-demo-stackforms-values.s3.eu-west-1.amazonaws.com/gcp-zones-${gcp_region}.json
+        default: "europe-west1-b"
+        required: true
+
+    - name: Cloud SQL Configuration
+      technologies: [terraform]
+      vars:
+      - name: "PostgreSQL Version"
+        description: "PostgreSQL version."
+        key: postgre
+        sql_version 
+        widget: dropdown
+        type: string
+        values: ["POSTGRES_14", "POSTGRES_13", "POSTGRES_12"]
+        default: "POSTGRES_14"
+        required: true
+      - name: "Machine Type"
+        description: "Cloud SQL machine type."
+        key: machine_type
+        widget: simple_text
+        type: string
+        default: "db-f1-micro"
+        required: true
+      - name: "Disk Size (GB)"
+        description: "Disk size in GB."
+        key: disk_size
+        widget: number
+        type: integer
+        default: 10
+        required: true
+      - name: "Disk Type"
+        description: "Disk type (PD_SSD or PD_HDD)."
+        key: disk_type
+        widget: dropdown
+        type: string
+        values: ["PD_SSD", "PD_HDD"]
+        default: "PD_SSD"
+        required: true
+      - name: "Database Name"
+        description: "Name of the database to create."
+        key: database_name
+        widget: simple_text
+        type: string
+        required: true
+      - name: "Database User"
+        description: "Database user name."
+        key: database_user
+        widget: simple_text
+        type: string
+        required: true
+      - name: "Database Password"
+        description: "Database user password."
+        key: database_password
+        widget: password
+        type: string
+        required: true
+      - name: "VPC Network"
+        description: "VPC network to connect to."
+        key: vpc_network
+        widget: simple_text
+        type: string
+        required: false
+      - name: "Authorized Networks"
+        description: "List of authorized networks for access."
+        key: authorized_networks
+        widget: simple_text
+        type: array
+        required: false
+      - name: "Backup Retention Days"
+        description: "Backup retention period."
+        key: backup_retention_days
+        widget: number
+        type: integer
+        default: 7
+        required: true
+      - name: "Max Connections"
+        description: "Maximum number of connections."
+        key: max_connections
+        widget: number
+        type: integer
+        default: 100
+        required: true
+      - name: "Deletion Protection"
+        description: "Enable deletion protection."
+        key: deletion_protection
+        widget: switch
+        type: boolean
+        default: true
+        required: true
+
+    - name: Day-2 Operations
+      technologies: [pipeline]
+      vars:
+      - name: "Destroy Timer"
+        description: "The number of minutes to wait before automatically destroying the infrastructure after creation."
+        key: destroy_timer_in_minutes
+        widget: number
+        type: integer
+        default: 60
+        required: true
