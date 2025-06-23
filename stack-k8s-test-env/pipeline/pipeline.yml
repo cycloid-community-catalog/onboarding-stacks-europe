@@ -195,8 +195,8 @@ jobs:
         DATABASE_AWS: ((database_aws))
         DATABASE_AZURE: ((database_azure))
         DATABASE_NAME: ((database_name))
-        DATABASE_USERNAME: ((($ .project $)-($ .env $)-postgresql.username))
-        DATABASE_PASSWORD: ((($ .project $)-($ .env $)-postgresql.password))
+        DATABASE_USERNAME: ((($ .project $)-($ .env $)-database.username))
+        DATABASE_PASSWORD: ((($ .project $)-($ .env $)-database.password))
 
 
 - name: delete-app
