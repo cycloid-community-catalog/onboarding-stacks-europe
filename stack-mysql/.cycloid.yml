@@ -2,7 +2,7 @@
 # Configuration of the Cycloid stack
 version: '4'
 name: 'MySQL Database'
-canonical: stack-mysql
+canonical: stack-mysql-demo
 author: Cycloid
 description: |
   Deploys a MySQL database on AWS RDS, Azure Database for MySQL, or Google Cloud SQL.
