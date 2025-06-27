@@ -9,10 +9,10 @@ resource "aws_db_instance" "db" {
   instance_class          = "${var.rds_instance_class}"
   multi_az                = false
   parameter_group_name    = aws_db_parameter_group.rds-optimized.name
-  storage_type            = "gp3"
-  allocated_storage       = 10
-  snapshot_identifier     = var.rds_snapshot_identifier == "" ? null : var.rds_snapshot_identifier
-  username                = "${var.cy_project}-${var.cy_env}-${var.cy_component}"
+  allocated_storage       = var.rds_allocated_storage
+  skip_final_snapshot     = true
+  username                = var.master_username
   password                = random_password.rds.result
   vpc_security_group_ids  = ["${aws_security_group.rds.id}"]
-}
+  db_name                 = var.database_name
+} 

@@ -26,11 +26,11 @@ config:
         path: 'pipeline/pipeline.yml'
       variables:
         path: 'pipeline/variables.sample.yml'
-        destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/pipeline/variables.yml'
+        destination: '($ .config_root $)/pipeline/variables.yml'
     terraform:
       main:
         path: 'terraform/aws/main.tf'
-        destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/terraform/aws/main.tf'
+        destination: '($ .config_root $)/terraform/aws/main.tf'
 
   azure:
     name: 'Azure Database for PostgreSQL'
@@ -41,11 +41,11 @@ config:
         path: 'pipeline/pipeline.yml'
       variables:
         path: 'pipeline/variables.sample.yml'
-        destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/pipeline/variables.yml'
+        destination: '($ .config_root $)/pipeline/variables.yml'
     terraform:
       main:
         path: 'terraform/azure/main.tf'
-        destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/terraform/azure/main.tf'
+        destination: '($ .config_root $)/terraform/azure/main.tf'
 
   gcp:
     name: 'Google Cloud SQL for PostgreSQL'
@@ -56,8 +56,8 @@ config:
         path: 'pipeline/pipeline.yml'
       variables:
         path: 'pipeline/variables.sample.yml'
-        destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/pipeline/variables.yml'
+        destination: '($ .config_root $)/pipeline/variables.yml'
     terraform:
       main:
         path: 'terraform/gcp/main.tf'
-        destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/terraform/gcp/main.tf'
+        destination: '($ .config_root $)/terraform/gcp/main.tf'

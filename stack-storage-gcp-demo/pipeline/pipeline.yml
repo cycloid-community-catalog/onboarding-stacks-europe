@@ -58,7 +58,7 @@ resources:
     private_key: ((($ .cr_cred_path $).ssh_key))
     ($- end $)
     paths:
-      - ($ .org $)/($ .project $)/($ .env $)/($ .component $)/terraform/*
+      - ($ .config_root $)/terraform/*
 
 groups:
 - name: overview
@@ -100,7 +100,7 @@ jobs:
           - name: merged-stack
             path: "merged-stack"
         params:
-          CONFIG_PATH: ($ .org $)/($ .project $)/($ .env $)/($ .component $)/terraform
+          CONFIG_PATH: ($ .config_root $)/terraform
           STACK_PATH: ($ .stack_path $)/terraform
 
       - put: tfstate
@@ -138,7 +138,7 @@ jobs:
           - name: merged-stack
             path: "merged-stack"
         params:
-          CONFIG_PATH: ($ .org $)/($ .project $)/($ .env $)/($ .component $)/terraform
+          CONFIG_PATH: ($ .config_root $)/terraform
           STACK_PATH: ($ .stack_path $)/terraform
 
       - put: tfstate

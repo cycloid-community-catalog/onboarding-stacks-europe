@@ -25,7 +25,7 @@ use_cases:
         widget: auto_complete
         type: string
         values_ref: https://cycloid-demo-stackforms-values.s3.eu-west-1.amazonaws.com/aws-regions.json
-        default: eu-west-3
+        default: eu-west-1
         validations: 
         - regexp: "^[a-z]{2}-[a-z]+-\\d+$" 
           error_message: "Please enter a valid AWS region such as us-east-1"
@@ -34,80 +34,97 @@ use_cases:
     - name: RDS Configuration
       technologies: [terraform]
       vars:
-      - name: "Snapshot Identifier"
-        description: "(Optional) Specifies whether or not to create this database from a snapshot. This corresponds to the snapshot ID you'd find in the RDS console, e.g: rds:production-2015-06-26-06-05."
-        key: rds_snapshot_identifier
-        widget: simple_text
+      - name: "MySQL Engine Version"
+        description: "Version of the MySQL engine."
+        key: rds_engine_version
+        widget: auto_complete
         type: string
-        required: false
-      - name: "Subnets"
-        description: "Subnets where to deploy the resources."
-        key: rds_subnet_id
-        widget: simple_text
-        type: string
+        default: "8.0.35"
+        values: ["8.0.35","8.0.34","8.0.33","8.0.32","8.0.31","8.0.30","8.0.28","8.0.27","8.0.26","8.0.25","5.7.44","5.7.43","5.7.42","5.7.41","5.7.40"]
         required: true
-      - name: "Security Group"
-        description: "The application security group to grant access to the database."
-        key: app_security_group_id
-        type: "string"
-        widget: cy_inventory_resource
-        widget_config:
-          attribute: id
-          filters:
-            type: aws_security_group
-
-
-
-
-
-
-    - name: VM Specs
-      technologies: [terraform]
-      vars:
-      - name: "Instance type"
-        description: "Instance type for the VM."
-        key: vm_instance_type
+      - name: "Instance Class"
+        description: "Instance class for the RDS instance."
+        key: rds_instance_class
         widget: slider_list
         type: string
-        default: "t3a.small"
+        default: "db.t4g.small"
         values:
-            - "t3a.small"
-            - "t3a.medium"
-            - "t3a.large"
+            - "db.t4g.micro"
+            - "db.t4g.small"
+            - "db.t4g.medium"
+            - "db.t4g.large"
+            - "db.t4g.xlarge"
         required: true
-      - name: "Disk size"
+      - name: "Allocated Storage"
         unit: Go
-        description: "Disk size for the VM."
-        key: vm_disk_size
+        description: "The amount of allocated storage."
+        key: rds_allocated_storage
         widget: slider_range
         type: integer
         default: 20
         values:
-            - 20
-            - 250
+            - 10
+            - 100
+        required: true
+      - name: "Database Name"
+        description: "Name of the database to create."
+        key: database_name
+        widget: simple_text
+        type: string
+        default: "($ .project $)-($ .env $)"
+        required: true
+      - name: "Master Username"
+        description: "Master username for the database."
+        key: master_username
+        widget: simple_text
+        type: string
+        default: "admin"
+        required: true
+      - name: "Create or Select Subnet"
+        description: "Whether to create a new VPC and Subnet or select an existing Subnet."
+        key: res_selector
+        widget: dropdown
+        type: map
+        required: true
+        default: "Create new"
+        values:
+        - {"label": "Create new", "value": "create"}
+        - {"label": "Select from Asset Inventory", "value": "inventory"}
+
+    - name: Select from Asset Inventory
+      technologies: [terraform]
+      condition: '$res_selector == "Select from Asset Inventory"'
+      vars:
+      - name: "Subnet"
+        description: "Subnets where to deploy the resources. Make sure you select at least 2 subnets from different AZ but in the same region."
+        key: rds_subnet_ids_inventory
+        widget: cy_inventory_resource
+        widget_config:
+          attribute: id
+          filters:
+            type: aws_subnet
+            attributes: 'availability_zone[rlike]=${aws_region}*'
+        validations:
+          - array:
+              min_elems: 2
+            error_message: "At least two subnets must be selected"
+        type: array
         required: true
 
-    - name: NodeJS Application
-
-    - name: Day-2 Operations with Ansible
-
-    - name: Day 2 Operations with AWS CLI
+    - name: Day-2 Operations
       technologies: [pipeline]
       vars:
-      - name: "Instance status"
-        description: "Status for the deployed instances."
-        key: vm_instance_status
-        widget: radios
-        type: string
-        default: "Started"
-        values:
-            - "Started"
-            - "Stopped"
+      - name: "Destroy Timer"
+        description: "The number of minutes to wait before automatically destroying the infrastructure after creation."
+        key: destroy_timer_in_minutes
+        widget: number
+        type: integer
+        default: 60
         required: true
 
 - name: azure
   sections:
-  - name: NodeJS WebApp
+  - name: Database
     groups:
     - name: Access Configuration
       technologies: [pipeline]
@@ -123,71 +140,106 @@ use_cases:
         type: string
         default: "((azure))"
         required: true
-    - name: Azure Infrastructure
+
+    - name: Database Configuration
       technologies: [terraform]
       vars:
-      - name: "Azure location"
-        description: "Azure location for Terraform."
-        key: azure_location
+      - name: "Server Name"
+        description: "Name of the MySQL Flexible Server."
+        key: server_name
+        widget: simple_text
+        type: string
+        default: "($ .project $)-($ .env $)"
+        required: true
+      - name: "MySQL Version"
+        description: "Version of MySQL to use."
+        key: mysql_version
         widget: dropdown
+        type: string
+        default: "8.0.21"
+        values: ["8.0.21","5.7"]
+        required: true
+      - name: "SKU Name"
+        description: "SKU name for the MySQL Flexible Server."
+        key: sku_name
+        widget: auto_complete
+        type: string
+        values:
+        - "B_Standard_B1ms"
+        - "B_Standard_B2s"
+        - "B_Standard_B2ms"
+        - "GP_Standard_D2ds_v4"
+        - "GP_Standard_D4ds_v4"
+        default: "B_Standard_B1ms"
+        required: true
+      - name: "Storage Size"
+        description: "Storage size in MB."
+        key: storage_mb
+        widget: dropdown
+        type: map
+        default: "32 GB"
+        values:
+        - {"label": "32 GB", "value": 32768}
+        - {"label": "64 GB", "value": 65536}
+        - {"label": "128 GB", "value": 131072}
+        - {"label": "256 GB", "value": 262144}
+        - {"label": "512 GB", "value": 524288}
+        - {"label": "1 TB", "value": 1048576}
+        required: true
+      - name: "Backup Retention Days"
+        description: "Backup retention days."
+        key: backup_retention_days
+        widget: number
+        type: integer
+        default: 7
+        required: true
+      - name: "Enable Geo-Redundant Backups"
+        description: "Enable geo-redundant backups."
+        key: geo_redundant_backup_enabled
+        widget: switch
+        type: boolean
+        default: false
+        required: true
+      - name: "Administrator Login"
+        description: "Administrator login for MySQL server."
+        key: administrator_login
+        widget: simple_text
+        type: string
+        default: "mysqladmin"
+        required: true
+      - name: "Database Name"
+        description: "Name of the database to create."
+        key: database_name
+        widget: simple_text
+        type: string
+        default: "($ .project $)-($ .env $)"
+        required: true
+      - name: "Azure Location"
+        description: "Azure location."
+        key: azure_location
+        widget: auto_complete
+        type: string
         values_ref: https://cycloid-demo-stackforms-values.s3.eu-west-1.amazonaws.com/azure-locations.json
         default: "West Europe"
-        type: string
         required: true
-      # - name: "Resource Group"
-      #   description: "The name of the existing resource group where the resources will be deployed."
-      #   key: resource_group_name
-      #   widget: dropdown
-      #   values_ref: 'https://cycloid-demo-valuesref-azure.azurewebsites.net/api/resourcegroups?location=${azure_location}'
-      #   type: map
-      #   required: true
-
-    # - name: Network Configuration
-    #   technologies: [terraform]
-    #   vars:
-    #   - name: "Virtual Network"
-    #     description: "Virtual Network where to deploy the resources. Presented options matches selected resource group."
-    #     key: vnet_name
-    #     widget: dropdown
-    #     values_ref: 'https://cycloid-demo-valuesref-azure.azurewebsites.net/api/virtualnetworks?location=${azure_location}&resourceGroupName=${resource_group_name}'
-    #     type: map
-    #     required: true
-    #   - name: "Subnet"
-    #     description: "Subnet where to deploy the resources. Presented options matches selected resource group and selected virtual network."
-    #     key: subnet_name
-    #     widget: dropdown
-    #     values_ref: 'https://cycloid-demo-valuesref-azure.azurewebsites.net/api/subnets?vnetName=${vnet_name}&resourceGroupName=${resource_group_name}'
-    #     type: map
-    #     required: true
-
-    - name: VM Specs
+      - name: "Create or Select Resource Group"
+        description: "Whether to create a new Resource group or select existing ones."
+        key: res_selector
+        widget: dropdown
+        type: map
+        required: true
+        default: "Create new"
+        values:
+        - {"label": "Create new", "value": "create"}
+        - {"label": "Select from Asset Inventory", "value": "inventory"}
+        - {"label": "Enter manually", "value": "manual"}
+    - name: Select from Asset Inventory
       technologies: [terraform]
+      condition: '$res_selector == "Select from Asset Inventory"'
       vars:
-      - name: "Instance type"
-        description: "Instance type for the worker."
-        key: vm_instance_type
-        widget: slider_list
-        type: string
-        default: "Standard_DS1_v2"
-        values:
-            - "Standard_DS1_v2"
-            - "Standard_DS2_v2"
-            - "Standard_DS3_v2"
-        required: true
-      - name: "Disk size"
-        unit: Go
-        description: "Disk size for the instance."
-        key: vm_disk_size
-        widget: slider_range
-        type: integer
-        default: 30
-        values:
-            - 30
-            - 250
-        required: true
-      - name: "Resource Group"
+      - name: "Existing Resource Group Name"
         description: "The name of the existing resource group where the resources will be deployed."
-        key: resource_group_name
+        key: resource_group_name_inventory
         widget: cy_inventory_resource
         widget_config:
           attribute: name
@@ -195,35 +247,37 @@ use_cases:
             type: azurerm_resource_group
         type: string
         required: true
-
-    - name: NodeJS Application
-
-    - name: Day-2 Operations with Ansible
-
-    - name: Day 2 Operations with Azure CLI
-      technologies: [pipeline]
+    - name: Enter manually
+      technologies: [terraform]
+      condition: '$res_selector == "Enter manually"'
       vars:
-      - name: "Instance status"
-        description: "Status for the deployed instances."
-        key: vm_instance_status
-        widget: radios
+      - name: "Resource Group Name"
+        description: "The name of the existing resource group where the resources will be deployed."
+        key: resource_group_name_manual
+        widget: simple_text
         type: string
-        default: "Started"
-        values:
-            - "Started"
-            - "Stopped"
         required: true
 
+    - name: Day-2 Operations
+      technologies: [pipeline]
+      vars:
+      - name: "Destroy Timer"
+        description: "The number of minutes to wait before automatically destroying the infrastructure after creation."
+        key: destroy_timer_in_minutes
+        widget: number
+        type: integer
+        default: 60
+        required: true
 
 - name: gcp
   sections:
-  - name: NodeJS WebApp
+  - name: Google Cloud SQL for MySQL
     groups:
     - name: Access Configuration
       technologies: [pipeline]
       vars:
-      - name: "GCP credentials"
-        description: "Google Cloud Platform JSON credentials to use for Terraform."
+      - name: "GCP Credentials"
+        description: "The GCP credentials to deploy the infrastructure."
         key: gcp_cred
         widget: cy_cred
         widget_config:
@@ -233,203 +287,109 @@ use_cases:
         type: string
         default: "((gcp))"
         required: true
-      - name: "GCP region"
-        description: "Google Cloud Platform region to use for Terraform."
+      - name: "GCP Project"
+        description: "The GCP project ID."
+        key: gcp_project
+        widget: simple_text
+        type: string
+        required: true
+      - name: "GCP Region"
+        description: "GCP region for Cloud SQL."
         key: gcp_region
-        widget: auto_complete
+        widget: dropdown
         type: string
-        default: "europe-west1"
         values_ref: https://cycloid-demo-stackforms-values.s3.eu-west-1.amazonaws.com/gcp-regions.json
+        default: "europe-west1"
         required: true
-      - name: "GCP zone"
-        description: "Google Cloud Platform zone to use for Terraform."
+      - name: "GCP Zone"
+        description: "GCP zone for Cloud SQL."
         key: gcp_zone
-        widget: auto_complete
+        widget: dropdown
         type: string
+        values_ref: https://cycloid-demo-stackforms-values.s3.eu-west-1.amazonaws.com/gcp-zones-${gcp_region}.json
         default: "europe-west1-b"
-        values:
-          options:
-            - condition: "$gcp_region == 'asia-east1'"
-              values: ['asia-east1-a', 'asia-east1-b', 'asia-east1-c']
-            - condition: "$gcp_region == 'asia-east2'"
-              values: ['asia-east2-a', 'asia-east2-b', 'asia-east2-c']
-            - condition: "$gcp_region == 'asia-northeast1'"
-              values: ['asia-northeast1-a', 'asia-northeast1-b', 'asia-northeast1-c']
-            - condition: "$gcp_region == 'asia-northeast2'"
-              values: ['asia-northeast2-a', 'asia-northeast2-b', 'asia-northeast2-c']
-            - condition: "$gcp_region == 'asia-northeast3'"
-              values: ['asia-northeast3-a', 'asia-northeast3-b', 'asia-northeast3-c']
-            - condition: "$gcp_region == 'asia-south1'"
-              values: ['asia-south1-a', 'asia-south1-b', 'asia-south1-c']
-            - condition: "$gcp_region == 'asia-south2'"
-              values: ['asia-south2-a', 'asia-south2-b', 'asia-south2-c']
-            - condition: "$gcp_region == 'asia-southeast1'"
-              values: ['asia-southeast1-a', 'asia-southeast1-b', 'asia-southeast1-c']
-            - condition: "$gcp_region == 'asia-southeast2'"
-              values: ['asia-southeast2-a', 'asia-southeast2-b', 'asia-southeast2-c']
-            - condition: "$gcp_region == 'australia-southeast1'"
-              values: ['australia-southeast1-a', 'australia-southeast1-b', 'australia-southeast1-c']
-            - condition: "$gcp_region == 'australia-southeast2'"
-              values: ['australia-southeast2-a', 'australia-southeast2-b', 'australia-southeast2-c']
-            - condition: "$gcp_region == 'europe-central2'"
-              values: ['europe-central2-a', 'europe-central2-b', 'europe-central2-c']
-            - condition: "$gcp_region == 'europe-north1'"
-              values: ['europe-north1-a', 'europe-north1-b', 'europe-north1-c']
-            - condition: "$gcp_region == 'europe-west1'"
-              values: ['europe-west1-b', 'europe-west1-c', 'europe-west1-d']
-            - condition: "$gcp_region == 'europe-west2'"
-              values: ['europe-west2-a', 'europe-west2-b', 'europe-west2-c']
-            - condition: "$gcp_region == 'europe-west3'"
-              values: ['europe-west3-a', 'europe-west3-b', 'europe-west3-c']
-            - condition: "$gcp_region == 'europe-west4'"
-              values: ['europe-west4-a', 'europe-west4-b', 'europe-west4-c']
-            - condition: "$gcp_region == 'europe-west6'"
-              values: ['europe-west6-a', 'europe-west6-b', 'europe-west6-c']
-            - condition: "$gcp_region == 'northamerica-northeast1'"
-              values: ['northamerica-northeast1-a', 'northamerica-northeast1-b', 'northamerica-northeast1-c']
-            - condition: "$gcp_region == 'northamerica-east1'"
-              values: ['northamerica-east1-a', 'northamerica-east1-b', 'northamerica-east1-c']
-            - condition: "$gcp_region == 'southamerica-east1'"
-              values: ['southamerica-east1-a', 'southamerica-east1-b', 'southamerica-east1-c']
-            - condition: "$gcp_region == 'us-central1'"
-              values: ['us-central1-a', 'us-central1-b', 'us-central1-c', 'us-central1-f']
-            - condition: "$gcp_region == 'us-east1'"
-              values: ['us-east1-b', 'us-east1-c', 'us-east1-d']
-            - condition: "$gcp_region == 'us-east4'"
-              values: ['us-east4-a', 'us-east4-b', 'us-east4-c']
-            - condition: "$gcp_region == 'us-west1'"
-              values: ['us-west1-a', 'us-west1-b', 'us-west1-c']
-            - condition: "$gcp_region == 'us-west2'"
-              values: ['us-west2-a', 'us-west2-b', 'us-west2-c']
-            - condition: "$gcp_region == 'us-west3'"
-              values: ['us-west3-a', 'us-west3-b', 'us-west3-c']
-            - condition: "$gcp_region == 'us-west4'"
-              values: ['us-west4-a', 'us-west4-b', 'us-west4-c']
         required: true
 
-    - name: VM Specs
+    - name: Cloud SQL Configuration
       technologies: [terraform]
       vars:
-      - name: "Machine type"
-        description: "Machine type for the VM."
-        key: vm_machine_type
-        widget: slider_list
+      - name: "MySQL Version"
+        description: "MySQL version."
+        key: mysql_version 
+        widget: dropdown
         type: string
-        default: "n2-standard-2"
-        values:
-            - n1-standard-2
-            - n2-standard-2
-            - n2d-standard-2
+        values: ["MYSQL_8_0", "MYSQL_5_7"]
+        default: "MYSQL_8_0"
         required: true
-      - name: "Disk size"
-        unit: Go
-        description: "Disk size for the VM."
-        key: vm_disk_size
-        widget: slider_range
+      - name: "Machine Type"
+        description: "Cloud SQL machine type."
+        key: machine_type
+        widget: simple_text
+        type: string
+        default: "db-f1-micro"
+        required: true
+      - name: "Disk Size (GB)"
+        description: "Disk size in GB."
+        key: disk_size
+        widget: number
         type: integer
-        default: 20
-        values:
-            - 10
-            - 250
+        default: 10
         required: true
-      - name: "VPC"
-        description: "VPC where to deploy the virtual machine."
-        key: vpc_name
-        widget: cy_inventory_resource
-        widget_config:
-          attribute: name
-          filters:
-            type: google_compute_network
+      - name: "Disk Type"
+        description: "Disk type (PD_SSD or PD_HDD)."
+        key: disk_type
+        widget: dropdown
+        type: string
+        values: ["PD_SSD", "PD_HDD"]
+        default: "PD_SSD"
+        required: true
+      - name: "Database Name"
+        description: "Name of the database to create."
+        key: database_name
+        widget: simple_text
         type: string
         required: true
+      - name: "Database User"
+        description: "Database user name."
+        key: database_user
+        widget: simple_text
+        type: string
+        required: true
+      - name: "VPC Network"
+        description: "VPC network to connect to."
+        key: vpc_network
+        widget: simple_text
+        type: string
+        required: false
+      - name: "Backup Retention Days"
+        description: "Backup retention period."
+        key: backup_retention_days
+        widget: number
+        type: integer
+        default: 7
+        required: true
+      - name: "Max Connections"
+        description: "Maximum number of connections."
+        key: max_connections
+        widget: number
+        type: integer
+        default: 100
+        required: true
+      - name: "Deletion Protection"
+        description: "Enable deletion protection."
+        key: deletion_protection
+        widget: switch
+        type: boolean
+        default: true
+        required: true
 
-    - name: NodeJS Application
-
-    - name: Day-2 Operations with Ansible
-
-    - name: Day 2 Operations with Google Cloud CLI
+    - name: Day-2 Operations
       technologies: [pipeline]
       vars:
-      - name: "Instance status"
-        description: "Status for the deployed instances."
-        key: vm_instance_status
-        widget: radios
-        type: string
-        default: "Started"
-        values:
-            - "Started"
-            - "Stopped"
-        required: true
-
-- name: vmware
-  sections:
-  - name: NodeJS WebApp
-    groups:
-    - name: Access Configuration
-      technologies: [pipeline]
-      vars:
-      - name: "vSphere Environment"
-        description: "The vSphere environment where to deploy the infrastructure. It contains server, user, password, datacenter, datastore and cluster."
-        key: vsphere_env
-        widget: cy_cred
-        widget_config:
-          display_keys: false
-          cred_types:
-            - vmware
-        type: string
-        default: "((vsphere))"
-
-    - name: Virtual machine specifications
-      technologies: [terraform]
-      vars:
-      - name: "vCPU"
-        unit: vCPU
-        description: "Number of vCPU allocated to the virtual machine."
-        key: vm_cpu
-        widget: slider_range
+      - name: "Destroy Timer"
+        description: "The number of minutes to wait before automatically destroying the infrastructure after creation."
+        key: destroy_timer_in_minutes
+        widget: number
         type: integer
-        default: 2
-        values:
-            - 1
-            - 4
-        required: true
-        # CPU amount will be deducted from the team quota
-        quota_config:
-          type: "cpu"
-      - name: "Memory"
-        unit: Mo
-        description: "Memory allocated to the virtual machine."
-        key: vm_memory
-        widget: slider_list
-        type: integer
-        default: 2048
-        values:
-            - 1024
-            - 2048
-            - 4096
-        required: true
-        # Memory amount will be deducted from the team quota
-        quota_config:
-          type: "memory"
-      - name: "Disk"
-        unit: Go
-        description: "Disk size allocated to the virtual machine."
-        key: vm_disk_size
-        widget: slider_range
-        type: integer
-        default: 20
-        values:
-            - 10
-            - 200
-        required: true
-        # Storage amount will be deducted from the team quota
-        quota_config:
-          type: "storage"
-      - name: "Clone from VM or Template Name"
-        description: "Virtual Machine or Template name to clone from. The VM or template must already exist in your VMware datacenter."
-        key: vsphere_template
-        widget: auto_complete
-        type: string
-        values: ["debian","ubuntu","hardened debian"]
-        default: "debian"
-        required: true
+        default: 60
+        required: true 

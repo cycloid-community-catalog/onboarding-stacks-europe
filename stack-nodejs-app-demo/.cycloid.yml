@@ -32,15 +32,15 @@ config:
         path: pipeline/pipeline.yml
       variables:
         path: pipeline/variables.sample.yml
-        destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/pipeline/variables.yml'
+        destination: '($ .config_root $)/pipeline/variables.yml'
     terraform:
       main:
         path: 'terraform/aws/main.tf'
-        destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/terraform/aws/main.tf'
+        destination: '($ .config_root $)/terraform/aws/main.tf'
     ansible:
       node:
         path: 'ansible/environments/node.yml.sample'
-        destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/ansible/environments/node.yml'
+        destination: '($ .config_root $)/ansible/environments/node.yml'
 
   azure:
     name: 'Azure'
@@ -51,15 +51,15 @@ config:
         path: 'pipeline/pipeline.yml'
       variables:
         path: 'pipeline/variables.sample.yml'
-        destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/pipeline/variables.yml'
+        destination: '($ .config_root $)/pipeline/variables.yml'
     terraform:
       main:
         path: 'terraform/azure/main.tf'
-        destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/terraform/azure/main.tf'
+        destination: '($ .config_root $)/terraform/azure/main.tf'
     ansible:
       node:
         path: 'ansible/environments/node.yml.sample'
-        destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/ansible/environments/node.yml'
+        destination: '($ .config_root $)/ansible/environments/node.yml'
 
   vmware:
     name: 'VMware'
@@ -70,15 +70,15 @@ config:
         path: 'pipeline/pipeline.yml'
       variables:
         path: 'pipeline/variables.sample.yml'
-        destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/pipeline/variables.yml'
+        destination: '($ .config_root $)/pipeline/variables.yml'
     terraform:
       main:
         path: 'terraform/vmware/main.tf'
-        destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/terraform/vmware/main.tf'
+        destination: '($ .config_root $)/terraform/vmware/main.tf'
     ansible:
       node:
         path: 'ansible/environments/node.yml.sample'
-        destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/ansible/environments/node.yml'
+        destination: '($ .config_root $)/ansible/environments/node.yml'
 
   # outscale:
   #   name: 'Outscale'
@@ -89,15 +89,15 @@ config:
   #       path: pipeline/pipeline.yml
   #     variables:
   #       path: pipeline/variables.sample.yml
-  #       destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/pipeline/variables.yml'
+  #       destination: '($ .config_root $)/pipeline/variables.yml'
   #   terraform:
   #     main:
   #       path: 'terraform/outscale/main.tf'
-  #       destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/terraform/outscale/main.tf'
+  #       destination: '($ .config_root $)/terraform/outscale/main.tf'
   #   ansible:
   #     node:
   #       path: 'ansible/environments/node.yml.sample'
-  #       destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/ansible/environments/node.yml'
+  #       destination: '($ .config_root $)/ansible/environments/node.yml'
 
   ionos:
     name: 'Ionos'
@@ -108,12 +108,12 @@ config:
         path: pipeline/pipeline.yml
       variables:
         path: pipeline/variables.sample.yml
-        destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/pipeline/variables.yml'
+        destination: '($ .config_root $)/pipeline/variables.yml'
     terraform:
       main:
         path: 'terraform/ionos/main.tf'
-        destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/terraform/ionos/main.tf'
+        destination: '($ .config_root $)/terraform/ionos/main.tf'
     ansible:
       node:
         path: 'ansible/environments/node.yml.sample'
-        destination: '($ .org $)/($ .project $)/($ .env $)/($ .component $)/ansible/environments/node.yml'
+        destination: '($ .config_root $)/ansible/environments/node.yml'

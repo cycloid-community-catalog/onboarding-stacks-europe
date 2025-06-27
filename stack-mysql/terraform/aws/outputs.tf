@@ -1,16 +1,14 @@
 output "rds_endpoint" {
-  value = module.rds.rds_endpoint
+  description = "The connection endpoint for the RDS instance"
+  value       = module.rds.rds_endpoint
 }
 
-output "rds_address" {
-  value = module.rds.rds_address
+output "rds_port" {
+  description = "The port on which the DB accepts connections"
+  value       = module.rds.rds_port
 }
 
-output "rds_username" {
-  value = module.rds.rds_username
-}
-
-output "rds_password" {
-  value = module.rds.rds_password
-  sensitive = true
-}
+output "database_name" {
+  description = "The name of the database"
+  value       = module.rds.database_name
+} 
