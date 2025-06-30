@@ -10,6 +10,18 @@ variable "gcp_region" {
   default     = "europe-west1"
 }
 
+# Cycloid variables
+variable "cy_api_url" {
+  type        = string
+  description = "Cycloid API endpoint"
+}
+
+variable "cy_api_key" {
+  type        = string
+  description = "Org JWT used for authentication"
+  sensitive   = true
+}
+
 # Cloud SQL instance variables
 variable "instance_name" {
   description = "The name of the Cloud SQL instance"
