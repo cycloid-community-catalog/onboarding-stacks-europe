@@ -4,7 +4,7 @@ resource "azurerm_postgresql_flexible_server" "postgresql" {
   location               = var.azure_location
   version                = var.postgresql_version
   administrator_login    = var.administrator_login
-  administrator_password = random_password.postgresql.result
+  administrator_password = random_password.db.result
   storage_mb             = var.storage_mb
   sku_name               = var.sku_name
 
