@@ -40,10 +40,6 @@ module "database" {
   #+ Name of the database user to create
   database_user = ""
 
-  #. database_password: 'my_password'
-  #+ Password for the database user
-  database_password = ""
-
   #. vpc_network: 'my_vpc'
   #+ VPC network to connect to
   vpc_network = ""

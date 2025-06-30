@@ -13,7 +13,7 @@ resource "cycloid_credential" "db" {
 
   type = "basic_auth"
   body = {
-    username = aws_db_instance.db.username
+    username = azurerm_postgresql_flexible_server.postgresql.administrator_login
     password = random_password.db.result
   }
 }

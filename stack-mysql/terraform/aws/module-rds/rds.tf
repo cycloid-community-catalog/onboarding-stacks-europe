@@ -12,7 +12,7 @@ resource "aws_db_instance" "db" {
   allocated_storage       = var.rds_allocated_storage
   skip_final_snapshot     = true
   username                = var.master_username
-  password                = random_password.rds.result
+  password                = random_password.db.result
   vpc_security_group_ids  = ["${aws_security_group.rds.id}"]
   db_name                 = var.database_name
 } 

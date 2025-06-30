@@ -13,6 +13,6 @@ resource "aws_db_instance" "db" {
   snapshot_identifier     = var.rds_snapshot_identifier == "" ? null : var.rds_snapshot_identifier
   skip_final_snapshot     = true
   username                = "cycloid"
-  password                = random_password.rds.result
+  password                = random_password.db.result
   vpc_security_group_ids  = ["${aws_security_group.rds.id}"]
 }

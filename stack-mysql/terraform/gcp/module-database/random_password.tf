@@ -13,7 +13,7 @@ resource "cycloid_credential" "db" {
 
   type = "basic_auth"
   body = {
-    username = aws_db_instance.db.username
+    username = google_sql_user.user.name
     password = random_password.db.result
   }
 }

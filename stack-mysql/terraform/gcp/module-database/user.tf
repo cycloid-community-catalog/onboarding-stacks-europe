@@ -2,5 +2,5 @@
 resource "google_sql_user" "user" {
   name     = var.database_user
   instance = google_sql_database_instance.mysql.name
-  password = var.database_password
+  password = random_password.db.result
 }

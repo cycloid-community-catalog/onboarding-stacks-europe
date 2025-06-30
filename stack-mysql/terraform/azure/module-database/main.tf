@@ -4,7 +4,7 @@ resource "azurerm_mysql_flexible_server" "mysql" {
   location               = var.azure_location
   version                = var.mysql_version
   administrator_login    = var.administrator_login
-  administrator_password = random_password.mysql.result
+  administrator_password = random_password.db.result
   storage_mb             = var.storage_mb
   sku_name               = var.sku_name
 
