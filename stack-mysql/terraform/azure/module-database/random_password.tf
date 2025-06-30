@@ -13,7 +13,7 @@ resource "cycloid_credential" "db" {
 
   type = "basic_auth"
   body = {
-    username = azurerm_postgresql_flexible_server.postgresql.administrator_login
+    username = azurerm_mysql_flexible_server.mysql.administrator_login
     password = random_password.db.result
   }
 }
