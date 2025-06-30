@@ -31,12 +31,4 @@ module "rds" {
   #. master_username: 'admin'
   #+ Master username for the database.
   master_username = ""
-
-  #. res_selector: ''
-  #+ Whether to create a new VPC  and Subnet or select an existing Subnet
-  res_selector = ""
-
-  #. rds_subnet_ids_inventory: []
-  #+ Subnets where to deploy the resources
-  rds_subnet_ids_inventory = []
 } 

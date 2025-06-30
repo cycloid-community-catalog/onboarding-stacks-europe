@@ -1,12 +1,4 @@
-data "aws_vpc" "selected" {
-  count = var.res_selector == "inventory" ? 1 : 0
-
-  id = var.rds_subnet_ids_inventory[0]
-}
-
 module "vpc" {
-  count = var.res_selector == "create" ? 1 : 0
-
   source  = "terraform-aws-modules/vpc/aws"
   version = "~> 5.19.0"
 

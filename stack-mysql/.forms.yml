@@ -83,36 +83,6 @@ use_cases:
         type: string
         default: "admin"
         required: true
-      - name: "Create or Select Subnet"
-        description: "Whether to create a new VPC and Subnet or select an existing Subnet."
-        key: res_selector
-        widget: dropdown
-        type: map
-        required: true
-        default: "Create new"
-        values:
-        - {"label": "Create new", "value": "create"}
-        - {"label": "Select from Asset Inventory", "value": "inventory"}
-
-    - name: Select from Asset Inventory
-      technologies: [terraform]
-      condition: '$res_selector == "Select from Asset Inventory"'
-      vars:
-      - name: "Subnet"
-        description: "Subnets where to deploy the resources. Make sure you select at least 2 subnets from different AZ but in the same region."
-        key: rds_subnet_ids_inventory
-        widget: cy_inventory_resource
-        widget_config:
-          attribute: id
-          filters:
-            type: aws_subnet
-            attributes: 'availability_zone[rlike]=${aws_region}*'
-        validations:
-          - array:
-              min_elems: 2
-            error_message: "At least two subnets must be selected"
-        type: array
-        required: true
 
     - name: Day-2 Operations
       technologies: [pipeline]
@@ -236,6 +206,7 @@ use_cases:
         - {"label": "Create new", "value": "create"}
         - {"label": "Select from Asset Inventory", "value": "inventory"}
         - {"label": "Enter manually", "value": "manual"}
+
     - name: Select from Asset Inventory
       technologies: [terraform]
       condition: '$res_selector == "Select from Asset Inventory"'
@@ -250,6 +221,7 @@ use_cases:
             type: azurerm_resource_group
         type: string
         required: true
+
     - name: Enter manually
       technologies: [terraform]
       condition: '$res_selector == "Enter manually"'

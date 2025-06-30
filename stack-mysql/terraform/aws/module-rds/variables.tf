@@ -31,13 +31,3 @@ variable "master_username" {
   description = "Master username for the database."
   default = "admin"
 }
-
-variable "res_selector" {
-  description = "Whether to create a new VPC and Subnet or select an existing Subnet."
-}
-
-variable "rds_subnet_ids_inventory" {
-  description = "Subnets where to deploy the RDS instance."
-  type = list(string)
-  default = []
-} 

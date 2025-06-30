@@ -11,6 +11,6 @@ output "rds_username" {
 }
 
 output "rds_password" {
-  value = random_password.rds.result
+  value = random_password.db.result
   sensitive = true
 }
