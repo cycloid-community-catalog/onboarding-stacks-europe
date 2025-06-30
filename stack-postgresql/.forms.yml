@@ -211,7 +211,10 @@ use_cases:
         key: database_name
         widget: simple_text
         type: string
-        default: "($ .project $)-($ .env $)"
+        default: "($ .project $)-($ .env $)-postgresql"
+        validations:
+          - regexp: "^[a-z0-9]+$"
+            error_message: "Must begin with a letter and contain alphanumeric chars"
         required: true
       - name: "Azure Location"
         description: "Azure location."
