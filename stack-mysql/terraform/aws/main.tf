@@ -14,29 +14,29 @@ module "rds" {
 
   #. rds_engine_version: '8.0.35'
   #+ The MySQL engine version to use.
-  rds_engine_version = var.rds_engine_version
+  rds_engine_version = "8.0.35"
 
   #. rds_instance_class: 'db.t4g.small'
   #+ The instance type of the RDS instance.
-  rds_instance_class = var.rds_instance_class
+  rds_instance_class = "db.t4g.small"
 
   #. rds_allocated_storage: "20"
   #+ The amount of allocated storage.
-  rds_allocated_storage = var.rds_allocated_storage
+  rds_allocated_storage = "20"
 
   #. database_name: ''
   #+ Name of the database to create.
-  database_name = var.database_name
+  database_name = ""
 
   #. master_username: 'admin'
   #+ Master username for the database.
-  master_username = var.master_username
+  master_username = ""
 
   #. res_selector: ''
   #+ Whether to create a new VPC  and Subnet or select an existing Subnet
-  res_selector = var.res_selector
+  res_selector = ""
 
   #. rds_subnet_ids_inventory: []
   #+ Subnets where to deploy the resources
-  rds_subnet_ids_inventory = var.rds_subnet_ids_inventory
+  rds_subnet_ids_inventory = []
 } 

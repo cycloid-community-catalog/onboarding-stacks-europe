@@ -48,7 +48,6 @@ The stack can be configured through the following parameters:
 - `disk_type`: Storage type (PD_SSD or PD_HDD, default: PD_SSD)
 - `database_name`: Name of the database to create
 - `database_user`: Database user name
-- `database_password`: Database user password
 - `vpc_network`: VPC network to connect to
 - `authorized_networks`: List of authorized networks for access
 - `backup_retention_days`: Backup retention period (default: 7)
