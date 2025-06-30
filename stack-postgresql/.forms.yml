@@ -150,7 +150,7 @@ use_cases:
         key: server_name
         widget: simple_text
         type: string
-        default: "($ .project $)-($ .env $)"
+        default: "($ .project $)-($ .env $)-postgresql"
         required: true
       - name: "PostgreSQL Version"
         description: "Version of PostgreSQL to use."
@@ -313,6 +313,13 @@ use_cases:
     - name: Cloud SQL Configuration
       technologies: [terraform]
       vars:
+      - name: "Instance Name"
+        description: "Name of the Cloud SQL instance."
+        key: instance_name
+        widget: simple_text
+        type: string
+        default: "($ .project $)-($ .env $)-postgresql"
+        required: true
       - name: "PostgreSQL Version"
         description: "PostgreSQL version."
         key: postgresql_version 

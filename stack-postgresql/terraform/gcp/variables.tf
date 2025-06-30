@@ -62,12 +62,6 @@ variable "database_user" {
   type        = string
 }
 
-variable "database_password" {
-  description = "The password for the database user"
-  type        = string
-  sensitive   = true
-}
-
 variable "vpc_network" {
   description = "The VPC network to connect to"
   type        = string
