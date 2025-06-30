@@ -21,12 +21,6 @@ variable "administrator_login" {
   default     = "mysqladmin"
 }
 
-variable "storage_mb" {
-  description = "Storage size in MB"
-  type        = string
-  default     = "32768"
-}
-
 variable "sku_name" {
   description = "SKU name for the MySQL Flexible Server"
   type        = string

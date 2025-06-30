@@ -20,10 +20,6 @@ module "database" {
   #+ Administrator login for MySQL server
   administrator_login = ""
 
-  #. storage_mb: 32768
-  #+ Storage size in MB
-  storage_mb = "32768"
-
   #. sku_name: 'B_Standard_B1ms'
   #+ SKU name for the MySQL Flexible Server
   sku_name = ""
