@@ -79,5 +79,5 @@ variable "max_connections" {
 variable "deletion_protection" {
   description = "Whether to enable deletion protection"
   type        = bool
-  default     = true
+  default     = false
 } 
