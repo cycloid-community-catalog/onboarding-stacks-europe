@@ -10,7 +10,6 @@ resource "google_sql_database_instance" "mysql" {
 
     backup_configuration {
       enabled                        = true
-      point_in_time_recovery_enabled = true
       start_time                     = "02:00"
       backup_retention_settings {
         retained_backups = var.backup_retention_days
