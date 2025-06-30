@@ -1,14 +1,16 @@
-variable "project_id" {
-  description = "The GCP project ID"
-  type        = string
-}
+variable "cy_org" {}
+variable "cy_project" {}
+variable "cy_env" {}
+variable "cy_component" {}
 
-variable "region" {
+# GCP variables
+variable "gcp_region" {
   description = "The GCP region for the Cloud SQL instance"
   type        = string
   default     = "europe-west1"
 }
 
+# Cloud SQL instance variables
 variable "instance_name" {
   description = "The name of the Cloud SQL instance"
   type        = string

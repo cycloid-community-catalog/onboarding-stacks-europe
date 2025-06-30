@@ -10,7 +10,6 @@ variable "gcp_region" {
   default     = "europe-west1"
 }
 
-# Cloud SQL instance variables
 variable "instance_name" {
   description = "The name of the Cloud SQL instance"
   type        = string

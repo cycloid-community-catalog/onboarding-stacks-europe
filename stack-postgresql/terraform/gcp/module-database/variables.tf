@@ -1,3 +1,4 @@
+# Cycloid variables
 variable "cy_org" {}
 variable "cy_project" {}
 variable "cy_env" {}
@@ -10,16 +11,15 @@ variable "gcp_region" {
   default     = "europe-west1"
 }
 
-# Cloud SQL instance variables
 variable "instance_name" {
   description = "The name of the Cloud SQL instance"
   type        = string
 }
 
-variable "mysql_version" {
-  description = "The MySQL version"
+variable "postgresql_version" {
+  description = "The PostgreSQL version"
   type        = string
-  default     = "MYSQL_8_0"
+  default     = "POSTGRES_15"
 }
 
 variable "machine_type" {

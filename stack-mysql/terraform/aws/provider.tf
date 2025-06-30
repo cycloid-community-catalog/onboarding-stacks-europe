@@ -1,7 +1,9 @@
 provider "aws" {
-  region = var.aws_region
+  access_key = var.aws_cred.access_key
+  secret_key = var.aws_cred.secret_key
+  region     = var.aws_region
 
-  default_tags {
+  default_tags { # The default_tags block applies tags to all resources managed by this provider, except for the Auto Scaling groups (ASG).
     tags = {
       cy_org       = var.cy_org
       cy_project   = var.cy_project
@@ -9,4 +11,10 @@ provider "aws" {
       cy_component = var.cy_component
     }
   }
-} 
+}
+
+provider "cycloid" {
+  organization_canonical = var.cy_org
+  jwt                    = var.cy_api_key
+  url                    = var.cy_api_url
+}
