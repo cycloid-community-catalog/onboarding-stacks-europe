@@ -22,7 +22,7 @@ module "database" {
 
   #. storage_mb: 32768
   #+ Storage size in MB
-  storage_mb = ""
+  storage_mb = "32768"
 
   #. sku_name: 'B_Standard_B1ms'
   #+ SKU name for the MySQL Flexible Server

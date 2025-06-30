@@ -23,8 +23,8 @@ variable "administrator_login" {
 
 variable "storage_mb" {
   description = "Storage size in MB"
-  type        = number
-  default     = 32768
+  type        = string
+  default     = "32768"
 }
 
 variable "sku_name" {
