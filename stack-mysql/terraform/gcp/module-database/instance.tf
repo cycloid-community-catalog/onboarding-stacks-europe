@@ -17,9 +17,9 @@ resource "google_sql_database_instance" "mysql" {
     }
 
     ip_configuration {
-      ipv4_enabled                                  = true
+      ipv4_enabled                                  = var.vpc_network != "" ? false : true
       private_network                               = var.vpc_network
-      enable_private_path_for_google_cloud_services = true
+      enable_private_path_for_google_cloud_services = var.vpc_network != "" ? true : false
       dynamic "authorized_networks" {
         for_each = var.authorized_networks
         content {
