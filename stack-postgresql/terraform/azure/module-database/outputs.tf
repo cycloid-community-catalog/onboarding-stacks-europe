@@ -20,6 +20,6 @@ output "database_name" {
 
 output "connection_string" {
   description = "The connection string for the PostgreSQL database"
-  value       = "postgresql://${var.administrator_login}:${random_password.postgresql.result}@${azurerm_postgresql_flexible_server.postgresql.fqdn}:5432/${var.database_name}"
+  value       = "postgresql://${var.administrator_login}:${random_password.db.result}@${azurerm_postgresql_flexible_server.postgresql.fqdn}:5432/${var.database_name}"
   sensitive   = true
 } 
