@@ -5,5 +5,5 @@ provider "cycloid" {
 }
 
 provider "github" {
-  token = var.github_pat
+  token = var.github_pat.password
 }
