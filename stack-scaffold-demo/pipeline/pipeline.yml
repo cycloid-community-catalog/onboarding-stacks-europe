@@ -140,8 +140,8 @@ jobs:
               mkdir -p ~/.ssh
               
               # Get SSH key from Terraform outputs
-              SSH_KEY=$(cat tfstate/metadata | jq -r '.outputs.ssh_private_key.value')
-              GIT_SSH_URL=$(cat tfstate/metadata | jq -r '.outputs.git_ssh_url.value')
+              SSH_KEY=$(cat tfstate/metadata | jq -r '.ssh_private_key')
+              GIT_SSH_URL=$(cat tfstate/metadata | jq -r '.git_ssh_url')
               
               echo "$SSH_KEY" >~/.ssh/git
               chmod 600 ~/.ssh/git
