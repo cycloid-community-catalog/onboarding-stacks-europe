@@ -50,7 +50,7 @@ use_cases:
         widget: dropdown
         type: map
         required: true
-        default: "private"
+        default: "Private"
         values:
         - {label: "Private", value: "private"}
         - {label: "Public", value: "public"}
