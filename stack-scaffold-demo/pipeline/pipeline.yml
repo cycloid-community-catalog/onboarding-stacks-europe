@@ -77,7 +77,6 @@ groups:
 - name: overview
   jobs:
     - create-git-repo
-    - scaffold-project
 
 - name: destroy
   jobs:
@@ -123,19 +122,7 @@ jobs:
         params:
           terraform_source: merged-stack/
 
-
-  # Monitor new open PR to deploy feature env
-  - name: scaffold-project
-    max_in_flight: 1
-    build_logs_to_retain: 20
-    plan:
-      - in_parallel:
-        - get: tfstate
-          trigger: true
-          passed:
-            - create-git-repo
-
-      - task: copy-template
+      - task: scaffold-project
         config:
           platform: linux
           image_resource:
@@ -182,6 +169,9 @@ jobs:
               else
                 echo "Application scaffolding aborted. Your GIT repository is not empty."
               fi
+          inputs:
+          - name: tfstate
+            path: "tfstate"
         params:
           USE_CASE: ($ .use_case $)
           GIT_SOURCE_URL: ((git_source_url))
