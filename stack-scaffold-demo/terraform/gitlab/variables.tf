@@ -6,7 +6,6 @@ variable "cy_component" {}
 
 # GitLab variables
 variable "gitlab_pat" {
-  type        = string
   description = "GitLab Personal Access Token"
   sensitive   = true
 }
