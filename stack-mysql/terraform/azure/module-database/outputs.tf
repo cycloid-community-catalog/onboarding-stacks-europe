@@ -20,6 +20,6 @@ output "database_name" {
 
 output "connection_string" {
   description = "The connection string for the MySQL database"
-  value       = "mysql://${var.administrator_login}:${random_password.mysql.result}@${azurerm_mysql_flexible_server.mysql.fqdn}:3306/${var.database_name}"
+  value       = "mysql://${var.administrator_login}:${random_password.db.result}@${azurerm_mysql_flexible_server.mysql.fqdn}:3306/${var.database_name}"
   sensitive   = true
-} 
+}

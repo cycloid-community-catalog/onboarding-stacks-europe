@@ -5,7 +5,7 @@ This repository contains the automation code for creating and scaffolding new so
 ## Overview
 
 This automation creates and scaffolds new projects with the following features:
-- GitHub repository creation and configuration
+- GitHub or GitLab repository creation and configuration
 - Multiple development stack templates support
 - Automated project structure setup
 - Secure credential management
@@ -13,19 +13,27 @@ This automation creates and scaffolds new projects with the following features:
 
 ## Prerequisites
 
-- GitHub account with appropriate credentials
+- GitHub or GitLab account with appropriate credentials
 - Cycloid platform access
 
 ## Configuration
 
 The stack can be configured through the following parameters:
 
-### GitHub Configuration
+### GitHub Configuration (Default Use Case)
 - `github_pat`: GitHub Personal Access Token for repository management
 - `git_source_url`: Source template repository URL
 - `git_source_path`: Path to the template in the source repository
 - `git_dest_url`: Destination repository URL
 - `git_dest_key`: SSH key for destination repository access
+
+### GitLab Configuration (GitLab Use Case)
+- `gitlab_pat`: GitLab Personal Access Token with api scope
+- `gitlab_url`: GitLab instance URL (e.g., https://gitlab.com)
+- `gitlab_namespace`: GitLab group or namespace for the repository
+- `gitlab_repo_name`: Name of the GitLab repository to create
+- `gitlab_repo_description`: Description for the GitLab repository
+- `gitlab_repo_visibility`: Repository visibility (private, internal, public)
 
 ### Development Stack Options
 The following development stack templates are available:
@@ -37,6 +45,15 @@ The following development stack templates are available:
 - Web app using Next.js and Prisma Client
 - Fullstack app with Nuxt using Vue and Prisma Client
 - Web app using React Router 7 and Prisma ORM
+- Simple NodeJS WebApp
+
+## Use Cases
+
+### Default (GitHub)
+Creates a GitHub repository and scaffolds the selected template. This is the traditional workflow for GitHub-based projects.
+
+### GitLab
+Creates a GitLab project and scaffolds the selected template. Supports both GitLab.com and self-hosted GitLab instances.
 
 ## Deployment
 
@@ -44,14 +61,14 @@ The stack is designed to be deployed through Cycloid's platform. The deployment 
 
 ### Pipeline Jobs
 
-- `create-git-repo`: Creates a new GitHub repository with initial configuration
+- `create-git-repo`: Creates a new GitHub or GitLab repository with initial configuration
 - `scaffold-project`: Scaffolds the project using the selected template
-- `destroy-git-repo`: Destroys the created GitHub repository
+- `destroy-git-repo`: Destroys the created repository
 
 ## Components
 
 ### Repository Management
-- GitHub repository creation
+- GitHub/GitLab repository creation
 - Branch protection configuration
 - Deploy key management
 - SSH key generation and configuration
@@ -65,8 +82,11 @@ The stack is designed to be deployed through Cycloid's platform. The deployment 
 ## Directory Structure
 
 - `terraform/`: Contains Terraform configuration files
-  - `git.tf`: GitHub repository configuration
+  - `git.tf`: GitHub/GitLab repository configuration
   - `variables.tf`: Variable definitions
+  - `provider.tf`: Provider configurations
+  - `versions.tf`: Terraform and provider versions
+  - `outputs.tf`: Output values
 - `pipeline/`: Contains pipeline configuration for Cycloid
   - `pipeline.yml`: Main pipeline configuration
   - `variables.sample.yml`: Sample variables configuration
@@ -75,7 +95,7 @@ The stack is designed to be deployed through Cycloid's platform. The deployment 
 
 ## Security
 
-- GitHub credentials are managed securely through Cycloid's platform
+- GitHub/GitLab credentials are managed securely through Cycloid's platform
 - SSH keys are generated and stored securely
 - Repository access is controlled through deploy keys
 - Secure credential management through Cycloid vault

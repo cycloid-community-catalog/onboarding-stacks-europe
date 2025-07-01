@@ -16,7 +16,21 @@ resources:
     backend_config:
       address: '($ .api_url $)/inventory?jwt=($ .inventory_jwt $)'
     vars:
+($ if eq .use_case "github" $)
       github_pat: ((github_pat))
+      github_org: ((github_org))
+      github_repo_name: ((github_repo_name))
+      github_repo_description: ((github_repo_description))
+      github_repo_visibility: ((github_repo_visibility))
+      github_auto_init: ((github_auto_init))
+($ else if eq .use_case "gitlab" $)
+      gitlab_pat: ((gitlab_pat))
+      gitlab_url: ((gitlab_url))
+      gitlab_namespace: ((gitlab_namespace))
+      gitlab_repo_name: ((gitlab_repo_name))
+      gitlab_repo_description: ((gitlab_repo_description))
+      gitlab_repo_visibility: ((gitlab_repo_visibility))
+($ end $)
       cy_api_key: ((cy_api_key))
       cy_api_url: ($ .api_url $)
       cy_org: ($ .org $)
@@ -137,19 +151,28 @@ jobs:
               apt-get update
               apt-get install jq -y
               mkdir -p ~/.ssh
-              echo "${GIT_DEST_KEY}" >~/.ssh/git
+              
+              # Get SSH key from Terraform outputs
+              SSH_KEY=$(cat tfstate/metadata | jq -r '.outputs.ssh_private_key.value')
+              GIT_SSH_URL=$(cat tfstate/metadata | jq -r '.outputs.git_ssh_url.value')
+              
+              echo "$SSH_KEY" >~/.ssh/git
               chmod 600 ~/.ssh/git
               eval "$(ssh-agent -s)"
               ssh-add ~/.ssh/git
-              ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+              
+              # Extract host from SSH URL and add to known_hosts
+              GIT_HOST=$(echo $GIT_SSH_URL | sed 's|git@||' | sed 's|:.*||')
+              ssh-keyscan -t rsa $GIT_HOST >> ~/.ssh/known_hosts
+              
               git clone ${GIT_SOURCE_URL} source
-              git clone $GIT_DEST_URL dest
+              git clone $GIT_SSH_URL dest
               if [ -z "$(ls -A dest | grep -v -e README.md -e .git)" ]; then
                 rm -rf source/.git
                 mv source/${GIT_SOURCE_PATH}/* dest/
-                mv source/${GIT_SOURCE_PATH}/.* dest/
+                mv source/${GIT_SOURCE_PATH}/.* dest/ 2>/dev/null || true
                 cd dest/
-                git config --global user.email "devops@cycoid.io"
+                git config --global user.email "devops@cycloid.io"
                 git config --global user.name "Cycloid"
                 git add .
                 git commit -m "Initial commit"
@@ -160,6 +183,7 @@ jobs:
                 echo "Application scaffolding aborted. Your GIT repository is not empty."
               fi
         params:
+          USE_CASE: ($ .use_case $)
           GIT_SOURCE_URL: ((git_source_url))
           GIT_SOURCE_PATH: ((git_source_path))
           GIT_DEST_URL: ((git_dest_url))

@@ -1,4 +1,3 @@
-
 #
 # GitHub
 #
@@ -6,6 +5,54 @@
 #. github_pat (required): ''
 #+ GitHub Personal Access Token allowing to manage repositories and user SSH keys. We will create a repository with stacks and config branches as well as an SSH public key stored as Cycloid credential to connect to it.
 github_pat: "((github-pat.key))"
+
+#. github_org (required): '($ .org $)'
+#+ GitHub organization where the repository will be created
+github_org: "($ .org $)"
+
+#. github_repo_name (required): '($ .project $)-($ .env $)'
+#+ Name of the GitHub repository to create
+github_repo_name: "($ .project $)-($ .env $)"
+
+#. github_repo_description (optional): 'Scaffolded project for ($ .project $) in ($ .env $) environment'
+#+ Description for the GitHub repository
+github_repo_description: "Scaffolded project for ($ .project $) in ($ .env $) environment"
+
+#. github_repo_visibility (required): 'private'
+#+ Visibility level of the GitHub repository (private, public)
+github_repo_visibility: "private"
+
+#. github_auto_init (required): false
+#+ Initialize the repository with a README file
+github_auto_init: false
+
+#
+# GitLab
+#
+
+#. gitlab_pat (required): ''
+#+ GitLab Personal Access Token with api scope to manage repositories and SSH keys.
+gitlab_pat: "((gitlab-pat))"
+
+#. gitlab_url (required): 'https://gitlab.com'
+#+ GitLab instance URL (e.g., https://gitlab.com or https://gitlab.company.com)
+gitlab_url: "https://gitlab.com"
+
+#. gitlab_namespace (required): '($ .org $)'
+#+ GitLab group or namespace where the repository will be created
+gitlab_namespace: "($ .org $)"
+
+#. gitlab_repo_name (required): '($ .project $)-($ .env $)'
+#+ Name of the GitLab repository to create
+gitlab_repo_name: "($ .project $)-($ .env $)"
+
+#. gitlab_repo_description (optional): 'Scaffolded project for ($ .project $) in ($ .env $) environment'
+#+ Description for the GitLab repository
+gitlab_repo_description: "Scaffolded project for ($ .project $) in ($ .env $) environment"
+
+#. gitlab_repo_visibility (required): 'private'
+#+ Visibility level of the GitLab repository (private, internal, public)
+gitlab_repo_visibility: "private"
 
 #
 # Application Source
@@ -15,7 +62,11 @@ github_pat: "((github-pat.key))"
 #+ The public git repo source URL to copy for the first commit.
 git_source_url: "https://github.com/cycloid-community-catalog/onboarding-scaffold.git"
 
-#. git_source_url (required): "express"
+#. git_source_branch (required): "main"
+#+ The branch of the source repository to use
+git_source_branch: "main"
+
+#. git_source_path (required): "simple-counter"
 #+ The path in the public git repo to copy for the first commit.
 git_source_path: "simple-counter"
 

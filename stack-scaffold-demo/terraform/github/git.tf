@@ -1,9 +1,9 @@
 resource "github_repository" "scaffold" {
-  name        = "${var.cy_project}-${var.cy_env}"
-  description = "Repo for ${var.cy_project}-${var.cy_env} project"
+  name        = var.github_repo_name
+  description = var.github_repo_description != "" ? var.github_repo_description : "Repo for ${var.cy_project}-${var.cy_env} project"
 
-  visibility = "private"
-  auto_init  = true
+  visibility = var.github_repo_visibility
+  auto_init  = var.github_auto_init
 }
 
 # resource "github_branch" "develop" {
